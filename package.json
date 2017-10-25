@@ -1,0 +1,38 @@
+{
+  "name": "pocketninjadesign",
+  "version": "1.0.0",
+  "description": "My own personal website",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PocketNinjaDesign/pocketninjadesign.git"
+  },
+  "keywords": [
+    "webpack",
+    "jQuery",
+    "babel",
+    "Pocketninja"
+  ],
+  "author": "Pocketninja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PocketNinjaDesign/pocketninjadesign/issues"
+  },
+  "homepage": "https://github.com/PocketNinjaDesign/pocketninjadesign#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "jquery": "^3.2.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
+  }
+}
