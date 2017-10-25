@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "serve": "webpack-dev-server"
+    "build": "webpack --watch",
+    "serve": "webpack-dev-server --open --inline --hot"
   },
   "repository": {
     "type": "git",

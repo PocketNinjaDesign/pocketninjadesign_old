@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "build/";
+/******/ 	__webpack_require__.p = "/build/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
@@ -78,18 +78,31 @@ var _experiment = __webpack_require__(3);
 
 var _experiment2 = _interopRequireDefault(_experiment);
 
+var _panelScroll = __webpack_require__(6);
+
+var _panelScroll2 = _interopRequireDefault(_panelScroll);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(4);
-
-var hello = "hello";
 
 var arse = new _experiment2.default();
 arse.hello();
 
 (0, _jQuery2.default)(function () {
-  console.log('Hello World!!!!');
-  (0, _jQuery2.default)('#tits').html('A great big pair of tits');
+  var basePanel = new _panelScroll2.default();
+  basePanel.init();
+
+  var $nav = (0, _jQuery2.default)('#nav');
+
+  $nav.find('.nav').each(function () {
+    var $this = (0, _jQuery2.default)(this);
+    var option = $this.data('nav');
+
+    $this.on('click', function () {
+      basePanel.goToPanel((0, _jQuery2.default)(this).data('nav'));
+    });
+  });
 });
 
 /***/ }),
@@ -9997,6 +10010,95 @@ exports.default = EggTimer;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// Scroll To Panel
+
+var PanelScroll = function () {
+  function PanelScroll(options, $element) {
+    _classCallCheck(this, PanelScroll);
+
+    var DATA_NAME = 'scroll-panel';
+    var DEFAULT_OPTIONS = {
+      width: 800,
+      height: 800
+    };
+    this.$panelBase = (0, _jQuery2.default)($element || '#panelBase');
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, this.$panelBase.data(DATA_NAME), options);
+
+    this.locations = {
+      landing: { top: 0, left: 0 },
+      home: { top: 25, left: 25 },
+      about: { top: 50, left: 50 },
+      portfolio: { top: 0, left: 75 }
+    };
+  }
+
+  _createClass(PanelScroll, [{
+    key: 'init',
+    value: function init() {
+      this.setPanelBase();
+      this.setPanels();
+    }
+  }, {
+    key: 'setPanelBase',
+    value: function setPanelBase() {
+      this.$panelBase.css({
+        width: this.options.width + '%',
+        height: this.options.height + '%'
+      });
+    }
+  }, {
+    key: 'setPanels',
+    value: function setPanels() {
+      for (var key in this.locations) {
+        this.$panelBase.find('.' + key).css({
+          top: this.locations[key].top + '%',
+          left: this.locations[key].left + '%',
+          width: 100 * (100 / this.options.width) + '%',
+          height: 100 * (100 / this.options.height) + '%'
+        });
+      }
+    }
+  }, {
+    key: 'goToPanel',
+    value: function goToPanel(_panelName) {
+      var top = this.locations[_panelName].top / 100;
+      var left = this.locations[_panelName].left / 100;
+
+      this.$panelBase.css({
+        top: -(this.options.height * top) + '%',
+        left: -(this.options.width * left) + '%'
+      });
+    }
+  }]);
+
+  return PanelScroll;
+}();
+
+exports.default = PanelScroll;
 
 /***/ })
 /******/ ]);

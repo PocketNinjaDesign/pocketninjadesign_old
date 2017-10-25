@@ -1,6 +1,4 @@
 
 @import "vars";
-
-body {
-  background: $bg;
-}
+@import "atom";
+@import "component";
