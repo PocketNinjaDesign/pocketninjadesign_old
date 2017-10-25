@@ -74,34 +74,24 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _experiment = __webpack_require__(3);
+var _PanelScroll = __webpack_require__(7);
 
-var _experiment2 = _interopRequireDefault(_experiment);
+var _PanelScroll2 = _interopRequireDefault(_PanelScroll);
 
-var _panelScroll = __webpack_require__(6);
+var _PanelNavigation = __webpack_require__(8);
 
-var _panelScroll2 = _interopRequireDefault(_panelScroll);
+var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(4);
 
-var arse = new _experiment2.default();
-arse.hello();
-
 (0, _jQuery2.default)(function () {
-  var basePanel = new _panelScroll2.default();
+  var basePanel = new _PanelScroll2.default();
   basePanel.init();
 
-  var $nav = (0, _jQuery2.default)('#nav');
-
-  $nav.find('.nav').each(function () {
-    var $this = (0, _jQuery2.default)(this);
-    var option = $this.data('nav');
-
-    $this.on('click', function () {
-      basePanel.goToPanel((0, _jQuery2.default)(this).data('nav'));
-    });
+  var panelNav = new _PanelNavigation2.default('#nav', function (_panelName) {
+    basePanel.goToPanel(_panelName);
   });
 });
 
@@ -9972,40 +9962,7 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EggTimer = function () {
-  function EggTimer() {
-    _classCallCheck(this, EggTimer);
-  }
-
-  _createClass(EggTimer, [{
-    key: 'hello',
-    value: function hello() {
-      console.log('Hello World from Egg Timer');
-    }
-  }]);
-
-  return EggTimer;
-}();
-
-;
-
-exports.default = EggTimer;
-
-/***/ }),
+/* 3 */,
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -10013,7 +9970,8 @@ exports.default = EggTimer;
 
 /***/ }),
 /* 5 */,
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10054,6 +10012,7 @@ var PanelScroll = function () {
       about: { top: 50, left: 50 },
       portfolio: { top: 0, left: 75 }
     };
+    this.navigation;
   }
 
   _createClass(PanelScroll, [{
@@ -10099,6 +10058,44 @@ var PanelScroll = function () {
 }();
 
 exports.default = PanelScroll;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PanelNavigation = function PanelNavigation(element, onClick) {
+  _classCallCheck(this, PanelNavigation);
+
+  (0, _jQuery2.default)(element).find('.nav').each(function () {
+    var _this = this;
+
+    var $this = (0, _jQuery2.default)(this);
+    var option = $this.data('nav');
+
+    $this.on('click', function () {
+      onClick((0, _jQuery2.default)(_this).data('nav'));
+    });
+  });
+};
+
+;
+
+exports.default = PanelNavigation;
 
 /***/ })
 /******/ ]);

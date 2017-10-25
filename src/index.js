@@ -1,24 +1,14 @@
 const css = require('../styles/primary.scss');
 
 import $ from 'jQuery';
-import EggTimer from './experiment';
-import PanelScroll from './modules/panelScroll';
-
-let arse = new EggTimer();
-arse.hello();
+import PanelScroll from './modules/PanelScroll';
+import PanelNavigation from './modules/PanelNavigation';
 
 $(() => {
   let basePanel = new PanelScroll();
   basePanel.init();
 
-  let $nav = $('#nav');
-
-  $nav.find('.nav').each(function() {
-    var $this = $(this);
-    var option = $this.data('nav');
-
-    $this.on('click', function() {
-      basePanel.goToPanel($(this).data('nav'));
-    });
+  let panelNav = new PanelNavigation('#nav', (_panelName) => {
+    basePanel.goToPanel(_panelName);
   });
 });

@@ -22,6 +22,7 @@ class PanelScroll {
       about: { top: 50, left: 50 },
       portfolio: { top: 0, left: 75 }
     }
+    this.navigation;
   }
 
   init() {
@@ -48,8 +49,8 @@ class PanelScroll {
   }
 
   goToPanel(_panelName) {
-    var top = this.locations[_panelName].top / 100;
-    var left = this.locations[_panelName].left / 100;
+    let top = this.locations[_panelName].top / 100;
+    let left = this.locations[_panelName].left / 100;
 
     this.$panelBase.css({
       top: -(this.options.height * top) + '%',
