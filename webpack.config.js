@@ -9,10 +9,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: "./src/index.js",
 
+  devServer: {
+    contentBase: path.join(__dirname, "build"),
+    port: 9000,
+    publicPath: "/build/"
+  },
+
   output: {
     path: path.resolve(__dirname, "./build"),
     filename: "bundle.js",
-    publicPath: 'build/'
+    publicPath: "/build/"
   },
 
   module: {
