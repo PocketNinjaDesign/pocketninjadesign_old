@@ -2,6 +2,11 @@
   position: absolute;
   overflow-y: auto;
   left: 1000px;
+
+  .content {
+    text-align: center;
+    padding: 20px;
+  }
 }
 
 .landing {
@@ -9,4 +14,16 @@
   top: 0;
   left: 0;
   z-index: 1000;
+}
+
+.home {
+  background: #000;
+}
+
+.portfolio {
+  background: green;
+}
+
+.about {
+  background: #f00;
 }

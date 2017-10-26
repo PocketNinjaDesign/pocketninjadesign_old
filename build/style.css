@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box; }
+
 html,
 body {
   height: 100%;
@@ -7,11 +10,16 @@ body {
 
 body {
   overflow: hidden;
-  background: pink; }
+  background: #1b1c1c; }
 
 h1 {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-size: 40px;
+  font-family: 'dosis', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.1); }
 
 .panel-base {
   position: fixed;
@@ -24,6 +32,9 @@ h1 {
   position: absolute;
   overflow-y: auto;
   left: 1000px; }
+  .panel .content {
+    text-align: center;
+    padding: 20px; }
 
 .landing {
   background: #1b1c1c;
@@ -31,24 +42,33 @@ h1 {
   left: 0;
   z-index: 1000; }
 
+.home {
+  background: #000; }
+
+.portfolio {
+  background: green; }
+
+.about {
+  background: #f00; }
+
 .navigation {
   position: fixed;
   top: 20px;
   left: 20px;
   z-index: 100; }
-
-.navigation .nav {
-  width: 30px;
-  height: 30px;
-  background: #000;
-  border: 1px solid #fff;
-  margin-bottom: 10px; }
-
-.navigation .nav-home {
-  background: #000; }
-
-.navigation .nav-about {
-  background: red; }
-
-.navigation .nav-portfolio {
-  background: green; }
+  .navigation .nav {
+    width: 30px;
+    height: 30px;
+    background: #000;
+    border: 1px solid #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 200ms; }
+    .navigation .nav:hover {
+      transform: scale(1.2); }
+    .navigation .nav-home {
+      background: #000; }
+    .navigation .nav-about {
+      background: red; }
+    .navigation .nav-portfolio {
+      background: green; }
