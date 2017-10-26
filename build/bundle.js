@@ -98,7 +98,10 @@ var css = __webpack_require__(4);
     basePanel.goToPanel(_panelName);
   });
 
-  _LoadPageContent2.default.getPage('portfolio');
+  _LoadPageContent2.default.getPage({
+    pageName: 'portfolio',
+    cleanContent: false
+  });
 });
 
 /***/ }),
@@ -11836,14 +11839,25 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  getPage: function getPage(pageName) {
+  getPage: function getPage(options) {
+    options = _jQuery2.default.extend({}, {
+      pageName: '',
+      cleanContent: true
+    }, options);
+
     return (0, _axios2.default)({
       method: 'get',
-      url: _globals2.default.urlPrefix + '/' + pageName + '.html'
+      url: _globals2.default.urlPrefix + '/' + options.pageName + '.html'
     }).then(function (response) {
-      var temp = (0, _jQuery2.default)('<div/>').html(response.data);
-      (0, _jQuery2.default)('.' + pageName + ' .content').append(temp.find('#content').html());
-      temp.remove();
+      var $temp = (0, _jQuery2.default)('<div/>').html(response.data);
+      var $pagePanel = (0, _jQuery2.default)('.' + options.pageName + ' .content');
+
+      if (options.cleanContent) {
+        $pagePanel.html('');
+      }
+
+      $pagePanel.append($temp.find('#content').html());
+      $temp.remove();
     });
   }
 };

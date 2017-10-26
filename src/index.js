@@ -13,5 +13,8 @@ $(() => {
     basePanel.goToPanel(_panelName);
   });
 
-  PageAjax.getPage('portfolio');
+  PageAjax.getPage({
+    pageName: 'portfolio',
+    cleanContent: false
+  });
 });
