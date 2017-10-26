@@ -1,7 +1,5 @@
 .navigation {
-  position: fixed;
-  top: 20px;
-  left: 20px;
+  @include position(fixed, 20px null null 20px);
   z-index: 100;
 
   .nav {
