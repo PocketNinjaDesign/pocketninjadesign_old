@@ -82,7 +82,7 @@ var _PanelNavigation = __webpack_require__(8);
 
 var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
-var _LoadPageContent = __webpack_require__(37);
+var _LoadPageContent = __webpack_require__(38);
 
 var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
 
@@ -96,11 +96,11 @@ var css = __webpack_require__(4);
 
   var panelNav = new _PanelNavigation2.default('#nav', function (_panelName) {
     basePanel.goToPanel(_panelName);
-  });
 
-  _LoadPageContent2.default.getPage({
-    pageName: 'portfolio',
-    cleanContent: false
+    _LoadPageContent2.default.getPage({
+      pageName: _panelName,
+      cleanContent: false
+    });
   });
 });
 
@@ -11814,7 +11814,8 @@ exports.default = {
 };
 
 /***/ }),
-/* 37 */
+/* 37 */,
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11856,8 +11857,13 @@ exports.default = {
         $pagePanel.html('');
       }
 
-      $pagePanel.append($temp.find('#content').html());
+      var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n          <h1 style="font-size: 60px;">Ajax Pulled Content</h1>\n        </div>');
+
+      $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
       $temp.remove();
+    }).catch(function () {
+      var $pagePanel = (0, _jQuery2.default)('.' + options.pageName + ' .content');
+      $pagePanel.append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
     });
   }
 };
