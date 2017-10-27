@@ -82,7 +82,7 @@ var _PanelNavigation = __webpack_require__(8);
 
 var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
-var _LoadPageContent = __webpack_require__(38);
+var _LoadPageContent = __webpack_require__(40);
 
 var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
 
@@ -98,7 +98,7 @@ var css = __webpack_require__(4);
     basePanel.goToPanel(_panelName);
 
     _LoadPageContent2.default.getPage({
-      pageName: _panelName,
+      panelName: _panelName,
       cleanContent: false
     });
   });
@@ -11815,7 +11815,40 @@ exports.default = {
 
 /***/ }),
 /* 37 */,
-/* 38 */
+/* 38 */,
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  panels: {
+    home: {
+      loaded: false
+    },
+    about: {
+      loaded: false
+    },
+    portfolio: {
+      loaded: false
+    }
+  },
+
+  setPanelLoaded: function setPanelLoaded(_panelName) {
+    this.panels[_panelName].loaded = true;
+  },
+
+  isPanelLoaded: function isPanelLoaded(_panelName) {
+    return this.panels[_panelName].loaded;
+  }
+};
+
+/***/ }),
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11837,34 +11870,46 @@ var _axios = __webpack_require__(17);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _Panel = __webpack_require__(39);
+
+var _Panel2 = _interopRequireDefault(_Panel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   getPage: function getPage(options) {
     options = _jQuery2.default.extend({}, {
-      pageName: '',
+      panelName: '',
       cleanContent: true
     }, options);
 
-    return (0, _axios2.default)({
-      method: 'get',
-      url: _globals2.default.urlPrefix + '/' + options.pageName + '.html'
-    }).then(function (response) {
-      var $temp = (0, _jQuery2.default)('<div/>').html(response.data);
-      var $pagePanel = (0, _jQuery2.default)('.' + options.pageName + ' .content');
+    var panelNameClass = '.' + options.panelName;
 
-      if (options.cleanContent) {
-        $pagePanel.html('');
-      }
+    // If Panel is loaded
+    if (!_Panel2.default.isPanelLoaded(options.panelName)) {
+      return (0, _axios2.default)({
+        method: 'get',
+        url: _globals2.default.urlPrefix + '/' + options.panelName + '.html'
+      }).then(function (response) {
+        var $temp = (0, _jQuery2.default)('<div/>').html(response.data);
+        var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
 
-      var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n          <h1 style="font-size: 60px;">Ajax Pulled Content</h1>\n        </div>');
+        if (options.cleanContent) {
+          $pagePanel.html('');
+        }
 
-      $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
-      $temp.remove();
-    }).catch(function () {
-      var $pagePanel = (0, _jQuery2.default)('.' + options.pageName + ' .content');
-      $pagePanel.append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
-    });
+        var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n            <h1 style="font-size: 60px;">Ajax Pulled Content</h1>\n          </div>');
+
+        $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
+        $temp.remove();
+        _Panel2.default.setPanelLoaded(options.panelName);
+      }).catch(function () {
+        var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
+        $pagePanel.html('').append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
+      });
+    }
+
+    return false;
   }
 };
 
