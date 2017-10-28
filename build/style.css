@@ -4,6 +4,12 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
+@keyframes rotateLoop {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
 * {
   box-sizing: border-box; }
 
@@ -16,7 +22,7 @@ body {
 
 body {
   overflow: hidden;
-  background: #1b1c1c; }
+  background: #0b0b0b; }
 
 h1 {
   margin: 0;
@@ -43,7 +49,7 @@ h1 {
     padding: 20px; }
 
 .landing {
-  background: #1b1c1c;
+  background: #0b0b0b;
   top: 0;
   left: 0;
   z-index: 1000; }
@@ -78,3 +84,18 @@ h1 {
       background: red; }
     .navigation .nav-portfolio {
       background: green; }
+
+.anim-wrapper {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .anim-wrapper-absolute {
+    position: absolute; }
+  .anim-wrapper-fixed {
+    position: fixed; }
+  .anim-wrapper .anim-default {
+    background: #fc0;
+    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    animation: rotateLoop linear 900ms infinite; }
