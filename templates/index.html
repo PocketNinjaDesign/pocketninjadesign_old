@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
-    <div id="nav" class="navigation">
-      <div class="nav nav-home" data-nav="home"></div>
-      <div class="nav nav-portfolio" data-nav="portfolio"></div>
-      <div class="nav nav-about" data-nav="about"></div>
+    <div class="navigation">
+      {% include "common/navigation.html" with { "id": "nav" } %}
     </div>
 
     <div id="panelBase" class="panel-base">

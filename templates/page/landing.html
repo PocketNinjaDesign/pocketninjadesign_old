@@ -15,13 +15,6 @@
     <h2>Web front end design / developer</h2>
     <p>For full time or freelance work</p>
 
-    <nav id="landingNav">
-      <a href="#" class="nav" data-nav="home">Home</a>
-      <a href="#" class="nav" data-nav="about">About</a>
-      <a href="#" class="nav" data-nav="portfolio">portfolio</a>
-      <a href="#" class="nav" data-nav="contact">Contact</a>
-      <a href="#" class="nav" data-nav="typography">Typography</a>
-      <a href="#" class="nav" data-nav="experiments">Experiments</a>
-    </nav>
+    {% include "../common/navigation.html" with { "id": "landingNav" } %}
   </div>
 </div>
