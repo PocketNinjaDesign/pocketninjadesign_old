@@ -11,12 +11,13 @@ export default {
     }, options);
 
     const panelNameClass = `.${options.panelName}`;
+    const URL = `${globals.urlPrefix}${options.panelName}.html`;
 
     // If Panel is loaded
     if(!PanelService.isPanelLoaded(options.panelName)) {
       return Axios({
         method:'get',
-        url: `${globals.urlPrefix}/${options.panelName}.html`
+        url: URL
       })
       .then(function(response) {
         let $temp = $('<div/>').html(response.data);

@@ -14,24 +14,58 @@ html {
   box-sizing: border-box; }
 
 html,
+body,
+p,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0; }
+
+html,
 body {
   height: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0; }
+  width: 100%; }
 
 body {
   overflow: hidden;
-  background: #0b0b0b; }
+  background: #0b0b0b;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #8a8a8a; }
+
+/*
+ * Anchors
+ *
+ * Most anchors will have these basic settings
+ * there may be an instance when the text-decoration
+ * is required within paragraphs
+ *
+ */
+a {
+  display: inline-block; }
+  a:hover {
+    text-decoration: none; }
+
+p {
+  margin-bottom: 15px; }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-transform: uppercase; }
 
 h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 40px;
-  font-family: 'dosis', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.1); }
+  font-family: "dosis", sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  color: #3a3b3a; }
 
 .panel-base {
   position: fixed;
@@ -45,14 +79,7 @@ h1 {
   overflow-y: auto;
   left: 1000px; }
   .panel .content {
-    text-align: center;
-    padding: 20px; }
-
-.landing {
-  background: #0b0b0b;
-  top: 0;
-  left: 0;
-  z-index: 1000; }
+    text-align: center; }
 
 .home {
   background: #000; }
@@ -62,6 +89,39 @@ h1 {
 
 .about {
   background: #f00; }
+
+/*
+ * site-width
+ * Used for setting the width of the site when
+ * on larger screens.  Also resizes responsively
+ * with padding for smaller devices
+ *
+ */
+.site-width {
+  margin: 0 auto;
+  max-width: 1024px; }
+
+.logo {
+  text-align: center; }
+  .logo .logo-icon {
+    margin: 0 auto;
+    width: 8em; }
+    .logo .logo-icon .pn-logo .blade {
+      transform-origin: 50% 50%;
+      animation: rotateLoop linear 900ms infinite; }
+  .logo p {
+    position: relative;
+    top: -0.625em; }
+  .logo span {
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    font-size: 1.6em; }
+  .logo .logotext-pocket {
+    color: #3a3b3a; }
+  .logo .logotext-ninja {
+    color: #d91f2d; }
+  .logo .logotext-design {
+    color: #cfd0d2; }
 
 .navigation {
   position: fixed;
@@ -84,6 +144,44 @@ h1 {
       background: red; }
     .navigation .nav-portfolio {
       background: green; }
+
+.panel.landing {
+  background: #fff;
+  top: 0;
+  left: 0;
+  z-index: 1000; }
+  .panel.landing .landing-header {
+    position: relative;
+    background: #0b0b0b;
+    padding: 48px 0 0 0;
+    text-align: center; }
+    .panel.landing .landing-header .logo {
+      font-size: 13px;
+      display: inline-block;
+      margin-bottom: 70px; }
+    .panel.landing .landing-header h1 {
+      font-size: 50px; }
+  .panel.landing .content h2 {
+    font-family: "dosis", sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: #d91f2d;
+    font-size: 24px; }
+  .panel.landing .content p {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 65px; }
+  .panel.landing .content a {
+    text-transform: uppercase;
+    font-family: "dosis", sans-serif;
+    font-size: 104px;
+    line-height: 90px;
+    color: rgba(207, 208, 210, 0.25);
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 300ms; }
+    .panel.landing .content a:hover {
+      color: #cfd0d2; }
 
 .anim-wrapper {
   top: 50%;

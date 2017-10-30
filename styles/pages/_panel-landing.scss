@@ -1,0 +1,54 @@
+
+.panel.landing {
+  background: #fff;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  .landing-header {
+    position: relative;
+    background: $swatch1;
+    padding: 48px 0 0 0;
+    text-align: center;
+
+    .logo {
+      font-size: 13px;
+      display: inline-block;
+      margin-bottom: 70px;
+      //@include position(absolute, 50% null null 50%);
+      //transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      font-size: 50px;
+    }
+  }
+
+  .content {
+    h2 {
+      @include size3();
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-bottom: 65px;
+    }
+
+    a {
+      text-transform: uppercase;
+      font-family: $headerFont;
+      font-size: 104px;
+      line-height: 90px;
+      color: $swatch8;
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 300ms;
+
+      &:hover {
+        color: $swatch6;
+      }
+    }
+  }
+}

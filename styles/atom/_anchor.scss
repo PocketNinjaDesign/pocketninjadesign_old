@@ -1,0 +1,16 @@
+
+/*
+ * Anchors
+ *
+ * Most anchors will have these basic settings
+ * there may be an instance when the text-decoration
+ * is required within paragraphs
+ *
+ */
+a {
+  display: inline-block;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

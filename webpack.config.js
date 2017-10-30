@@ -36,6 +36,10 @@ module.exports = {
             loader: "sass-loader"
           }]
         })
+      },
+      {
+        use: 'twig-loader',
+        test: /\.twig$/
       }
     ]
   },

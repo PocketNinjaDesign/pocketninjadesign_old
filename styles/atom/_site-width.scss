@@ -1,0 +1,13 @@
+
+/*
+ * site-width
+ * Used for setting the width of the site when
+ * on larger screens.  Also resizes responsively
+ * with padding for smaller devices
+ *
+ */
+
+.site-width {
+  margin: 0 auto;
+  max-width: 1024px;
+}

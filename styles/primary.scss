@@ -4,8 +4,11 @@
 
 @import "animations";
 @import "vars";
+@import "mixins";
 @import "atom";
+@import "molecules";
 @import "component";
+@import "pages";
 
 .anim-wrapper {
   top: 50%;
