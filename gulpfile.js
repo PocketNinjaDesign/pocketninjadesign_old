@@ -8,13 +8,13 @@ gulp.task('compile', function() {
     ,'./templates/about.html'
     ,'./templates/home.html'
     ,'./templates/portfolio.html'
-    ,'./templates/typgraphy.html'
+    ,'./templates/typography.html'
     ,'./templates/contact.html'
     ,'./templates/experiments.html'
   ])
   .pipe(twig({
     data: {
-      title: 'Single Page Website Of Arse using twig'
+      title: 'Single Page Website using Gulp Twig'
     }
   }))
   .pipe(gulp.dest('./build'));
