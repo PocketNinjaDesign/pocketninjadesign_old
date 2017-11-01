@@ -1,23 +1,23 @@
 
-
+/**
+ * Each panel is dynamically stored in panels with it's loaded state
+ */
 export default {
   panels: {
-    home: {
-      loaded: false
-    },
-    about: {
-      loaded: false
-    },
-    portfolio: {
-      loaded: false
-    },
   },
 
-  setPanelLoaded: function(_panelName) {
-    this.panels[_panelName].loaded = true;
+  setPanelLoadedState: function(_panelName, _loadedState = false) {
+    if(this.panels[_panelName]) {
+      this.panels[_panelName].loaded = _loadedState;
+    }
+    else {
+      this.panels[_panelName] = {
+        loaded: _loadedState
+      }
+    }
   },
 
   isPanelLoaded: function(_panelName) {
-    return this.panels[_panelName].loaded;
+    return this.panels[_panelName] && this.panels[_panelName].loaded;
   }
 };

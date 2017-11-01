@@ -1,13 +1,15 @@
 import $ from 'jQuery';
 
+import PanelService from '../services/Panel.service';
+
 // Scroll To Panel
 
 class PanelScroll {
   constructor(options, $element) {
     const DATA_NAME = 'scroll-panel';
     const DEFAULT_OPTIONS = {
-      width: 800,
-      height: 800
+      width: 1600,
+      height: 1600
     };
     this.$panelBase = $($element || '#panelBase');
 
@@ -16,20 +18,29 @@ class PanelScroll {
       this.$panelBase.data(DATA_NAME),
       options);
 
-    this.locations = {
-      landing: { top: 0, left: 0 },
-      home: { top: 25, left: 25 },
-      about: { top: 50, left: 50 },
-      portfolio: { top: 0, left: 75 }
-    }
+    this.locations = {};
     this.navigation;
   }
 
   init() {
     this.setPanelBase();
+    this.setLocations();
     this.setPanels();
   }
 
+  setLocations() {
+    this.$panelBase.find('.panel').each((index, element) => {
+      let data = $(element).data('panel');
+      this.locations[data.name] = {
+        top: data.top,
+        left: data.left
+      };
+    });
+  }
+
+  /**
+   * 
+   */
   setPanelBase() {
     this.$panelBase.css({
       width: this.options.width + '%',
@@ -45,6 +56,8 @@ class PanelScroll {
         width: 100 * (100 / this.options.width) + '%',
         height: 100 * (100 / this.options.height) + '%'
       });
+
+      PanelService.setPanelLoadedState(key);
     }
   }
 

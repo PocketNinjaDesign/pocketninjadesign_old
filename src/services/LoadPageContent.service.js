@@ -35,7 +35,7 @@ export default {
 
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
         $temp.remove();
-        PanelService.setPanelLoaded(options.panelName);
+        PanelService.setPanelLoadedState(options.panelName, true);
       })
       .catch(function() {
         let $pagePanel = $('.' + options.panelName + ' .content');

@@ -10783,6 +10783,18 @@ var _PanelLanding = __webpack_require__(39);
 
 var _PanelLanding2 = _interopRequireDefault(_PanelLanding);
 
+var _PanelAbout = __webpack_require__(40);
+
+var _PanelAbout2 = _interopRequireDefault(_PanelAbout);
+
+var _PanelHome = __webpack_require__(41);
+
+var _PanelHome2 = _interopRequireDefault(_PanelHome);
+
+var _PanelPortfolio = __webpack_require__(42);
+
+var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(37);
@@ -10880,6 +10892,10 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _Panel = __webpack_require__(34);
+
+var _Panel2 = _interopRequireDefault(_Panel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10892,19 +10908,14 @@ var PanelScroll = function () {
 
     var DATA_NAME = 'scroll-panel';
     var DEFAULT_OPTIONS = {
-      width: 800,
-      height: 800
+      width: 1600,
+      height: 1600
     };
     this.$panelBase = (0, _jQuery2.default)($element || '#panelBase');
 
     this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, this.$panelBase.data(DATA_NAME), options);
 
-    this.locations = {
-      landing: { top: 0, left: 0 },
-      home: { top: 25, left: 25 },
-      about: { top: 50, left: 50 },
-      portfolio: { top: 0, left: 75 }
-    };
+    this.locations = {};
     this.navigation;
   }
 
@@ -10912,8 +10923,27 @@ var PanelScroll = function () {
     key: 'init',
     value: function init() {
       this.setPanelBase();
+      this.setLocations();
       this.setPanels();
     }
+  }, {
+    key: 'setLocations',
+    value: function setLocations() {
+      var _this = this;
+
+      this.$panelBase.find('.panel').each(function (index, element) {
+        var data = (0, _jQuery2.default)(element).data('panel');
+        _this.locations[data.name] = {
+          top: data.top,
+          left: data.left
+        };
+      });
+    }
+
+    /**
+     * 
+     */
+
   }, {
     key: 'setPanelBase',
     value: function setPanelBase() {
@@ -10932,6 +10962,8 @@ var PanelScroll = function () {
           width: 100 * (100 / this.options.width) + '%',
           height: 100 * (100 / this.options.height) + '%'
         });
+
+        _Panel2.default.setPanelLoadedState(key);
       }
     }
   }, {
@@ -11046,7 +11078,7 @@ exports.default = {
 
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
         $temp.remove();
-        _Panel2.default.setPanelLoaded(options.panelName);
+        _Panel2.default.setPanelLoadedState(options.panelName, true);
       }).catch(function () {
         var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
         $pagePanel.html('').append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
@@ -11921,25 +11953,27 @@ module.exports = function spread(callback) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+/**
+ * Each panel is dynamically stored in panels with it's loaded state
+ */
 exports.default = {
-  panels: {
-    home: {
-      loaded: false
-    },
-    about: {
-      loaded: false
-    },
-    portfolio: {
-      loaded: false
+  panels: {},
+
+  setPanelLoadedState: function setPanelLoadedState(_panelName) {
+    var _loadedState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    if (this.panels[_panelName]) {
+      this.panels[_panelName].loaded = _loadedState;
+    } else {
+      this.panels[_panelName] = {
+        loaded: _loadedState
+      };
     }
   },
 
-  setPanelLoaded: function setPanelLoaded(_panelName) {
-    this.panels[_panelName].loaded = true;
-  },
-
   isPanelLoaded: function isPanelLoaded(_panelName) {
-    return this.panels[_panelName].loaded;
+    return this.panels[_panelName] && this.panels[_panelName].loaded;
   }
 };
 
@@ -12126,6 +12160,93 @@ var PanelLanding = function () {
 }();
 
 exports.default = PanelLanding;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $LandingPage = (0, _jQuery2.default)('#panelAbout');
+
+// Run the panel
+
+var PanelAbout = function PanelAbout(options) {
+  _classCallCheck(this, PanelAbout);
+};
+
+exports.default = PanelAbout;
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $LandingPage = (0, _jQuery2.default)('#panelHome');
+
+// Run the panel
+
+var PanelHome = function PanelHome(options) {
+  _classCallCheck(this, PanelHome);
+};
+
+exports.default = PanelHome;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $LandingPage = (0, _jQuery2.default)('#panelPortfolio');
+
+// Run the panel
+
+var PanelPortfolio = function PanelPortfolio(options) {
+  _classCallCheck(this, PanelPortfolio);
+};
+
+exports.default = PanelPortfolio;
 
 /***/ })
 /******/ ]);

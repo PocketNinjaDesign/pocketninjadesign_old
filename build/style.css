@@ -129,6 +129,7 @@ h1 {
   left: 20px;
   z-index: 100; }
   .navigation .nav {
+    display: block;
     width: 30px;
     height: 30px;
     background: #000;

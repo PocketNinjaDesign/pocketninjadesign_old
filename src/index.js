@@ -10,6 +10,9 @@ import LoaderAnim from './modules/loaderAnims/LoaderAnim';
 
 // Panels
 import PanelLanding from './panels/PanelLanding';
+import PanelAbout from './panels/PanelAbout';
+import PanelHome from './panels/PanelHome';
+import PanelPortfolio from './panels/PanelPortfolio';
 
 
 

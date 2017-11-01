@@ -13,27 +13,46 @@
 
     <div id="panelBase" class="panel-base">
 
-      <div id="panelLanding" class="panel landing">
+      <div id="panelLanding" class="panel landing" data-panel='{"name": "landing", "top": 0, "left": 0}'>
         {% include "page/landing.html" %}
       </div>
 
-      <div id="panelHome" class="panel home">
+      <div id="panelHome" class="panel home" data-panel='{"name": "home", "top": 25, "left": 25}'>
         <div class="content">
           <h1>Home</h1>
         </div>
       </div>
 
-      <div id="panelPortfolio" class="panel portfolio">
+      <div id="panelPortfolio" class="panel portfolio" data-panel='{"name": "portfolio", "top": 0, "left": 75}'>
         <div class="content">
           <h1>Portfolio</h1>
         </div>
       </div>
 
-      <div id="panelAbout" class="panel about">
+      <div id="panelAbout" class="panel about" data-panel='{"name": "about", "top": 50, "left": 50}'>
         <div class="content">
           <h1>About</h1>
         </div>
       </div>
+
+      <div id="panelContact" class="panel contact" data-panel='{"name": "contact", "top": 90, "left": 90}'>
+        <div class="content">
+          <h1>Contact</h1>
+        </div>
+      </div>
+
+      <div id="panelExperiments" class="panel experiments" data-panel='{"name": "experiments", "top": 75, "left": 60}'>
+        <div class="content">
+          <h1>Experiments</h1>
+        </div>
+      </div>
+      
+      <div id="panelTypography" class="panel typography" data-panel='{"name": "typography", "top": 75, "left": 15}'>
+        <div class="content">
+          <h1>Typography</h1>
+        </div>
+      </div>
+
     </div>
 
     <script src="bundle.js"></script>
