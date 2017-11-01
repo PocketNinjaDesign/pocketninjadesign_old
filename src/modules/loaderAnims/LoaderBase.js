@@ -30,6 +30,7 @@ class LoaderBase {
 
   remove() {
     // Remove the Loader Animation
+    this.$animation.remove();
   }
 
   getAnimWrapper() {

@@ -1,7 +1,9 @@
 import globals from '../globals';
 import $ from 'jQuery';
 import Axios from 'axios';
+
 import PanelService from './Panel.service';
+import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
 
 export default {
   getPage: (options) => {
@@ -15,6 +17,13 @@ export default {
 
     // If Panel is loaded
     if(!PanelService.isPanelLoaded(options.panelName)) {
+      let panelLoader = new LoaderAnim({
+        $container: panelNameClass,
+        positionType: 'fixed'
+      });
+      panelLoader.create();
+      panelLoader.show();
+
       return Axios({
         method:'get',
         url: URL
@@ -36,6 +45,8 @@ export default {
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
         $temp.remove();
         PanelService.setPanelLoadedState(options.panelName, true);
+
+        panelLoader.remove();
       })
       .catch(function() {
         let $pagePanel = $('.' + options.panelName + ' .content');

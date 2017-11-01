@@ -1,12 +1,13 @@
 const css = require('../styles/primary.scss');
 
 import $ from 'jQuery';
+import globals from './globals';
 
 // Modules
 import PanelScroll from './modules/PanelScroll';
 import PanelNavigation from './modules/PanelNavigation';
 import LoadPageContentService from './services/LoadPageContent.service';
-import LoaderAnim from './modules/loaderAnims/LoaderAnim';
+
 
 // Panels
 import PanelLanding from './panels/PanelLanding';
@@ -17,19 +18,13 @@ import PanelPortfolio from './panels/PanelPortfolio';
 
 
 $(() => {
+  // Create base scrolling mechanism
   let basePanel = new PanelScroll();
   basePanel.init();
 
-
-  //
-  // Loader
-  //
-  let panelLoader = new LoaderAnim({
-    positionType: 'fixed'
-  });
-  panelLoader.create();
-  panelLoader.show();
-
+  // save instance of scrolling to globals
+  // for use by all scripts
+  globals.setPanelScroll(basePanel);
 
   //
   // Top Left Navigation
@@ -42,9 +37,6 @@ $(() => {
       panelName: _panelName,
       cleanContent: false
     });
-
-    panelLoader.setContainer(`.${_panelName}`);
-    panelLoader.show();
   }
 
   let panelNav = new PanelNavigation('#nav', panelNavFunction);

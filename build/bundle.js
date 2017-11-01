@@ -10763,6 +10763,10 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _globals = __webpack_require__(14);
+
+var _globals2 = _interopRequireDefault(_globals);
+
 var _PanelScroll = __webpack_require__(11);
 
 var _PanelScroll2 = _interopRequireDefault(_PanelScroll);
@@ -10774,10 +10778,6 @@ var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 var _LoadPageContent = __webpack_require__(13);
 
 var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
-
-var _LoaderAnim = __webpack_require__(35);
-
-var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
 
 var _PanelLanding = __webpack_require__(39);
 
@@ -10806,17 +10806,13 @@ var css = __webpack_require__(37);
 
 
 (0, _jQuery2.default)(function () {
+  // Create base scrolling mechanism
   var basePanel = new _PanelScroll2.default();
   basePanel.init();
 
-  //
-  // Loader
-  //
-  var panelLoader = new _LoaderAnim2.default({
-    positionType: 'fixed'
-  });
-  panelLoader.create();
-  panelLoader.show();
+  // save instance of scrolling to globals
+  // for use by all scripts
+  _globals2.default.setPanelScroll(basePanel);
 
   //
   // Top Left Navigation
@@ -10829,9 +10825,6 @@ var css = __webpack_require__(37);
       panelName: _panelName,
       cleanContent: false
     });
-
-    panelLoader.setContainer('.' + _panelName);
-    panelLoader.show();
   };
 
   var panelNav = new _PanelNavigation2.default('#nav', panelNavFunction);
@@ -11049,6 +11042,10 @@ var _Panel = __webpack_require__(34);
 
 var _Panel2 = _interopRequireDefault(_Panel);
 
+var _LoaderAnim = __webpack_require__(35);
+
+var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -11063,6 +11060,13 @@ exports.default = {
 
     // If Panel is loaded
     if (!_Panel2.default.isPanelLoaded(options.panelName)) {
+      var panelLoader = new _LoaderAnim2.default({
+        $container: panelNameClass,
+        positionType: 'fixed'
+      });
+      panelLoader.create();
+      panelLoader.show();
+
       return (0, _axios2.default)({
         method: 'get',
         url: URL
@@ -11079,6 +11083,8 @@ exports.default = {
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
         $temp.remove();
         _Panel2.default.setPanelLoadedState(options.panelName, true);
+
+        panelLoader.remove();
       }).catch(function () {
         var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
         $pagePanel.html('').append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
@@ -11100,7 +11106,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  urlPrefix: 'http://localhost:9000/'
+  urlPrefix: 'http://localhost:9000/',
+
+  panelScroll: undefined,
+
+  setPanelScroll: function setPanelScroll(_panelScroll) {
+    this.panelScroll = _panelScroll;
+  }
 };
 
 /***/ }),
@@ -12082,6 +12094,7 @@ var LoaderBase = function () {
     key: 'remove',
     value: function remove() {
       // Remove the Loader Animation
+      this.$animation.remove();
     }
   }, {
     key: 'getAnimWrapper',
