@@ -12,10 +12,10 @@ import LoadPageContentService from './services/LoadPageContent.service';
 
 // Panels
 import PanelLandingPage from './panels/PanelLanding';
-import PanelAbout from './panels/PanelAbout';
-import PanelHome from './panels/PanelHome';
-import PanelPortfolio from './panels/PanelPortfolio';
-import PanelStyleguide from './panels/PanelStyleguide';
+import PanelAboutPage from './panels/PanelAbout';
+import PanelHomePage from './panels/PanelHome';
+import PanelPortfolioPage from './panels/PanelPortfolio';
+import PanelStyleguidePage from './panels/PanelStyleguide';
 
 
 
