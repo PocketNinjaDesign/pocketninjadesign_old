@@ -1,6 +1,6 @@
 
 .panel.landing {
-  background: #fff url('/styles/images/ninja-small-bonsai.png') no-repeat center bottom;
+  background: #fff;
   top: 0;
   left: 0;
   z-index: 1000;
@@ -15,42 +15,89 @@
       font-size: 13px;
       display: inline-block;
       margin-bottom: 70px;
-      //@include position(absolute, 50% null null 50%);
-      //transform: translate(-50%, -50%);
     }
 
     h1 {
-      font-size: 50px;
+      font-size: 30px;
       padding-bottom: 4px;
+
+      transition: font-size $defFontAnimSpeed;
+
+      @media screen and (min-width: 500px) {
+        font-size: 40px;
+      }
+
+      @media screen and (min-width: 900px) {
+        font-size: 50px;
+      }
     }
   }
 
   .content {
     h2 {
       @include size3();
-      font-size: 24px;
+      font-size: 18px;
       margin-top: 7px;
+
+      transition: font-size $defFontAnimSpeed;
+
+      @media screen and (min-width: 500px) {
+        font-size: 20px;
+      }
+
+      @media screen and (min-width: 900px) {
+        font-size: 24px;
+      }
     }
 
     p {
-      font-size: 18px;
+      font-size: 16px;
       text-transform: uppercase;
-      margin-bottom: 65px;
+      margin-bottom: 50px;
+
+      transition: font-size $defFontAnimSpeed, margin-bottom $defFontAnimSpeed;
+
+      @media screen and (min-width: 900px) {
+        font-size: 18px;
+        margin-bottom: 65px;
+      }
     }
 
-    a {
-      text-transform: uppercase;
-      font-family: $headerFont;
-      font-size: 104px;
-      line-height: 90px;
-      color: $swatch8;
-      text-decoration: none;
-      margin: 0 8px;
-      transition: color 300ms;
+    .nav-options {
+      margin-bottom: 30px;
 
-      &:hover {
-        color: $swatch6;
+      a {
+        text-transform: uppercase;
+        font-family: $headerFont;
+        font-size: 35px;
+        line-height: 1.1;
+        color: $swatch8;
+        text-decoration: none;
+        margin: 0 4px;
+        transition: color 300ms, font-size $defFontAnimSpeed, margin $defFontAnimSpeed;
+  
+        &:hover {
+          color: $swatch6;
+        }
+
+        @media screen and (min-width: 500px) {
+          font-size: 50px;
+        }
+  
+        @media screen and (min-width: 624px) {
+          font-size: 70px;
+          margin: 0 8px;
+        }
+  
+        @media screen and (min-width: 900px) {
+          font-size: 104px;
+        }
       }
+    }
+    .ninja-tree {
+      height: 291px;
+      background: url('/styles/images/ninja-small-bonsai.png') no-repeat center center;
+      background-size: contain;
     }
   }
 }

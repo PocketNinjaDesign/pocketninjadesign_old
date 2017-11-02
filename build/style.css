@@ -100,7 +100,14 @@ h1 {
  */
 .site-width {
   margin: 0 auto;
-  max-width: 1024px; }
+  max-width: 1024px;
+  padding: 0 10px; }
+  @media screen and (min-width: 450px) {
+    .site-width {
+      padding: 0 20px; } }
+  @media screen and (min-width: 1024px) {
+    .site-width {
+      padding: 0; } }
 
 .logo {
   text-align: center; }
@@ -148,7 +155,7 @@ h1 {
       background: green; }
 
 .panel.landing {
-  background: #fff url("/styles/images/ninja-small-bonsai.png") no-repeat center bottom;
+  background: #fff;
   top: 0;
   left: 0;
   z-index: 1000; }
@@ -162,31 +169,66 @@ h1 {
       display: inline-block;
       margin-bottom: 70px; }
     .panel.landing .landing-header h1 {
-      font-size: 50px;
-      padding-bottom: 4px; }
+      font-size: 30px;
+      padding-bottom: 4px;
+      transition: font-size 150ms; }
+      @media screen and (min-width: 500px) {
+        .panel.landing .landing-header h1 {
+          font-size: 40px; } }
+      @media screen and (min-width: 900px) {
+        .panel.landing .landing-header h1 {
+          font-size: 50px; } }
   .panel.landing .content h2 {
     font-family: "dosis", sans-serif;
     font-size: 34px;
     font-weight: 500;
     color: #d91f2d;
     line-height: 1;
-    font-size: 24px;
-    margin-top: 7px; }
-  .panel.landing .content p {
     font-size: 18px;
+    margin-top: 7px;
+    transition: font-size 150ms; }
+    @media screen and (min-width: 500px) {
+      .panel.landing .content h2 {
+        font-size: 20px; } }
+    @media screen and (min-width: 900px) {
+      .panel.landing .content h2 {
+        font-size: 24px; } }
+  .panel.landing .content p {
+    font-size: 16px;
     text-transform: uppercase;
-    margin-bottom: 65px; }
-  .panel.landing .content a {
-    text-transform: uppercase;
-    font-family: "dosis", sans-serif;
-    font-size: 104px;
-    line-height: 90px;
-    color: rgba(207, 208, 210, 0.25);
-    text-decoration: none;
-    margin: 0 8px;
-    transition: color 300ms; }
-    .panel.landing .content a:hover {
-      color: #cfd0d2; }
+    margin-bottom: 50px;
+    transition: font-size 150ms, margin-bottom 150ms; }
+    @media screen and (min-width: 900px) {
+      .panel.landing .content p {
+        font-size: 18px;
+        margin-bottom: 65px; } }
+  .panel.landing .content .nav-options {
+    margin-bottom: 30px; }
+    .panel.landing .content .nav-options a {
+      text-transform: uppercase;
+      font-family: "dosis", sans-serif;
+      font-size: 35px;
+      line-height: 1.1;
+      color: rgba(207, 208, 210, 0.25);
+      text-decoration: none;
+      margin: 0 4px;
+      transition: color 300ms, font-size 150ms, margin 150ms; }
+      .panel.landing .content .nav-options a:hover {
+        color: #cfd0d2; }
+      @media screen and (min-width: 500px) {
+        .panel.landing .content .nav-options a {
+          font-size: 50px; } }
+      @media screen and (min-width: 624px) {
+        .panel.landing .content .nav-options a {
+          font-size: 70px;
+          margin: 0 8px; } }
+      @media screen and (min-width: 900px) {
+        .panel.landing .content .nav-options a {
+          font-size: 104px; } }
+  .panel.landing .content .ninja-tree {
+    height: 291px;
+    background: url("/styles/images/ninja-small-bonsai.png") no-repeat center center;
+    background-size: contain; }
 
 .anim-wrapper {
   top: 50%;
