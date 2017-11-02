@@ -10767,11 +10767,11 @@ var _globals = __webpack_require__(14);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _PanelScroll = __webpack_require__(11);
+var _PanelScrollBase = __webpack_require__(45);
 
-var _PanelScroll2 = _interopRequireDefault(_PanelScroll);
+var _PanelScrollBase2 = _interopRequireDefault(_PanelScrollBase);
 
-var _PanelNavigation = __webpack_require__(12);
+var _PanelNavigation = __webpack_require__(44);
 
 var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
@@ -10795,6 +10795,10 @@ var _PanelPortfolio = __webpack_require__(42);
 
 var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
 
+var _PanelStyleguide = __webpack_require__(46);
+
+var _PanelStyleguide2 = _interopRequireDefault(_PanelStyleguide);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(37);
@@ -10802,40 +10806,20 @@ var css = __webpack_require__(37);
 // Modules
 
 
+// Services
+
+
 // Panels
 
 
 (0, _jQuery2.default)(function () {
-  // Create base scrolling mechanism
-  var basePanel = new _PanelScroll2.default();
-  basePanel.init();
+  // Create the panel Navigation
+  var panelNav = new _PanelNavigation2.default('#nav');
+  panelNav.init();
 
-  // save instance of scrolling to globals
-  // for use by all scripts
-  _globals2.default.setPanelScroll(basePanel);
-
-  //
-  // Top Left Navigation
-  // Don't really like this bit, will need to clean this up!!!
-  //
-  var panelNavFunction = function panelNavFunction(_panelName) {
-    basePanel.goToPanel(_panelName);
-
-    _LoadPageContent2.default.getPage({
-      panelName: _panelName,
-      cleanContent: false
-    });
-  };
-
-  var panelNav = new _PanelNavigation2.default('#nav', panelNavFunction);
-
-  //
-  // Panels pages
-  //
-  var Landing = new _PanelLanding2.default({
-    panelNavFunc: panelNavFunction
-  });
-  Landing.init();
+  // Create the landingpage script
+  var LandingPage = new _PanelLanding2.default();
+  LandingPage.init();
 });
 
 /***/ }),
@@ -10869,153 +10853,8 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(1);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Panel = __webpack_require__(34);
-
-var _Panel2 = _interopRequireDefault(_Panel);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// Scroll To Panel
-
-var PanelScroll = function () {
-  function PanelScroll(options, $element) {
-    _classCallCheck(this, PanelScroll);
-
-    var DATA_NAME = 'scroll-panel';
-    var DEFAULT_OPTIONS = {
-      width: 1600,
-      height: 1600
-    };
-    this.$panelBase = (0, _jQuery2.default)($element || '#panelBase');
-
-    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, this.$panelBase.data(DATA_NAME), options);
-
-    this.locations = {};
-    this.navigation;
-  }
-
-  _createClass(PanelScroll, [{
-    key: 'init',
-    value: function init() {
-      this.setPanelBase();
-      this.setLocations();
-      this.setPanels();
-    }
-  }, {
-    key: 'setLocations',
-    value: function setLocations() {
-      var _this = this;
-
-      this.$panelBase.find('.panel').each(function (index, element) {
-        var data = (0, _jQuery2.default)(element).data('panel');
-        _this.locations[data.name] = {
-          top: data.top,
-          left: data.left
-        };
-      });
-    }
-
-    /**
-     * 
-     */
-
-  }, {
-    key: 'setPanelBase',
-    value: function setPanelBase() {
-      this.$panelBase.css({
-        width: this.options.width + '%',
-        height: this.options.height + '%'
-      });
-    }
-  }, {
-    key: 'setPanels',
-    value: function setPanels() {
-      for (var key in this.locations) {
-        this.$panelBase.find('.' + key).css({
-          top: this.locations[key].top + '%',
-          left: this.locations[key].left + '%',
-          width: 100 * (100 / this.options.width) + '%',
-          height: 100 * (100 / this.options.height) + '%'
-        });
-
-        _Panel2.default.setPanelLoadedState(key);
-      }
-    }
-  }, {
-    key: 'goToPanel',
-    value: function goToPanel(_panelName) {
-      var top = this.locations[_panelName].top / 100;
-      var left = this.locations[_panelName].left / 100;
-
-      this.$panelBase.css({
-        top: -(this.options.height * top) + '%',
-        left: -(this.options.width * left) + '%'
-      });
-    }
-  }]);
-
-  return PanelScroll;
-}();
-
-exports.default = PanelScroll;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _jQuery = __webpack_require__(1);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var PanelNavigation = function PanelNavigation(element, onClick) {
-  _classCallCheck(this, PanelNavigation);
-
-  (0, _jQuery2.default)(element).find('.nav').each(function () {
-    var _this = this;
-
-    var $this = (0, _jQuery2.default)(this);
-    var option = $this.data('nav');
-
-    $this.on('click', function () {
-      onClick((0, _jQuery2.default)(_this).data('nav'));
-    });
-  });
-};
-
-;
-
-exports.default = PanelNavigation;
-
-/***/ }),
+/* 11 */,
+/* 12 */,
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11106,13 +10945,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  urlPrefix: 'http://localhost:9000/',
-
-  panelScroll: undefined,
-
-  setPanelScroll: function setPanelScroll(_panelScroll) {
-    this.panelScroll = _panelScroll;
-  }
+  urlPrefix: 'http://localhost:9000/'
 };
 
 /***/ }),
@@ -12139,7 +11972,11 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _PanelNavigation = __webpack_require__(12);
+var _Panel2 = __webpack_require__(47);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
+var _PanelNavigation = __webpack_require__(44);
 
 var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
@@ -12147,30 +11984,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var $LandingPage = (0, _jQuery2.default)('#panelLanding');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-// Run the panel
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PanelLanding = function () {
-  function PanelLanding(options) {
+var PanelLanding = function (_Panel) {
+  _inherits(PanelLanding, _Panel);
+
+  function PanelLanding() {
     _classCallCheck(this, PanelLanding);
 
-    this.panelNav;
-    this.options = _jQuery2.default.extend({
-      // Nav function to run for panels
-      panelNavFunc: function panelNavFunc() {}
-    }, options);
+    var _this = _possibleConstructorReturn(this, (PanelLanding.__proto__ || Object.getPrototypeOf(PanelLanding)).call(this));
+
+    _this.panelNav;
+    _this.$base = (0, _jQuery2.default)('#panelLanding');
+    return _this;
   }
 
   _createClass(PanelLanding, [{
     key: 'init',
     value: function init() {
-      this.panelNav = new _PanelNavigation2.default('#landingNav', this.options.panelNavFunc);
+      // Duplicate navigation directly in the page
+      this.panelNav = new _PanelNavigation2.default('#landingNav');
+      this.panelNav.init();
     }
   }]);
 
   return PanelLanding;
-}();
+}(_Panel3.default);
 
 exports.default = PanelLanding;
 
@@ -12189,17 +12030,32 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _Panel2 = __webpack_require__(47);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var $LandingPage = (0, _jQuery2.default)('#panelAbout');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-// Run the panel
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PanelAbout = function PanelAbout(options) {
-  _classCallCheck(this, PanelAbout);
-};
+var PanelAbout = function (_Panel) {
+  _inherits(PanelAbout, _Panel);
+
+  function PanelAbout() {
+    _classCallCheck(this, PanelAbout);
+
+    var _this = _possibleConstructorReturn(this, (PanelAbout.__proto__ || Object.getPrototypeOf(PanelAbout)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelAbout');
+    return _this;
+  }
+
+  return PanelAbout;
+}(_Panel3.default);
 
 exports.default = PanelAbout;
 
@@ -12218,17 +12074,32 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _Panel2 = __webpack_require__(47);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var $LandingPage = (0, _jQuery2.default)('#panelHome');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-// Run the panel
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PanelHome = function PanelHome(options) {
-  _classCallCheck(this, PanelHome);
-};
+var PanelHome = function (_Panel) {
+  _inherits(PanelHome, _Panel);
+
+  function PanelHome() {
+    _classCallCheck(this, PanelHome);
+
+    var _this = _possibleConstructorReturn(this, (PanelHome.__proto__ || Object.getPrototypeOf(PanelHome)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelHome');
+    return _this;
+  }
+
+  return PanelHome;
+}(_Panel3.default);
 
 exports.default = PanelHome;
 
@@ -12247,19 +12118,297 @@ var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _Panel2 = __webpack_require__(47);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var $LandingPage = (0, _jQuery2.default)('#panelPortfolio');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-// Run the panel
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PanelPortfolio = function PanelPortfolio(options) {
-  _classCallCheck(this, PanelPortfolio);
-};
+var PanelPortfolio = function (_Panel) {
+  _inherits(PanelPortfolio, _Panel);
+
+  function PanelPortfolio() {
+    _classCallCheck(this, PanelPortfolio);
+
+    var _this = _possibleConstructorReturn(this, (PanelPortfolio.__proto__ || Object.getPrototypeOf(PanelPortfolio)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelPortfolio');
+    return _this;
+  }
+
+  return PanelPortfolio;
+}(_Panel3.default);
 
 exports.default = PanelPortfolio;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Panel = __webpack_require__(34);
+
+var _Panel2 = _interopRequireDefault(_Panel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// Scroll To Panel
+
+var PanelScroll = function () {
+  function PanelScroll(options, $element) {
+    _classCallCheck(this, PanelScroll);
+
+    var DATA_NAME = 'scroll-panel';
+    var DEFAULT_OPTIONS = {
+      width: 1600,
+      height: 1600
+    };
+    this.$panelBase = (0, _jQuery2.default)($element || '#panelBase');
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, this.$panelBase.data(DATA_NAME), options);
+
+    this.locations = {};
+    this.navigation;
+  }
+
+  _createClass(PanelScroll, [{
+    key: 'init',
+    value: function init() {
+      this.setPanelBase();
+      this.setLocations();
+      this.setPanels();
+    }
+  }, {
+    key: 'setLocations',
+    value: function setLocations() {
+      var _this = this;
+
+      this.$panelBase.find('.panel').each(function (index, element) {
+        var data = (0, _jQuery2.default)(element).data('panel');
+        _this.locations[data.name] = {
+          top: data.top,
+          left: data.left
+        };
+      });
+    }
+  }, {
+    key: 'setPanelBase',
+    value: function setPanelBase() {
+      this.$panelBase.css({
+        width: this.options.width + '%',
+        height: this.options.height + '%'
+      });
+    }
+  }, {
+    key: 'setPanels',
+    value: function setPanels() {
+      for (var key in this.locations) {
+        this.$panelBase.find('.' + key).css({
+          top: this.locations[key].top + '%',
+          left: this.locations[key].left + '%',
+          width: 100 * (100 / this.options.width) + '%',
+          height: 100 * (100 / this.options.height) + '%'
+        });
+
+        _Panel2.default.setPanelLoadedState(key);
+      }
+    }
+  }, {
+    key: 'goToPanel',
+    value: function goToPanel(_panelName) {
+      var top = this.locations[_panelName].top / 100;
+      var left = this.locations[_panelName].left / 100;
+
+      this.$panelBase.css({
+        top: -(this.options.height * top) + '%',
+        left: -(this.options.width * left) + '%'
+      });
+    }
+  }]);
+
+  return PanelScroll;
+}();
+
+exports.default = PanelScroll;
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _PanelScrollBase = __webpack_require__(45);
+
+var _PanelScrollBase2 = _interopRequireDefault(_PanelScrollBase);
+
+var _LoadPageContent = __webpack_require__(13);
+
+var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PanelNavigation = function () {
+  function PanelNavigation(element) {
+    _classCallCheck(this, PanelNavigation);
+
+    this.$element = (0, _jQuery2.default)(element);
+  }
+
+  _createClass(PanelNavigation, [{
+    key: 'init',
+    value: function init() {
+      this.$element.find('.nav').each(function () {
+        var _this = this;
+
+        var $this = (0, _jQuery2.default)(this);
+        var option = $this.data('nav');
+
+        $this.on('click', function () {
+          var panelName = (0, _jQuery2.default)(_this).data('nav');
+
+          // Send the site to 
+          _PanelScrollBase2.default.goToPanel(panelName);
+
+          // Load the panel content with clean
+          // content area as false
+          _LoadPageContent2.default.getPage({
+            panelName: panelName,
+            cleanContent: false
+          });
+        });
+      });
+    }
+  }]);
+
+  return PanelNavigation;
+}();
+
+;
+
+exports.default = PanelNavigation;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _PanelScroll = __webpack_require__(43);
+
+var _PanelScroll2 = _interopRequireDefault(_PanelScroll);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * Creates and returns a singleton of the PanelScroll Widget
+ * for the base of the site
+ *
+ */
+var BasePanel = new _PanelScroll2.default();
+BasePanel.init();
+
+exports.default = BasePanel;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Panel2 = __webpack_require__(47);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PanelStyleguide = function (_Panel) {
+  _inherits(PanelStyleguide, _Panel);
+
+  function PanelStyleguide() {
+    _classCallCheck(this, PanelStyleguide);
+
+    var _this = _possibleConstructorReturn(this, (PanelStyleguide.__proto__ || Object.getPrototypeOf(PanelStyleguide)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelStyleguide');
+    return _this;
+  }
+
+  return PanelStyleguide;
+}(_Panel3.default);
+
+exports.default = PanelStyleguide;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Panel = function Panel() {
+  _classCallCheck(this, Panel);
+};
+
+exports.default = Panel;
 
 /***/ })
 /******/ ]);

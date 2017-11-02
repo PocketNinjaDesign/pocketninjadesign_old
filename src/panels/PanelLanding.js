@@ -1,22 +1,18 @@
 import $ from 'jQuery';
+import Panel from './Panel';
+import PanelNavigation from '../modules/panel/PanelNavigation';
 
-import PanelNavigation from '../modules/PanelNavigation';
-
-const $LandingPage = $('#panelLanding');
-
-
-// Run the panel
-class PanelLanding {
-  constructor(options) {
+class PanelLanding extends Panel {
+  constructor() {
+    super();
     this.panelNav;
-    this.options = $.extend({
-      // Nav function to run for panels
-      panelNavFunc: function() {}
-    }, options);
+    this.$base = $('#panelLanding');
   }
 
   init() {
-    this.panelNav = new PanelNavigation('#landingNav', this.options.panelNavFunc);
+    // Duplicate navigation directly in the page
+    this.panelNav = new PanelNavigation('#landingNav');
+    this.panelNav.init();
   }
 }
 
