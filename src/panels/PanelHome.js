@@ -1,11 +1,10 @@
 import $ from 'jQuery';
+import Panel from './Panel';
 
-const $LandingPage = $('#panelHome');
-
-
-// Run the panel
-class PanelHome {
-  constructor(options) {
+class PanelHome extends Panel {
+  constructor() {
+    super();
+    this.$base = $('#panelHome');
   }
 }
 

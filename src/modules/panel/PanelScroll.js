@@ -1,6 +1,5 @@
 import $ from 'jQuery';
-
-import PanelService from '../services/Panel.service';
+import PanelService from '../../services/Panel.service';
 
 // Scroll To Panel
 
@@ -38,9 +37,6 @@ class PanelScroll {
     });
   }
 
-  /**
-   * 
-   */
   setPanelBase() {
     this.$panelBase.css({
       width: this.options.width + '%',
