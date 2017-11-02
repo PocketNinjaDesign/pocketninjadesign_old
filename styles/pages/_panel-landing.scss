@@ -1,6 +1,6 @@
 
 .panel.landing {
-  background: #fff;
+  background: #fff url('/styles/images/ninja-small-bonsai.png') no-repeat center bottom;
   top: 0;
   left: 0;
   z-index: 1000;
@@ -21,6 +21,7 @@
 
     h1 {
       font-size: 50px;
+      padding-bottom: 4px;
     }
   }
 
@@ -28,6 +29,7 @@
     h2 {
       @include size3();
       font-size: 24px;
+      margin-top: 7px;
     }
 
     p {

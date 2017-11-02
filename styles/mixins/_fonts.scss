@@ -5,6 +5,7 @@
   font-size: 50px;
   font-weight: 800;
   color: $swatch3;
+  line-height: 1;
 }
 
 @mixin size2 {
@@ -12,6 +13,7 @@
   font-size: 38px;
   font-weight: 500;
   color: $swatch5;
+  line-height: 1;
 }
 
 @mixin size3 {
@@ -19,6 +21,7 @@
   font-size: 34px;
   font-weight: 500;
   color: $swatch5;
+  line-height: 1;
 }
 
 @mixin size4 {
@@ -26,6 +29,7 @@
   font-size: 24px;
   font-weight: 300;
   color: $swatch4;
+  line-height: 1;
 }
 
 @mixin size5 {
@@ -33,4 +37,5 @@
   font-size: 18px;
   font-weight: 300;
   color: $swatch4;
+  line-height: 1;
 }
