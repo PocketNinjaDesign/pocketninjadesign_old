@@ -1,6 +1,7 @@
 const css = require('../styles/primary.scss');
 
 import $ from 'jQuery';
+import Hammer from 'Hammerjs';
 import globals from './globals';
 
 // Modules
@@ -17,6 +18,18 @@ import PanelHomePage from './panels/PanelHome';
 import PanelPortfolioPage from './panels/PanelPortfolio';
 import PanelStyleguidePage from './panels/PanelStyleguide';
 
+
+// Quick Hammer test
+// Will be using this on my carousel but also
+// on anything really whacky :-D Will
+// remove this block very soon
+let panel = document.getElementById('panelLanding');
+let test = new Hammer(panel);
+
+test.on('swipe', function(e) {
+  console.log('You swiped me');
+  console.log(e);
+});
 
 
 $(() => {
