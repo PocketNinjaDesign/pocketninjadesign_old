@@ -73,7 +73,7 @@ h1 {
   top: 0;
   left: 0;
   z-index: 50;
-  transition: top 1000ms, left 1000ms; }
+  transition: top 2000ms, left 2000ms; }
 
 .panel {
   position: absolute;

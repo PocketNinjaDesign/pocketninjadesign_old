@@ -38,7 +38,6 @@ export default {
 
         let $wrapper = $(
           `<div style="border: 5px dotted #fff;">
-            <h1 style="font-size: 60px;">Ajax Pulled Content</h1>
           </div>`
         );
 

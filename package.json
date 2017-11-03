@@ -43,6 +43,7 @@
     "bourbon": "^4.3.4",
     "bourbon-neat": "^1.9.0",
     "gulp-twig": "^1.1.1",
+    "hammerjs": "^2.0.8",
     "neat": "^1.2.2"
   }
 }

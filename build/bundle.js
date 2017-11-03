@@ -10917,7 +10917,7 @@ exports.default = {
           $pagePanel.html('');
         }
 
-        var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n            <h1 style="font-size: 60px;">Ajax Pulled Content</h1>\n          </div>');
+        var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n          </div>');
 
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
         $temp.remove();
