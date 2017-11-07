@@ -10910,13 +10910,16 @@ exports.default = {
       cleanContent: true
     }, options);
 
-    var panelNameClass = '.' + options.panelName;
-    var URL = '' + _globals2.default.urlPrefix + options.panelName + '.html';
+    var PANEL_NAME = options.panelName;
+    var PANEL_NAME_CLASS = '.' + PANEL_NAME;
+    var URL = '' + _globals2.default.urlPrefix + PANEL_NAME + '.html';
 
     // If Panel is loaded
-    if (!_Panel2.default.isPanelLoaded(options.panelName)) {
+    if (!_Panel2.default.isPanelLoaded(PANEL_NAME)) {
+
+      // Create new loaderAnim
       var panelLoader = new _LoaderAnim2.default({
-        $container: panelNameClass,
+        $container: PANEL_NAME_CLASS,
         positionType: 'fixed'
       });
       panelLoader.create();
@@ -10927,22 +10930,29 @@ exports.default = {
         url: URL
       }).then(function (response) {
         var $temp = (0, _jQuery2.default)('<div/>').html(response.data);
-        var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
+        var $pagePanel = (0, _jQuery2.default)('.' + PANEL_NAME + ' .content');
 
         if (options.cleanContent) {
           $pagePanel.html('');
         }
 
-        var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;">\n          </div>');
+        var $wrapper = (0, _jQuery2.default)('<div style="border: 5px dotted #fff;"></div>');
 
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
-        $temp.remove();
-        _Panel2.default.setPanelLoadedState(options.panelName, true);
 
+        $temp.remove();
+
+        // Set the loaded state of the panel
+        _Panel2.default.setPanelLoadedState(PANEL_NAME, true);
+
+        // Remove Panel animation
         panelLoader.remove();
       }).catch(function () {
-        var $pagePanel = (0, _jQuery2.default)('.' + options.panelName + ' .content');
+        var $pagePanel = (0, _jQuery2.default)('.' + PANEL_NAME + ' .content');
         $pagePanel.html('').append('<h1 style="font-size: 60px;">Sorry a template was attempted to load but nothing! :-(</h1>');
+
+        // Remove Panel animation
+        panelLoader.remove();
       });
     }
 

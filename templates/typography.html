@@ -2,17 +2,66 @@
 {% set title="PocketninjaDesign About Page" %}
 
 {% block content %}
-<h1>Typography</h1>
 <div class="site-width">
-  <p>Everything to do with the typography of my site</p>
-  <h1>primary header</h1>
-  <h2>secondary header</h2>
-  <h3>Sub heading</h3>
-  <h4>Really sub heading</h4>
+  <!-- <div class="header-mini">
+    {% include "common/logo.html" %}
+  </div> -->
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in venenatis risus. Aliquam ac dui egestas, dapibus augue non, porttitor nunc. Aenean sollicitudin pharetra ex, sed aliquet est accumsan ultrices. Proin efficitur sollicitudin nunc at aliquam. Aenean quis nisl risus. Quisque sit amet metus vulputate, consequat lectus ac, elementum justo. Integer laoreet dictum velit, quis euismod elit cursus vitae. Donec imperdiet sagittis lectus id luctus. Integer eget ultrices neque. Nullam mauris felis, dapibus quis metus sit amet, lobortis porta odio. Pellentesque suscipit varius libero at tristique. In tincidunt felis quis lorem dignissim, ac tempor tellus feugiat. Praesent scelerisque vulputate lectus, vitae rutrum dui luctus vel. Nullam mollis magna vel tellus aliquet tempus.</p>
+  <div class="header-mini">
+    <h1>Styleguide</h1>
+    <p>All basic styles and UI Elements used in the site.  Any future changes and additions will be added to this page.</p>
+  </div>
 
-  <a href="#">Default link</a>
+  <section class="section colours">
+    <h5 class="section-head">Colors</h5>
+    <div class="section-content">
+      <div class="swatch-container">
+        <div class="swatch colour1"></div>
+        <div class="swatch colour2"></div>
+        <div class="swatch colour3"></div>
+        <div class="swatch colour4"></div>
+        <div class="swatch colour5"></div>
+        <div class="swatch colour6"></div>
+        <div class="swatch colour7"></div>
+        <div class="swatch colour8"></div>
+      </div>
+    </div>
+  </section>
 
+  <section class="section fonts">
+    <h5 class="section-head">Typography</h5>
+    <div class="section-content">
+      <div class="col-left">
+        <div class="col-left">Font Family</div>
+        <div class="col-right font-name">
+          Source Sans Pro
+        </div>
+
+        <div class="col-left">Font Family</div>
+        <div class="col-right font-name">Dosis</div>
+        <div class="col-left">Font Family</div>
+        <div class="col-right font-name">Fredoko One</div>
+      </div>
+      <div class="col-right">
+        <h1>H1 Header</h1>
+        <h2>H2 Header</h2>
+        <h3>H3 Header</h3>
+        <h4>H4 Header</h4>
+        <h5>H5 Header</h5>
+    
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in venenatis risus. Aliquam ac dui egestas, dapibus augue non, porttitor nunc. Aenean sollicitudin pharetra ex, sed aliquet est accumsan ultrices. Proin efficitur sollicitudin nunc at aliquam. Aenean quis nisl risus. Quisque sit amet metus vulputate, consequat lectus ac, elementum justo. Integer laoreet dictum velit, quis euismod elit cursus vitae. Donec imperdiet sagittis lectus id luctus. Integer eget ultrices neque. Nullam mauris felis, dapibus quis metus sit amet, lobortis porta odio. Pellentesque suscipit varius libero at tristique. In tincidunt felis quis lorem dignissim, ac tempor tellus feugiat. Praesent scelerisque vulputate lectus, vitae rutrum dui luctus vel. Nullam mollis magna vel tellus aliquet tempus.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">In in venenatis</a> risus. <strong>Strong text</strong> dui egestas, dapibus augue non, porttitor nunc. Aenean sollicitudin pharetra ex, sed aliquet est accumsan ultrices. Proin efficitur sollicitudin nunc at aliquam. Aenean quis nisl risus.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gui-elements">
+    <h5 class="section-head">GUI Elements</h5>
+
+    <div class="section-content">
+      <a href="#">Default link</a>
+    </div>
+  </section>
 </div>
+
 {% endblock %}

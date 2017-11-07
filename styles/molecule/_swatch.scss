@@ -1,0 +1,35 @@
+
+
+.swatch {
+  float: left;
+  margin: 0 40px 40px 0;
+  width: 150px;
+  height: 150px;
+  border: 20px solid #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+  &.colour1 {
+    background: $swatch1;
+  }
+  &.colour2 {
+    background: $swatch2;
+  }
+  &.colour3 {
+    background: $swatch3;
+  }
+  &.colour4 {
+    background: $swatch4;
+  }
+  &.colour5 {
+    background: $swatch5;
+  }
+  &.colour6 {
+    background: $swatch6;
+  }
+  &.colour7 {
+    background: $swatch7;
+  }
+  &.colour8 {
+    background: $swatch8;
+  }
+}

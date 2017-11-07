@@ -27,6 +27,5 @@ body {
 body {
   overflow: hidden;
   background: $swatch1;
-  font-family: $primaryFont;
-  color: $swatch6;
+  @include defaultFont();
 }

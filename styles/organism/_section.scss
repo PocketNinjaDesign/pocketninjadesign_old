@@ -1,0 +1,24 @@
+
+
+.section {
+  padding: 20px;
+  border-top: 1px solid $swatch8;
+  margin-bottom: 30px;
+  //border-radius: 6px;
+
+  .section-head {
+  }
+
+  .section-content {
+    @include clearfix;
+    
+    .col-left {
+      float: left;
+      width: 30%;
+    }
+    .col-right {
+      float: left;
+      width: 70%;
+    }
+  }
+}

@@ -9,8 +9,11 @@
  */
 a {
   display: inline-block;
+  color: $swatch5;
+  font-weight: 400;
+  text-decoration: none;
 
   &:hover {
-    text-decoration: none;
+    text-decoration: underline;
   }
 }
