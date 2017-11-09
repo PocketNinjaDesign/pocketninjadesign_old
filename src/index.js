@@ -5,8 +5,8 @@ import Hammer from 'Hammerjs';
 import globals from './globals';
 
 // Modules
+import PrimaryNavigation from './modules/PrimaryNavigation';
 import PanelScrollBase from './modules/panel/PanelScrollBase';
-import PanelNavigation from './modules/panel/PanelNavigation';
 
 // Services
 import LoadPageContentService from './services/LoadPageContent.service';
@@ -33,10 +33,6 @@ test.on('swipe', function(e) {
 
 
 $(() => {
-  // Create the panel Navigation
-  let panelNav = new PanelNavigation('#nav');
-  panelNav.init();
-
   // Create the landingpage script
   let LandingPage = new PanelLandingPage();
   LandingPage.init();

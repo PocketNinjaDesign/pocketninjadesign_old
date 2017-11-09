@@ -7,31 +7,6 @@
       padding: 40px 20px;
     }
 
-    .font-block {
-      display: table;
-      color: $swatch6;
-      margin-bottom: 50px;
-
-      .font-large {
-        display: table-cell;
-        font-size: 100px;
-        vertical-align: middle;
-        width: 160px;
-      }
-      .font-detail {
-        display: table-cell;
-        vertical-align: middle;
-        font-size: 40px;
-
-        .font-name {
-          color: $swatch3;
-          display: block;
-          font-size: 20px;
-          padding-top: 20px;
-        }
-      }
-    }
-
     text-align: left;
   }
 }

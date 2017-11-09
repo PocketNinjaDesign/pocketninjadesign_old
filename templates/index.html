@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
-    <div class="navigation">
-      {% include "common/navigation.html" with { "id": "nav" } %}
+    <div class="navigation" id="primarySideNav">
+      <div class="nav-action" id="primaryNavAction"></div>
+      <div class="nav-wrapper">
+        {% include "common/navigation.html" with { "id": "nav" } %}
+      </div>
     </div>
 
     <div id="panelBase" class="panel-base">

@@ -10771,13 +10771,13 @@ var _globals = __webpack_require__(14);
 
 var _globals2 = _interopRequireDefault(_globals);
 
+var _PrimaryNavigation = __webpack_require__(49);
+
+var _PrimaryNavigation2 = _interopRequireDefault(_PrimaryNavigation);
+
 var _PanelScrollBase = __webpack_require__(45);
 
 var _PanelScrollBase2 = _interopRequireDefault(_PanelScrollBase);
-
-var _PanelNavigation = __webpack_require__(44);
-
-var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
 
 var _LoadPageContent = __webpack_require__(13);
 
@@ -10829,10 +10829,6 @@ test.on('swipe', function (e) {
 });
 
 (0, _jQuery2.default)(function () {
-  // Create the panel Navigation
-  var panelNav = new _PanelNavigation2.default('#nav');
-  panelNav.init();
-
   // Create the landingpage script
   var LandingPage = new _PanelLanding2.default();
   LandingPage.init();
@@ -12308,14 +12304,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var PanelNavigation = function () {
   function PanelNavigation(element) {
+    var callBack = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
     _classCallCheck(this, PanelNavigation);
 
     this.$element = (0, _jQuery2.default)(element);
+    this.callBack = callBack;
   }
 
   _createClass(PanelNavigation, [{
     key: 'init',
     value: function init() {
+      var root = this;
+
       this.$element.find('.nav').each(function () {
         var _this = this;
 
@@ -12324,6 +12325,8 @@ var PanelNavigation = function () {
 
         $this.on('click', function () {
           var panelName = (0, _jQuery2.default)(_this).data('nav');
+
+          root.callBack();
 
           // Send the site to 
           _PanelScrollBase2.default.goToPanel(panelName);
@@ -15075,6 +15078,135 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         window[exportName] = Hammer;
     }
 })(window, document, 'Hammer');
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Overlay = __webpack_require__(50);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+var _PanelNavigation = __webpack_require__(44);
+
+var _PanelNavigation2 = _interopRequireDefault(_PanelNavigation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $primaryNavAction = (0, _jQuery2.default)('#primaryNavAction');
+var $primarySideNav = (0, _jQuery2.default)('#primarySideNav');
+
+var primaryOverlay = new _Overlay2.default();
+
+var onClick = function onClick() {
+  $primarySideNav.toggleClass("active");
+  primaryOverlay.toggle();
+};
+
+$primaryNavAction.on('click', onClick);
+primaryOverlay.setClick(function () {
+  $primarySideNav.toggleClass("active");
+});
+
+// Create the panel Navigation
+var panelNav = new _PanelNavigation2.default('#nav', onClick);
+panelNav.init();
+
+var PrimaryNavigation = function PrimaryNavigation() {
+  _classCallCheck(this, PrimaryNavigation);
+};
+
+exports.default = PrimaryNavigation;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var counter = 1;
+
+var Overlay = function () {
+  function Overlay() {
+    var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'body';
+
+    _classCallCheck(this, Overlay);
+
+    this.container = container;
+    this.$overlay = (0, _jQuery2.default)('<div/>', {
+      id: 'overlay' + counter,
+      class: 'overlay'
+    });
+    this.$overlay.appendTo(this.container);
+    counter++;
+  }
+
+  _createClass(Overlay, [{
+    key: 'setClick',
+    value: function setClick() {
+      var _this = this;
+
+      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+
+      this.$overlay.on('click', function () {
+        fn();
+        _this.toggle();
+      });
+    }
+  }, {
+    key: 'toggle',
+    value: function toggle() {
+      this.$overlay.toggleClass("active");
+    }
+  }, {
+    key: 'show',
+    value: function show() {
+      this.$overlay.addClass('active');
+    }
+  }, {
+    key: 'hide',
+    value: function hide() {
+      this.$overlay.removeClass('active');
+    }
+  }, {
+    key: 'remove',
+    value: function remove() {
+      this.$overlay.remove();
+    }
+  }]);
+
+  return Overlay;
+}();
+
+exports.default = Overlay;
 
 /***/ })
 /******/ ]);

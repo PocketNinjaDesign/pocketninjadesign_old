@@ -12,5 +12,14 @@
   .section-content {
     @include clearfix;
     padding-left: 50px;
+
+    .section-item {
+      margin-bottom: 50px;
+
+      .section-item-title {
+        color: $swatch7;
+        margin-bottom: 40px;
+      }
+    }
   }
 }
