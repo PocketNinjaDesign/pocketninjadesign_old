@@ -11,14 +11,6 @@
 
   .section-content {
     @include clearfix;
-    
-    .col-left {
-      float: left;
-      width: 30%;
-    }
-    .col-right {
-      float: left;
-      width: 70%;
-    }
+    padding-left: 50px;
   }
 }

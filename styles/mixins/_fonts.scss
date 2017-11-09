@@ -6,6 +6,11 @@
   color: $swatch6;
 }
 
+@mixin logoFont {
+  font-family: $logoFont;
+  font-weight: 400;
+}
+
 @mixin size1 {
   font-family: $headerFont;
   font-size: 50px;
@@ -28,7 +33,7 @@
   font-family: $headerFont;
   font-size: 34px;
   font-weight: 500;
-  color: $swatch5;
+  color: $swatch4;
   line-height: 1;
   margin-bottom: 14px;
 }
@@ -46,7 +51,7 @@
   font-family: $headerFont;
   font-size: 18px;
   font-weight: 500;
-  color: $swatch4;
+  color: $swatch5;
   line-height: 1;
   margin-bottom: 40px;
 }

@@ -19,8 +19,7 @@
     top: -0.625em;
   }
   span {
-    font-family: $logoFont;
-    font-weight: 400;
+    @include logoFont;
     font-size: 1.6em;
   }
   .logotext-pocket {

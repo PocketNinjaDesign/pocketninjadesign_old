@@ -10,6 +10,53 @@ html {
   to {
     transform: rotate(360deg); } }
 
+.t-uppercase {
+  text-transform: uppercase; }
+
+.font-logo {
+  font-family: "Fredoka One", cursive;
+  font-weight: 400; }
+
+.font-size1 {
+  font-family: "dosis", sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  color: #3a3b3a;
+  line-height: 1;
+  margin-bottom: 20px; }
+
+.font-size2 {
+  font-family: "dosis", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #d91f2d;
+  line-height: 1;
+  margin-bottom: 18px; }
+
+.font-size3 {
+  font-family: "dosis", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  color: #841619;
+  line-height: 1;
+  margin-bottom: 14px; }
+
+.font-size4 {
+  font-family: "dosis", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #841619;
+  line-height: 1;
+  margin-bottom: 12px; }
+
+.font-size5 {
+  font-family: "dosis", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #d91f2d;
+  line-height: 1;
+  margin-bottom: 40px; }
+
 * {
   box-sizing: border-box; }
 
@@ -85,7 +132,7 @@ h3 {
   font-family: "dosis", sans-serif;
   font-size: 34px;
   font-weight: 500;
-  color: #d91f2d;
+  color: #841619;
   line-height: 1;
   margin-bottom: 14px; }
 
@@ -101,7 +148,7 @@ h5 {
   font-family: "dosis", sans-serif;
   font-size: 18px;
   font-weight: 500;
-  color: #841619;
+  color: #d91f2d;
   line-height: 1;
   margin-bottom: 40px; }
 
@@ -160,43 +207,48 @@ h5 {
     color: #cfd0d2; }
 
 .swatch {
+  position: relative;
   float: left;
   margin: 0 40px 40px 0;
   width: 150px;
   height: 150px;
-  border: 20px solid #fff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
-  .swatch.colour1 {
+  background: #fff;
+  box-shadow: 0 10px 14px rgba(0, 0, 0, 0.07); }
+  .swatch:after {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    content: "";
+    display: block; }
+  .swatch.colour1:after {
     background: #0b0b0b; }
-  .swatch.colour2 {
+  .swatch.colour2:after {
     background: #1b1c1c; }
-  .swatch.colour3 {
+  .swatch.colour3:after {
     background: #3a3b3a; }
-  .swatch.colour4 {
+  .swatch.colour4:after {
     background: #841619; }
-  .swatch.colour5 {
+  .swatch.colour5:after {
     background: #d91f2d; }
-  .swatch.colour6 {
+  .swatch.colour6:after {
     background: #cfd0d2; }
-  .swatch.colour7 {
+  .swatch.colour7:after {
     background: #8a8a8a; }
-  .swatch.colour8 {
+  .swatch.colour8:after {
     background: rgba(207, 208, 210, 0.25); }
 
 .section {
   padding: 20px;
   border-top: 1px solid rgba(207, 208, 210, 0.25);
   margin-bottom: 30px; }
-  .section .section-content::after {
-    clear: both;
-    content: "";
-    display: block; }
-  .section .section-content .col-left {
-    float: left;
-    width: 30%; }
-  .section .section-content .col-right {
-    float: left;
-    width: 70%; }
+  .section .section-content {
+    padding-left: 50px; }
+    .section .section-content::after {
+      clear: both;
+      content: "";
+      display: block; }
 
 .swatch-container::after {
   clear: both;
@@ -256,7 +308,7 @@ h5 {
     font-family: "dosis", sans-serif;
     font-size: 34px;
     font-weight: 500;
-    color: #d91f2d;
+    color: #841619;
     line-height: 1;
     margin-bottom: 14px;
     font-size: 18px;
@@ -311,6 +363,24 @@ h5 {
     text-align: left; }
     .panel.typography .site-width .header-mini {
       padding: 40px 20px; }
+    .panel.typography .site-width .font-block {
+      display: table;
+      color: #cfd0d2;
+      margin-bottom: 50px; }
+      .panel.typography .site-width .font-block .font-large {
+        display: table-cell;
+        font-size: 100px;
+        vertical-align: middle;
+        width: 160px; }
+      .panel.typography .site-width .font-block .font-detail {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 40px; }
+        .panel.typography .site-width .font-block .font-detail .font-name {
+          color: #3a3b3a;
+          display: block;
+          font-size: 20px;
+          padding-top: 20px; }
 
 .anim-wrapper {
   top: 50%;
