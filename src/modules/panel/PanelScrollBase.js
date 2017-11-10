@@ -5,7 +5,7 @@ import PanelScroll from './PanelScroll';
  * for the base of the site
  *
  */
-let BasePanel = new PanelScroll();
-BasePanel.init();
+let PanelScrollBase = new PanelScroll();
+PanelScrollBase.init();
 
-export default BasePanel;
+export default PanelScrollBase;

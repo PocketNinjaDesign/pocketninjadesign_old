@@ -8,7 +8,7 @@ gulp.task('compile', function() {
     ,'./templates/about.html'
     ,'./templates/home.html'
     ,'./templates/portfolio.html'
-    ,'./templates/typography.html'
+    ,'./templates/styleguide.html'
     ,'./templates/contact.html'
     ,'./templates/experiments.html'
   ])

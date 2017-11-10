@@ -2,8 +2,9 @@ import globals from '../globals';
 import $ from 'jQuery';
 import Axios from 'axios';
 
-import PanelService from './Panel.service';
 import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
+import PanelBase from '../panels/PanelBase';
+import PanelService from './Panel.service';
 
 export default {
 
@@ -49,6 +50,11 @@ export default {
           .appendTo($pagePanel);
 
         $temp.remove();
+
+        // Initialise the page script if the function exists
+        if(PanelBase[PANEL_NAME].init) {
+          PanelBase[PANEL_NAME].init();
+        }
 
         // Set the loaded state of the panel
         PanelService.setPanelLoadedState(PANEL_NAME, true);

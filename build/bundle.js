@@ -10783,25 +10783,9 @@ var _LoadPageContent = __webpack_require__(13);
 
 var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
 
-var _PanelLanding = __webpack_require__(39);
+var _PanelBase = __webpack_require__(52);
 
-var _PanelLanding2 = _interopRequireDefault(_PanelLanding);
-
-var _PanelAbout = __webpack_require__(40);
-
-var _PanelAbout2 = _interopRequireDefault(_PanelAbout);
-
-var _PanelHome = __webpack_require__(41);
-
-var _PanelHome2 = _interopRequireDefault(_PanelHome);
-
-var _PanelPortfolio = __webpack_require__(42);
-
-var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
-
-var _PanelStyleguide = __webpack_require__(46);
-
-var _PanelStyleguide2 = _interopRequireDefault(_PanelStyleguide);
+var _PanelBase2 = _interopRequireDefault(_PanelBase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10816,22 +10800,8 @@ var css = __webpack_require__(37);
 // Panels
 
 
-// Quick Hammer test
-// Will be using this on my carousel but also
-// on anything really whacky :-D Will
-// remove this block very soon
-var panel = document.getElementById('panelLanding');
-var test = new _Hammerjs2.default(panel);
-
-test.on('swipe', function (e) {
-  console.log('You swiped me');
-  console.log(e);
-});
-
 (0, _jQuery2.default)(function () {
-  // Create the landingpage script
-  var LandingPage = new _PanelLanding2.default();
-  LandingPage.init();
+  _PanelBase2.default.landing.init();
 });
 
 /***/ }),
@@ -10889,13 +10859,17 @@ var _axios = __webpack_require__(15);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Panel = __webpack_require__(34);
-
-var _Panel2 = _interopRequireDefault(_Panel);
-
 var _LoaderAnim = __webpack_require__(35);
 
 var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
+
+var _PanelBase = __webpack_require__(52);
+
+var _PanelBase2 = _interopRequireDefault(_PanelBase);
+
+var _Panel = __webpack_require__(34);
+
+var _Panel2 = _interopRequireDefault(_Panel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10937,6 +10911,11 @@ exports.default = {
         $wrapper.append($temp.find('#content').html()).appendTo($pagePanel);
 
         $temp.remove();
+
+        // Initialise the page script if the function exists
+        if (_PanelBase2.default[PANEL_NAME].init) {
+          _PanelBase2.default[PANEL_NAME].init();
+        }
 
         // Set the loaded state of the panel
         _Panel2.default.setPanelLoadedState(PANEL_NAME, true);
@@ -12371,10 +12350,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * for the base of the site
  *
  */
-var BasePanel = new _PanelScroll2.default();
-BasePanel.init();
+var PanelScrollBase = new _PanelScroll2.default();
+PanelScrollBase.init();
 
-exports.default = BasePanel;
+exports.default = PanelScrollBase;
 
 /***/ }),
 /* 46 */
@@ -12387,6 +12366,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _jQuery = __webpack_require__(1);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
@@ -12394,6 +12375,10 @@ var _jQuery2 = _interopRequireDefault(_jQuery);
 var _Panel2 = __webpack_require__(47);
 
 var _Panel3 = _interopRequireDefault(_Panel2);
+
+var _BoxEnlarger = __webpack_require__(53);
+
+var _BoxEnlarger2 = _interopRequireDefault(_BoxEnlarger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12411,9 +12396,18 @@ var PanelStyleguide = function (_Panel) {
 
     var _this = _possibleConstructorReturn(this, (PanelStyleguide.__proto__ || Object.getPrototypeOf(PanelStyleguide)).call(this));
 
+    _this.boxEnlargerBatch;
     _this.$base = (0, _jQuery2.default)('#panelStyleguide');
     return _this;
   }
+
+  _createClass(PanelStyleguide, [{
+    key: 'init',
+    value: function init() {
+      this.boxEnlargerBatch = new _BoxEnlarger2.default(this.$base, '.swatch');
+      this.boxEnlargerBatch.init();
+    }
+  }]);
 
   return PanelStyleguide;
 }(_Panel3.default);
@@ -15207,6 +15201,112 @@ var Overlay = function () {
 }();
 
 exports.default = Overlay;
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _PanelLanding = __webpack_require__(39);
+
+var _PanelLanding2 = _interopRequireDefault(_PanelLanding);
+
+var _PanelAbout = __webpack_require__(40);
+
+var _PanelAbout2 = _interopRequireDefault(_PanelAbout);
+
+var _PanelHome = __webpack_require__(41);
+
+var _PanelHome2 = _interopRequireDefault(_PanelHome);
+
+var _PanelPortfolio = __webpack_require__(42);
+
+var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
+
+var _PanelStyleguide = __webpack_require__(46);
+
+var _PanelStyleguide2 = _interopRequireDefault(_PanelStyleguide);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PanelBase = {
+  landing: new _PanelLanding2.default(),
+  about: new _PanelAbout2.default(),
+  home: new _PanelHome2.default(),
+  portfolio: new _PanelPortfolio2.default(),
+  styleguide: new _PanelStyleguide2.default(),
+  contact: new _PanelStyleguide2.default(),
+  experiments: new _PanelStyleguide2.default()
+}; /*
+    * All Panel scripts loaded and singletons generated in an object
+    * ready to be initialised at any time
+    *
+    */
+exports.default = PanelBase;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(1);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var boxEnlargerName = 'box-enlarger';
+
+/**
+ * BoxEnlarger
+ * Desc: For making any container you click on suddenly
+ * enlarge to fit the screen like a popup
+ *
+ */
+
+var BoxEnlarger = function () {
+  function BoxEnlarger() {
+    var $base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _jQuery2.default)('body');
+    var targetString = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '[data-' + boxEnlargerName + ']';
+
+    _classCallCheck(this, BoxEnlarger);
+
+    this.$base = $base;
+    this.targetString = targetString;
+  }
+
+  _createClass(BoxEnlarger, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+      this.$base.find(this.targetString).each(function (index, element) {
+        var $e = (0, _jQuery2.default)(element);
+        //console.log($e.offset());
+      });
+    }
+  }]);
+
+  return BoxEnlarger;
+}();
+
+exports.default = BoxEnlarger;
 
 /***/ })
 /******/ ]);

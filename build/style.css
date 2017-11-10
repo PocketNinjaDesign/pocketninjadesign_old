@@ -268,22 +268,54 @@ h5 {
   height: 100%;
   width: 0;
   background: #841619;
-  transition: width 200ms;
+  transition: width 400ms;
   transition-timing-function: ease-out; }
   .navigation.active {
     width: 50%; }
+    .navigation.active .nav-action {
+      background-color: #d91f2d; }
+      .navigation.active .nav-action .band.top {
+        transform: rotate(-30deg);
+        top: 15px;
+        left: 8px; }
+      .navigation.active .nav-action .band.middle {
+        width: 0; }
+      .navigation.active .nav-action .band.bottom {
+        transform: rotate(30deg);
+        top: 29px;
+        left: 8px; }
   .navigation .nav-action {
-    position: absolute;
+    position: fixed;
     top: 20px;
-    right: -70px;
+    left: 20px;
+    z-index: 10;
     width: 50px;
     height: 50px;
-    background: #fc0;
-    cursor: pointer; }
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 300ms; }
+    .navigation .nav-action:hover {
+      background-color: black; }
+    .navigation .nav-action .band {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      width: 30px;
+      height: 5px;
+      background: #fff;
+      border-radius: 5px;
+      transform: rotate(0deg);
+      transition: transform 200ms, width 200ms, top 200ms, left 200ms; }
+      .navigation .nav-action .band.middle {
+        top: 22px; }
+      .navigation .nav-action .band.bottom {
+        top: 32px; }
   .navigation .nav-wrapper {
     position: relative;
     top: 0;
     left: 0;
+    z-index: 5;
     overflow: hidden;
     width: 100%;
     height: 100%; }
@@ -305,10 +337,12 @@ h5 {
         font-size: 50px;
         line-height: 50px;
         cursor: pointer;
-        transition: color 200ms; }
+        padding-right: 0;
+        transition: color 200ms, padding-right 200ms; }
         .navigation .nav-wrapper .nav-options .nav:hover {
           color: #fff;
-          text-decoration: none; }
+          text-decoration: none;
+          padding-right: 20px; }
 
 /*
  * Font Block
@@ -342,7 +376,7 @@ h5 {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 1000;
   display: none;
   cursor: pointer; }
@@ -426,11 +460,11 @@ h5 {
     background: url("/styles/images/ninja-small-bonsai.png") no-repeat center center;
     background-size: contain; }
 
-.panel.typography {
+.panel.styleguide {
   background: #fff; }
-  .panel.typography .site-width {
+  .panel.styleguide .site-width {
     text-align: left; }
-    .panel.typography .site-width .header-mini {
+    .panel.styleguide .site-width .header-mini {
       padding: 40px 20px; }
 
 .anim-wrapper {

@@ -8,7 +8,11 @@
   </head>
   <body>
     <div class="navigation" id="primarySideNav">
-      <div class="nav-action" id="primaryNavAction"></div>
+      <div class="nav-action" id="primaryNavAction">
+        <div class="band top"></div>
+        <div class="band middle"></div>
+        <div class="band bottom"></div>
+      </div>
       <div class="nav-wrapper">
         {% include "common/navigation.html" with { "id": "nav" } %}
       </div>
@@ -45,7 +49,7 @@
         </div>
       </div>
       
-      <div id="panelTypography" class="panel typography" data-panel='{"name": "typography", "top": 75, "left": 15}'>
+      <div id="panelStyleguide" class="panel styleguide" data-panel='{"name": "styleguide", "top": 75, "left": 15}'>
         <div class="content">
         </div>
       </div>
