@@ -1,6 +1,15 @@
 import $ from 'jQuery';
 
 const boxEnlargerName = 'box-enlarger';
+const $boxOverlay = $('<div/>', {
+  class: "box-enlarger-overlay"
+});
+
+$boxOverlay.on('click', () => {
+  $boxOverlay.removeClass('box-overlay-active').html('');
+});
+
+$boxOverlay.appendTo('body');
 
 /**
  * BoxEnlarger
@@ -18,7 +27,23 @@ class BoxEnlarger {
     let root = this;
     this.$base.find(this.targetString).each(function(index, element) {
       let $e = $(element);
-      //console.log($e.offset());
+      let $clone = $e.clone();
+
+      $e.on('click', () => {
+        let offset = $e.offset();
+        let box = {
+          width: $clone.innerWidth(),
+          height: $clone.innerHeight()
+        };
+        box = $.extend({}, offset, box, {
+          bottom: offset.top + box.height,
+          right: offset.left + box.width,
+          margin: 0
+        });
+
+        $boxOverlay.addClass('box-overlay-active');
+        $boxOverlay.append($clone.css(box).addClass('clone-item')); 
+      });
     });
   }
 }

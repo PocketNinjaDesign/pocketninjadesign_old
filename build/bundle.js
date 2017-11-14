@@ -15273,6 +15273,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var boxEnlargerName = 'box-enlarger';
+var $boxOverlay = (0, _jQuery2.default)('<div/>', {
+  class: "box-enlarger-overlay"
+});
+
+$boxOverlay.on('click', function () {
+  $boxOverlay.removeClass('box-overlay-active').html('');
+});
+
+$boxOverlay.appendTo('body');
 
 /**
  * BoxEnlarger
@@ -15298,7 +15307,23 @@ var BoxEnlarger = function () {
       var root = this;
       this.$base.find(this.targetString).each(function (index, element) {
         var $e = (0, _jQuery2.default)(element);
-        //console.log($e.offset());
+        var $clone = $e.clone();
+
+        $e.on('click', function () {
+          var offset = $e.offset();
+          var box = {
+            width: $clone.innerWidth(),
+            height: $clone.innerHeight()
+          };
+          box = _jQuery2.default.extend({}, offset, box, {
+            bottom: offset.top + box.height,
+            right: offset.left + box.width,
+            margin: 0
+          });
+
+          $boxOverlay.addClass('box-overlay-active');
+          $boxOverlay.append($clone.css(box).addClass('clone-item'));
+        });
       });
     }
   }]);

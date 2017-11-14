@@ -1,0 +1,22 @@
+
+.panel.about {
+  background: #fff;
+
+  .site-width {
+    text-align: left;
+  }
+
+  .job-block {
+    margin-bottom: 30px;
+    @include clearfix;
+
+    .left-col {
+      float: left;
+      width: 40%;
+    }
+    .right-col {
+      float: left;
+      width: 60%;
+    }
+  }
+}

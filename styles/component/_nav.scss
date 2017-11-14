@@ -4,13 +4,19 @@
   height: 100%;
   width: 0;
   background: $swatch4;
-
   transition: width 400ms;
   transition-timing-function: ease-out;
 
-
   &.active {
-    width: 50%;
+    width: 90%;
+
+    @media screen and (min-width: 440px) {
+      width: 80%;
+    }
+
+    @media screen and (min-width: 710px) {
+      width: 50%;
+    }
 
     .nav-action {
       background-color: $swatch5;
@@ -28,6 +34,14 @@
           transform: rotate(30deg);
           top: 29px;
           left: 8px;
+        }
+      }
+    }
+
+    .nav-wrapper {
+      .nav-options {
+        .nav {
+          color: $swatch5;
         }
       }
     }
@@ -83,30 +97,27 @@
         width: 100%;
         text-align: right;
         @include size1;
-        color: $swatch5;
+        color: $swatch4;
         white-space: nowrap;
         text-transform: uppercase;
         display: block;
-        font-size: 50px;
-        line-height: 50px;
+        font-size: 40px;
+        line-height: 40px;
         cursor: pointer;
         padding-right: 0;
 
         transition: color 200ms, padding-right 200ms;
 
+        @media screen and (min-width: 384px) {
+          font-size: 50px;
+          line-height: 50px;
+        }
+
+
         &:hover {
           color: #fff;
           text-decoration: none;
           padding-right: 20px;
-        }
-    
-        &-home {
-        }
-    
-        &-about {
-        }
-    
-        &-portfolio {
         }
       }
     }

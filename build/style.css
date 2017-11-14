@@ -84,7 +84,8 @@ body {
   background: #0b0b0b;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 200;
-  color: #cfd0d2; }
+  color: #cfd0d2;
+  line-height: 1.4; }
 
 /*
  * Anchors
@@ -151,6 +152,9 @@ h5 {
   color: #841619;
   line-height: 1;
   margin-bottom: 40px; }
+
+ul li {
+  margin: 0 0 5px 0; }
 
 .panel-base {
   position: fixed;
@@ -239,6 +243,9 @@ h5 {
   .swatch.colour8:after {
     background: rgba(207, 208, 210, 0.25); }
 
+section.block {
+  margin-bottom: 50px; }
+
 .section {
   padding: 20px;
   border-top: 1px solid rgba(207, 208, 210, 0.25);
@@ -271,7 +278,13 @@ h5 {
   transition: width 400ms;
   transition-timing-function: ease-out; }
   .navigation.active {
-    width: 50%; }
+    width: 90%; }
+    @media screen and (min-width: 440px) {
+      .navigation.active {
+        width: 80%; } }
+    @media screen and (min-width: 710px) {
+      .navigation.active {
+        width: 50%; } }
     .navigation.active .nav-action {
       background-color: #d91f2d; }
       .navigation.active .nav-action .band.top {
@@ -284,6 +297,8 @@ h5 {
         transform: rotate(30deg);
         top: 29px;
         left: 8px; }
+    .navigation.active .nav-wrapper .nav-options .nav {
+      color: #d91f2d; }
   .navigation .nav-action {
     position: fixed;
     top: 20px;
@@ -330,15 +345,19 @@ h5 {
         color: #3a3b3a;
         line-height: 1;
         margin-bottom: 20px;
-        color: #d91f2d;
+        color: #841619;
         white-space: nowrap;
         text-transform: uppercase;
         display: block;
-        font-size: 50px;
-        line-height: 50px;
+        font-size: 40px;
+        line-height: 40px;
         cursor: pointer;
         padding-right: 0;
         transition: color 200ms, padding-right 200ms; }
+        @media screen and (min-width: 384px) {
+          .navigation .nav-wrapper .nav-options .nav {
+            font-size: 50px;
+            line-height: 50px; } }
         .navigation .nav-wrapper .nav-options .nav:hover {
           color: #fff;
           text-decoration: none;
@@ -467,6 +486,23 @@ h5 {
     .panel.styleguide .site-width .header-mini {
       padding: 40px 20px; }
 
+.panel.about {
+  background: #fff; }
+  .panel.about .site-width {
+    text-align: left; }
+  .panel.about .job-block {
+    margin-bottom: 30px; }
+    .panel.about .job-block::after {
+      clear: both;
+      content: "";
+      display: block; }
+    .panel.about .job-block .left-col {
+      float: left;
+      width: 40%; }
+    .panel.about .job-block .right-col {
+      float: left;
+      width: 60%; }
+
 .anim-wrapper {
   top: 50%;
   left: 50%;
@@ -481,3 +517,28 @@ h5 {
     width: 100px;
     height: 100px;
     animation: rotateLoop linear 900ms infinite; }
+
+.box-enlarger-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color 1000ms; }
+  .box-enlarger-overlay.box-overlay-active {
+    background-color: rgba(0, 0, 0, 0.9);
+    right: 0;
+    bottom: 0; }
+    .box-enlarger-overlay.box-overlay-active .clone-item {
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      width: auto;
+      height: auto; }
+  .box-enlarger-overlay .clone-item {
+    position: absolute;
+    right: auto;
+    bottom: 0;
+    transition: all 1000ms;
+    margin: 0; }
