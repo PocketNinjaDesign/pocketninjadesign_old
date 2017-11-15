@@ -1,0 +1,12 @@
+.header-large {
+  position: relative;
+  background: $swatch1;
+  padding: 48px 0 0 0;
+  text-align: center;
+
+  .logo {
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 70px;
+  }
+}

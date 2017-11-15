@@ -8,6 +8,8 @@ import PanelAboutPage from './PanelAbout';
 import PanelHomePage from './PanelHome';
 import PanelPortfolioPage from './PanelPortfolio';
 import PanelStyleguidePage from './PanelStyleguide';
+import PanelContactPage from './PanelContact';
+import PanelExperimentPage from './PanelExperiments';
 
 let PanelBase = {
   landing: new PanelLandingPage(),
@@ -15,8 +17,8 @@ let PanelBase = {
   home: new PanelHomePage(),
   portfolio: new PanelPortfolioPage(),
   styleguide: new PanelStyleguidePage(),
-  contact: new PanelStyleguidePage(),
-  experiments: new PanelStyleguidePage()
+  contact: new PanelContactPage(),
+  experiments: new PanelExperimentPage()
 };
 
 export default PanelBase;

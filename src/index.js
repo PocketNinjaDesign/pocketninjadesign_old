@@ -1,7 +1,6 @@
 const css = require('../styles/primary.scss');
 
 import $ from 'jQuery';
-import Hammer from 'Hammerjs';
 import globals from './globals';
 
 // Modules

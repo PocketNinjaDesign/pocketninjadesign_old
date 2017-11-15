@@ -267,6 +267,42 @@ section.block {
   content: "";
   display: block; }
 
+/*
+ * Font Block
+ *
+ * Description
+ * for displaying Aa, the alphabet upper and lower and all numbers
+ *
+ */
+.font-block {
+  display: table;
+  color: #cfd0d2;
+  margin-bottom: 50px; }
+  .font-block .font-large {
+    display: table-cell;
+    font-size: 100px;
+    vertical-align: middle;
+    width: 160px; }
+  .font-block .font-detail {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 40px; }
+    .font-block .font-detail .font-name {
+      color: #cfd0d2;
+      display: block;
+      font-size: 20px;
+      padding-top: 20px; }
+
+.header-large {
+  position: relative;
+  background: #0b0b0b;
+  padding: 48px 0 0 0;
+  text-align: center; }
+  .header-large .logo {
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 70px; }
+
 .navigation {
   position: fixed;
   top: 0;
@@ -363,32 +399,6 @@ section.block {
           text-decoration: none;
           padding-right: 20px; }
 
-/*
- * Font Block
- *
- * Description
- * for displaying Aa, the alphabet upper and lower and all numbers
- *
- */
-.font-block {
-  display: table;
-  color: #cfd0d2;
-  margin-bottom: 50px; }
-  .font-block .font-large {
-    display: table-cell;
-    font-size: 100px;
-    vertical-align: middle;
-    width: 160px; }
-  .font-block .font-detail {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 40px; }
-    .font-block .font-detail .font-name {
-      color: #cfd0d2;
-      display: block;
-      font-size: 20px;
-      padding-top: 20px; }
-
 .overlay {
   position: absolute;
   top: 0;
@@ -407,25 +417,16 @@ section.block {
   top: 0;
   left: 0;
   z-index: 1000; }
-  .panel.landing .landing-header {
-    position: relative;
-    background: #0b0b0b;
-    padding: 48px 0 0 0;
-    text-align: center; }
-    .panel.landing .landing-header .logo {
-      font-size: 13px;
-      display: inline-block;
-      margin-bottom: 70px; }
-    .panel.landing .landing-header h1 {
-      font-size: 30px;
-      padding-bottom: 4px;
-      transition: font-size 150ms; }
-      @media screen and (min-width: 500px) {
-        .panel.landing .landing-header h1 {
-          font-size: 40px; } }
-      @media screen and (min-width: 900px) {
-        .panel.landing .landing-header h1 {
-          font-size: 50px; } }
+  .panel.landing .header-large h1 {
+    font-size: 30px;
+    padding-bottom: 4px;
+    transition: font-size 150ms; }
+    @media screen and (min-width: 500px) {
+      .panel.landing .header-large h1 {
+        font-size: 40px; } }
+    @media screen and (min-width: 900px) {
+      .panel.landing .header-large h1 {
+        font-size: 50px; } }
   .panel.landing .content h2 {
     font-family: "dosis", sans-serif;
     font-size: 34px;
