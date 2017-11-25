@@ -1,6 +1,6 @@
 
-@import "../node_modules/bourbon/app/assets/stylesheets/bourbon";
-@import "../node_modules/bourbon-neat/app/assets/stylesheets/neat";
+@import "bourbon/bourbon";
+@import "neat/neat";
 
 @import "animations";
 @import "vars";
@@ -11,56 +11,3 @@
 @import "organisms";
 @import "component";
 @import "pages";
-
-.anim-wrapper {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  &-absolute {
-    position: absolute;
-  }
-
-  &-fixed {
-    position: fixed;
-  }
-
-  .anim-default {
-    background: #fc0;
-    border-radius: 20px;
-    width: 100px;
-    height: 100px;
-    animation: rotateLoop linear 900ms infinite;
-  }
-}
-
-
-.box-enlarger-overlay {
-  @include position(fixed, 0 null null 0);
-  z-index: 1000;
-  background-color: rgba(#000, 0);
-  transition: background-color 1000ms;
-
-  &.box-overlay-active {
-    background-color: rgba(#000, 0.9);
-    right: 0;
-    bottom: 0;
-
-    .clone-item {
-      top: 0 !important;
-      left: 0 !important;
-      bottom: 0 !important;
-      right: 0 !important;
-      width: auto;
-      height: auto;
-    }
-  }
-
-  .clone-item {
-    position: absolute;
-    right: auto;
-    bottom: 0;
-    transition: all 1000ms;
-    margin: 0;
-  }
-}

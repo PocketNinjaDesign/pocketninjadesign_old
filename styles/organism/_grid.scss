@@ -1,0 +1,31 @@
+
+.grid {
+
+  &.grid-small {
+    .grid-item {
+      margin-bottom: 20px;
+
+      $custom-large-grid: (
+        columns: 12,
+        gutter: 20px,
+        media: 1000px,
+      );
+
+      $custom-small-grid: (
+        columns: 12,
+        gutter: 20px,
+        media: 450px,
+      );
+
+      @include grid-column(4);
+
+      @include grid-media($custom-small-grid) {
+        @include grid-column(2);
+      }
+
+      @include grid-media($custom-large-grid) {
+        @include grid-column(1);
+      }
+    }
+  }
+}
