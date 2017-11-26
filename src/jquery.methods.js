@@ -20,8 +20,13 @@ let Methods = {
       heightPercentage: box.height / window.height,
     };
 
+    // console.log(boxPercentage);
+    // console.log('width', boxPercentage.widthPercentage);
+    // console.log('height', boxPercentage.heightPercentage);
+    // console.log('width % less than height', boxPercentage.widthPercentage < boxPercentage.heightPercentage);
+
     return $.extend({}, boxPercentage, {
-      axis: (boxPercentage.width < boxPercentage.height) ? 'width' : 'height'
+      axis: (boxPercentage.widthPercentage > boxPercentage.heightPercentage) ? 'width' : 'height'
     });
   },
 
@@ -35,7 +40,8 @@ let Methods = {
     }
     else {
       return $('<div/>', {
-        class: $e.attr('class')
+        class: $e.attr('class'),
+        style: $e.attr('style')
       }).append($e.children().clone());
     }
   },

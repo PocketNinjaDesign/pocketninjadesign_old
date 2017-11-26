@@ -10,7 +10,10 @@ class PanelPortfolio extends Panel {
   }
 
   init() {
-    this.boxEnlargerBatch = new boxEnlarger(this.$base, '.portfolio-swatch', false);
+    this.boxEnlargerBatch = new boxEnlarger({
+      base: this.$base,
+      targetString: '.portfolio-swatch',
+    });
     this.boxEnlargerBatch.init();
   }
 }

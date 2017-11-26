@@ -11102,10 +11102,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var boxEnlargerName = 'box-enlarger';
+var BOX_ENLARGER_NAME = 'box-enlarger';
 var $boxOverlay = (0, _jQuery2.default)('<div/>', {
   class: "box-enlarger-overlay"
 });
+var $defaultSettings = {
+  base: (0, _jQuery2.default)('body'),
+  targetString: 'data-' + BOX_ENLARGER_NAME,
+  clone: false,
+  screenPercentage: 0.7
+};
 
 $boxOverlay.appendTo('body');
 
@@ -11117,16 +11123,10 @@ $boxOverlay.appendTo('body');
  */
 
 var BoxEnlarger = function () {
-  function BoxEnlarger() {
-    var $base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _jQuery2.default)('body');
-    var targetString = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '[data-' + boxEnlargerName + ']';
-    var clone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
+  function BoxEnlarger(newOptions) {
     _classCallCheck(this, BoxEnlarger);
 
-    this.$base = $base;
-    this.targetString = targetString;
-    this.clone = clone;
+    this.options = _jQuery2.default.extend({}, $defaultSettings, newOptions);
   }
 
   _createClass(BoxEnlarger, [{
@@ -11134,16 +11134,12 @@ var BoxEnlarger = function () {
     value: function init() {
       var root = this;
 
-      this.$base.find(this.targetString).each(function (index, element) {
-        var _this = this;
-
+      this.options.base.find(this.options.targetString).each(function (index, element) {
         var $e = (0, _jQuery2.default)(element);
 
         $e.on('click', function () {
           var box = _jquery2.default.getBoxOffsetFull($e);
-          var $clone = _jquery2.default.makeClone($e, _this.clone);
-
-          var windowBox = _jquery2.default.getBoxWindow();
+          var $clone = _jquery2.default.makeClone($e, root.options.clone);
           var resizeTimeout = void 0;
 
           var setNewSizeAndPosition = function setNewSizeAndPosition() {
@@ -11151,22 +11147,23 @@ var BoxEnlarger = function () {
                 newWidth = void 0,
                 newHeight = void 0,
                 newXPos = void 0,
-                newYPos = void 0;
+                newYPos = void 0,
+                windowBox = void 0;
+            windowBox = _jquery2.default.getBoxWindow();
 
             boxPercentage = _jquery2.default.getBoxLongestAxisPercentage(box, windowBox);
 
             if (boxPercentage.axis === 'width') {
-              newWidth = windowBox.width * .7;
+              newWidth = windowBox.width * root.options.screenPercentage;
               newHeight = box.height / box.width * newWidth;
-              newXPos = windowBox.width / 2 - newWidth / 2;
-              newYPos = windowBox.height / 2 - newHeight / 2;
             } else {
               // Height
-              newHeight = windowBox.height * .7;
+              newHeight = windowBox.height * root.options.screenPercentage;
               newWidth = box.width / box.height * newHeight;
-              newXPos = windowBox.width / 2 - newWidth / 2;
-              newYPos = windowBox.height / 2 - newHeight / 2;
             }
+
+            newXPos = windowBox.width / 2 - newWidth / 2;
+            newYPos = windowBox.height / 2 - newHeight / 2;
 
             $clone.css({
               width: newWidth,
@@ -11181,19 +11178,21 @@ var BoxEnlarger = function () {
             $clone.remove();
             $boxOverlay.removeClass('box-overlay-active').html('');
             $boxOverlay.off('click');
+            (0, _jQuery2.default)(window).off('resize.enlarge');
           });
 
           // On resize change the size of the enlarged
-          (0, _jQuery2.default)(window).on('resize', function () {
-            console.log('resizing');
+          (0, _jQuery2.default)(window).on('resize.enlarge', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(function () {
+              console.log('resize and position activated');
               setNewSizeAndPosition();
             }, 200);
           });
 
+          // Animate the clone to it's new
+          // size and position
           setTimeout(function () {
-            //$clone.addClass('active');
             setNewSizeAndPosition();
           }, 1000);
         });
@@ -12680,7 +12679,10 @@ var PanelPortfolio = function (_Panel) {
   _createClass(PanelPortfolio, [{
     key: 'init',
     value: function init() {
-      this.boxEnlargerBatch = new _BoxEnlarger2.default(this.$base, '.portfolio-swatch', false);
+      this.boxEnlargerBatch = new _BoxEnlarger2.default({
+        base: this.$base,
+        targetString: '.portfolio-swatch'
+      });
       this.boxEnlargerBatch.init();
     }
   }]);
@@ -12725,8 +12727,13 @@ var Methods = {
       heightPercentage: box.height / window.height
     };
 
+    // console.log(boxPercentage);
+    // console.log('width', boxPercentage.widthPercentage);
+    // console.log('height', boxPercentage.heightPercentage);
+    // console.log('width % less than height', boxPercentage.widthPercentage < boxPercentage.heightPercentage);
+
     return _jQuery2.default.extend({}, boxPercentage, {
-      axis: boxPercentage.width < boxPercentage.height ? 'width' : 'height'
+      axis: boxPercentage.widthPercentage > boxPercentage.heightPercentage ? 'width' : 'height'
     });
   },
 
@@ -12739,7 +12746,8 @@ var Methods = {
       return $e.clone();
     } else {
       return (0, _jQuery2.default)('<div/>', {
-        class: $e.attr('class')
+        class: $e.attr('class'),
+        style: $e.attr('style')
       }).append($e.children().clone());
     }
   },
@@ -12828,8 +12836,17 @@ var PanelStyleguide = function (_Panel) {
   _createClass(PanelStyleguide, [{
     key: 'init',
     value: function init() {
-      this.boxEnlargerBatch = new _BoxEnlarger2.default(this.$base, '.swatch');
-      this.boxEnlargerBatch.init();
+      this.boxEnlargerTest1 = new _BoxEnlarger2.default({
+        base: this.$base,
+        targetString: '#EnlargementTest1'
+      });
+      this.boxEnlargerTest1.init();
+
+      this.boxEnlargerTest2 = new _BoxEnlarger2.default({
+        base: this.$base,
+        targetString: '.widget-enlargement-test'
+      });
+      this.boxEnlargerTest2.init();
     }
   }]);
 

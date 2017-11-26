@@ -10,8 +10,17 @@ class PanelStyleguide extends Panel {
   }
 
   init() {
-    this.boxEnlargerBatch = new boxEnlarger(this.$base, '.swatch');
-    this.boxEnlargerBatch.init();
+    this.boxEnlargerTest1 = new boxEnlarger({
+      base: this.$base,
+      targetString: '#EnlargementTest1',
+    });
+    this.boxEnlargerTest1.init();
+
+    this.boxEnlargerTest2 = new boxEnlarger({
+      base: this.$base,
+      targetString: '.widget-enlargement-test',
+    });
+    this.boxEnlargerTest2.init();
   }
 }
 

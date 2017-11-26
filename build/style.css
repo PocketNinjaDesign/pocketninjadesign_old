@@ -568,3 +568,16 @@ section.block {
     text-align: left; }
     .panel.styleguide .site-width .header-mini {
       padding: 40px 20px; }
+
+.widget-enlargement-test {
+  font-family: "dosis", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #d91f2d;
+  line-height: 1;
+  margin-bottom: 18px;
+  color: #8a8a8a;
+  width: 500px;
+  height: 300px;
+  background: #cfd0d2;
+  margin-bottom: 30px; }
