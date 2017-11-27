@@ -11098,22 +11098,43 @@ var _jquery = __webpack_require__(47);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _WidgetManager = __webpack_require__(54);
+
+var _WidgetManager2 = _interopRequireDefault(_WidgetManager);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BOX_ENLARGER_NAME = 'box-enlarger';
-var $boxOverlay = (0, _jQuery2.default)('<div/>', {
+var $BOX_OVERLAY = (0, _jQuery2.default)('<div/>', {
   class: "box-enlarger-overlay"
 });
-var $defaultSettings = {
+var DEFAULT_SETTINGS = {
   base: (0, _jQuery2.default)('body'),
   targetString: 'data-' + BOX_ENLARGER_NAME,
   clone: false,
   screenPercentage: 0.7
 };
 
-$boxOverlay.appendTo('body');
+$BOX_OVERLAY.appendTo('body');
+
+// $.fn.BoxEnlarger_Maker = function() {
+//   for(let i = 0; i < arguments.length; i++) {
+//     this.BoxEnlarger();
+//   }
+//   return this;
+// };
+
+// $.fn.BoxEnlarger = function(group) {
+//   let newBE = new BoxEnlarger();
+//   newBE.init();
+
+//   WidgetManager.addEntry('BoxEnlarger', newBE, group);
+
+//   return this;
+// }
+
 
 /**
  * BoxEnlarger
@@ -11126,7 +11147,7 @@ var BoxEnlarger = function () {
   function BoxEnlarger(newOptions) {
     _classCallCheck(this, BoxEnlarger);
 
-    this.options = _jQuery2.default.extend({}, $defaultSettings, newOptions);
+    this.options = _jQuery2.default.extend({}, DEFAULT_SETTINGS, newOptions);
   }
 
   _createClass(BoxEnlarger, [{
@@ -11174,10 +11195,10 @@ var BoxEnlarger = function () {
           };
 
           // Activate box overlay
-          $boxOverlay.addClass('box-overlay-active').append($clone.css(box).addClass('clone-item')).on('click', function () {
+          $BOX_OVERLAY.addClass('box-overlay-active').append($clone.css(box).addClass('clone-item')).on('click', function () {
             $clone.remove();
-            $boxOverlay.removeClass('box-overlay-active').html('');
-            $boxOverlay.off('click');
+            $BOX_OVERLAY.removeClass('box-overlay-active').html('');
+            $BOX_OVERLAY.off('click');
             (0, _jQuery2.default)(window).off('resize.enlarge');
           });
 
@@ -12684,6 +12705,8 @@ var PanelPortfolio = function (_Panel) {
         targetString: '.portfolio-swatch'
       });
       this.boxEnlargerBatch.init();
+
+      _jQuery2.default.BoxEnlarger('from Portfolio');
     }
   }]);
 
@@ -12984,6 +13007,68 @@ exports.default = PanelExperiments;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */,
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Widget manager
+// Can be used to store any widgets used on the site.
+// YOU CAN
+//  See if they are in use
+//  Apply them to a group name for group control: ie: run remove() to all group name widgets, or addPoint() or whatever.
+//  Overwrite a previous widget with the new one or run only once
+
+var WidgetManager = {
+  counter: function () {
+    var count = 0;
+
+    return function () {
+      return count++;
+    };
+  }(),
+
+  widgets: [
+    // Example entry to widgets
+    // {
+    //   id: 1,
+    //   group: 'default' || 'given-group-name',
+    //   e: $(),
+    //   widgetObj: new WidgetName(),
+    // }
+  ],
+
+  addEntry: function addEntry(groupName, widgetName, $element, WidgetObject) {
+    // Check if element has been written to already and if it allows overwite
+    // Add, Overwrite or do nothing
+    //    Add the entry to widgets if Add
+    //    Remove last id from widgets if Overwrite
+    //    Do nothing if no Overwrite
+    // Store in dom element data(state(Boolean), id(Int), overwrite(boolean))
+
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+  }
+};
+
+exports.default = WidgetManager;
 
 /***/ })
 /******/ ]);

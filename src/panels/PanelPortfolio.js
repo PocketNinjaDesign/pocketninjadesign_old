@@ -15,6 +15,8 @@ class PanelPortfolio extends Panel {
       targetString: '.portfolio-swatch',
     });
     this.boxEnlargerBatch.init();
+
+    $.BoxEnlarger('from Portfolio');
   }
 }
 

@@ -1,18 +1,39 @@
 import $ from 'jQuery';
 import $methods from '../jquery.methods';
+import WidgetManager from '../services/WidgetManager.service';
+
+
 
 const BOX_ENLARGER_NAME = 'box-enlarger';
-const $boxOverlay = $('<div/>', {
+const $BOX_OVERLAY = $('<div/>', {
   class: "box-enlarger-overlay"
 });
-const $defaultSettings = {
+const DEFAULT_SETTINGS = {
   base: $('body'),
   targetString: `data-${BOX_ENLARGER_NAME}`,
   clone: false,
   screenPercentage: 0.7,
 };
 
-$boxOverlay.appendTo('body');
+$BOX_OVERLAY.appendTo('body');
+
+// $.fn.BoxEnlarger_Maker = function() {
+//   for(let i = 0; i < arguments.length; i++) {
+//     this.BoxEnlarger();
+//   }
+//   return this;
+// };
+
+// $.fn.BoxEnlarger = function(group) {
+//   let newBE = new BoxEnlarger();
+//   newBE.init();
+
+//   WidgetManager.addEntry('BoxEnlarger', newBE, group);
+
+//   return this;
+// }
+
+
 
 /**
  * BoxEnlarger
@@ -22,7 +43,7 @@ $boxOverlay.appendTo('body');
  */
 class BoxEnlarger {
   constructor(newOptions) {
-    this.options = $.extend({}, $defaultSettings, newOptions);
+    this.options = $.extend({}, DEFAULT_SETTINGS, newOptions);
   }
 
   init() {
@@ -64,13 +85,13 @@ class BoxEnlarger {
         }
 
         // Activate box overlay
-        $boxOverlay
+        $BOX_OVERLAY
           .addClass('box-overlay-active')
           .append($clone.css(box).addClass('clone-item'))
           .on('click', () => {
             $clone.remove();
-            $boxOverlay.removeClass('box-overlay-active').html('');
-            $boxOverlay.off('click');
+            $BOX_OVERLAY.removeClass('box-overlay-active').html('');
+            $BOX_OVERLAY.off('click');
             $(window).off('resize.enlarge');
           });
 
