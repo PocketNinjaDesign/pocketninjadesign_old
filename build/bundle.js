@@ -11048,15 +11048,15 @@ var _PanelPortfolio = __webpack_require__(46);
 
 var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
 
-var _PanelStyleguide = __webpack_require__(48);
+var _PanelStyleguide = __webpack_require__(49);
 
 var _PanelStyleguide2 = _interopRequireDefault(_PanelStyleguide);
 
-var _PanelContact = __webpack_require__(49);
+var _PanelContact = __webpack_require__(50);
 
 var _PanelContact2 = _interopRequireDefault(_PanelContact);
 
-var _PanelExperiments = __webpack_require__(51);
+var _PanelExperiments = __webpack_require__(52);
 
 var _PanelExperiments2 = _interopRequireDefault(_PanelExperiments);
 
@@ -11098,7 +11098,7 @@ var _jquery = __webpack_require__(47);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _WidgetManager = __webpack_require__(54);
+var _WidgetManager = __webpack_require__(48);
 
 var _WidgetManager2 = _interopRequireDefault(_WidgetManager);
 
@@ -11114,7 +11114,9 @@ var DEFAULT_SETTINGS = {
   base: (0, _jQuery2.default)('body'),
   targetString: 'data-' + BOX_ENLARGER_NAME,
   clone: false,
-  screenPercentage: 0.7
+  screenPercentage: 0.7,
+  cloneContent: undefined,
+  callBack: function callBack() {}
 };
 
 $BOX_OVERLAY.appendTo('body');
@@ -11148,6 +11150,7 @@ var BoxEnlarger = function () {
     _classCallCheck(this, BoxEnlarger);
 
     this.options = _jQuery2.default.extend({}, DEFAULT_SETTINGS, newOptions);
+    this.currentClone;
   }
 
   _createClass(BoxEnlarger, [{
@@ -11162,6 +11165,8 @@ var BoxEnlarger = function () {
           var box = _jquery2.default.getBoxOffsetFull($e);
           var $clone = _jquery2.default.makeClone($e, root.options.clone);
           var resizeTimeout = void 0;
+
+          console.log(index);
 
           var setNewSizeAndPosition = function setNewSizeAndPosition() {
             var boxPercentage = void 0,
@@ -11186,17 +11191,29 @@ var BoxEnlarger = function () {
             newXPos = windowBox.width / 2 - newWidth / 2;
             newYPos = windowBox.height / 2 - newHeight / 2;
 
-            $clone.css({
+            $clone.on('click', function (e) {
+              e.stopPropagation();
+            }).css({
               width: newWidth,
               height: newHeight,
               left: newXPos,
               top: newYPos
             });
+
+            if (root.options.cloneContent !== undefined) {
+              $clone.html('').append(root.options.cloneContent);
+            }
+
+            root.options.callBack(index);
+
+            root.currentClone = $clone;
           };
 
           // Activate box overlay
           $BOX_OVERLAY.addClass('box-overlay-active').append($clone.css(box).addClass('clone-item')).on('click', function () {
             $clone.remove();
+            root.currentClone = undefined;
+
             $BOX_OVERLAY.removeClass('box-overlay-active').html('');
             $BOX_OVERLAY.off('click');
             (0, _jQuery2.default)(window).off('resize.enlarge');
@@ -11218,6 +11235,14 @@ var BoxEnlarger = function () {
           }, 1000);
         });
       });
+    }
+  }, {
+    key: 'ChangeCloneContent',
+    value: function ChangeCloneContent($content) {
+      // Ability to alter the content of the clone to show anything
+      if (this.currentClone !== undefined) {
+        this.currentClone.html('').append($content);
+      }
     }
   }]);
 
@@ -11259,7 +11284,7 @@ var _PanelBase2 = _interopRequireDefault(_PanelBase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var css = __webpack_require__(52);
+var css = __webpack_require__(53);
 
 // Modules
 
@@ -12676,6 +12701,14 @@ var _BoxEnlarger = __webpack_require__(16);
 
 var _BoxEnlarger2 = _interopRequireDefault(_BoxEnlarger);
 
+var _Carousel = __webpack_require__(55);
+
+var _Carousel2 = _interopRequireDefault(_Carousel);
+
+var _portfolioData = __webpack_require__(56);
+
+var _portfolioData2 = _interopRequireDefault(_portfolioData);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12700,13 +12733,33 @@ var PanelPortfolio = function (_Panel) {
   _createClass(PanelPortfolio, [{
     key: 'init',
     value: function init() {
+      var testFunction = function testFunction(index) {
+        console.log('You clicked on the ' + index + ' shape.');
+      };
+
+      var newCarousel = new _Carousel2.default({
+        $carousel: (0, _jQuery2.default)('#carouselHolder').find('.carousel')
+        // fullRender: true,
+        // renderContainer: $('#carouselHolder'),
+      });
+      newCarousel.init();
+
+      var CarouselContentList = [];
+      for (var i = 0; i < _portfolioData2.default.website.length; i++) {
+        CarouselContentList.push((0, _jQuery2.default)('<img/>', {
+          src: '' + _portfolioData2.default.website[i].srcLarge,
+          alt: '' + _portfolioData2.default.website[i].alt
+        }));
+      }
+      newCarousel.AddCarouselItem(CarouselContentList);
+
       this.boxEnlargerBatch = new _BoxEnlarger2.default({
         base: this.$base,
-        targetString: '.portfolio-swatch'
+        targetString: '.portfolio-swatch',
+        cloneContent: undefined,
+        callBack: testFunction
       });
       this.boxEnlargerBatch.init();
-
-      _jQuery2.default.BoxEnlarger('from Portfolio');
     }
   }]);
 
@@ -12749,11 +12802,6 @@ var Methods = {
       widthPercentage: box.width / window.width,
       heightPercentage: box.height / window.height
     };
-
-    // console.log(boxPercentage);
-    // console.log('width', boxPercentage.widthPercentage);
-    // console.log('height', boxPercentage.heightPercentage);
-    // console.log('width % less than height', boxPercentage.widthPercentage < boxPercentage.heightPercentage);
 
     return _jQuery2.default.extend({}, boxPercentage, {
       axis: boxPercentage.widthPercentage > boxPercentage.heightPercentage ? 'width' : 'height'
@@ -12821,6 +12869,67 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Widget manager
+// Can be used to store any widgets used on the site.
+// YOU CAN
+//  See if they are in use
+//  Apply them to a group name for group control: ie: run remove() to all group name widgets, or addPoint() or whatever.
+//  Overwrite a previous widget with the new one or run only once
+
+var WidgetManager = {
+  counter: function () {
+    var count = 0;
+
+    return function () {
+      return count++;
+    };
+  }(),
+
+  widgets: [
+    // Example entry to widgets
+    // {
+    //   id: 1,
+    //   group: 'default' || 'given-group-name',
+    //   e: $(),
+    //   widgetObj: new WidgetName(),
+    // }
+  ],
+
+  addEntry: function addEntry(groupName, widgetName, $element, WidgetObject) {
+    // Check if element has been written to already and if it allows overwite
+    // Add, Overwrite or do nothing
+    //    Add the entry to widgets if Add
+    //    Remove last id from widgets if Overwrite
+    //    Do nothing if no Overwrite
+    // Store in dom element data(state(Boolean), id(Int), overwrite(boolean))
+
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+    console.log('Counter: ' + this.counter());
+  }
+};
+
+exports.default = WidgetManager;
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _jQuery = __webpack_require__(0);
@@ -12879,7 +12988,7 @@ var PanelStyleguide = function (_Panel) {
 exports.default = PanelStyleguide;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12899,7 +13008,7 @@ var _Panel2 = __webpack_require__(2);
 
 var _Panel3 = _interopRequireDefault(_Panel2);
 
-var _FormValidation = __webpack_require__(50);
+var _FormValidation = __webpack_require__(51);
 
 var _FormValidation2 = _interopRequireDefault(_FormValidation);
 
@@ -12943,7 +13052,7 @@ var PanelContact = function (_Panel) {
 exports.default = PanelContact;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12959,7 +13068,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13003,14 +13112,14 @@ var PanelExperiments = function (_Panel) {
 exports.default = PanelExperiments;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 53 */,
-/* 54 */
+/* 54 */,
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13020,55 +13129,134 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Widget manager
-// Can be used to store any widgets used on the site.
-// YOU CAN
-//  See if they are in use
-//  Apply them to a group name for group control: ie: run remove() to all group name widgets, or addPoint() or whatever.
-//  Overwrite a previous widget with the new one or run only once
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var WidgetManager = {
-  counter: function () {
-    var count = 0;
-
-    return function () {
-      return count++;
-    };
-  }(),
-
-  widgets: [
-    // Example entry to widgets
-    // {
-    //   id: 1,
-    //   group: 'default' || 'given-group-name',
-    //   e: $(),
-    //   widgetObj: new WidgetName(),
-    // }
-  ],
-
-  addEntry: function addEntry(groupName, widgetName, $element, WidgetObject) {
-    // Check if element has been written to already and if it allows overwite
-    // Add, Overwrite or do nothing
-    //    Add the entry to widgets if Add
-    //    Remove last id from widgets if Overwrite
-    //    Do nothing if no Overwrite
-    // Store in dom element data(state(Boolean), id(Int), overwrite(boolean))
-
-    console.log('Counter: ' + this.counter());
-    console.log('Counter: ' + this.counter());
-    console.log('Counter: ' + this.counter());
-    console.log('Counter: ' + this.counter());
-    console.log('Counter: ' + this.counter());
-  }
+var DEFAULT_OPTIONS = {
+  $carousel: undefined,
+  fullRender: false,
+  renderContainer: undefined,
+  startIndex: 0
 };
 
-exports.default = WidgetManager;
+var Carousel = function () {
+  function Carousel(newOptions) {
+    _classCallCheck(this, Carousel);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, newOptions);
+
+    this.$slider;
+    this.$leftButton;
+    this.$rightButton;
+
+    this.itemCount;
+    this.itemWidth;
+    this.currentIndex = this.options.startIndex;
+  }
+
+  _createClass(Carousel, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+
+      if (this.options.fullRender) {
+        this.options.$carousel = this.getCarouselTemplate();
+        this.options.renderContainer.append(this.options.$carousel);
+      }
+
+      this.$slider = root.options.$carousel.find('[data-slider]');
+
+      this.setCarouselItemStyles();
+      this.setButtons();
+    }
+  }, {
+    key: 'moveSlider',
+    value: function moveSlider(num) {
+      this.currentIndex += num;
+      this.$slider.css('left', -(100 * this.currentIndex) + '%');
+    }
+  }, {
+    key: 'setButtons',
+    value: function setButtons() {
+      var root = this;
+
+      this.$leftButton = this.options.$carousel.find('[data-carousel-left-bttn]').on('click', function () {
+        if (root.currentIndex > 0) {
+          root.moveSlider(-1);
+        }
+      });
+
+      this.$rightButton = this.options.$carousel.find('[data-carousel-right-bttn]').on('click', function () {
+        if (root.currentIndex < root.itemCount - 1) {
+          root.moveSlider(1);
+        }
+      });
+    }
+  }, {
+    key: 'setCarouselItemStyles',
+    value: function setCarouselItemStyles() {
+      var root = this;
+
+      this.itemCount = this.$slider.find('li').length || 0;
+      this.itemWidth = 100 / this.itemCount;
+
+      this.$slider.css('width', 100 * this.itemCount + '%').find('li').each(function (index) {
+        (0, _jQuery2.default)(this).css({
+          width: root.itemWidth + '%',
+          left: root.itemWidth * index + '%'
+        });
+      });
+    }
+
+    // $contentList - List of jQuery objects
+
+  }, {
+    key: 'AddCarouselItem',
+    value: function AddCarouselItem($contentList) {
+      for (var i = 0; i < $contentList.length; i++) {
+        var $item = this.getCarouselItemTemplate();
+        this.$slider.append(this.getCarouselItemTemplate($contentList[i]));
+      }
+
+      this.setCarouselItemStyles();
+    }
+  }, {
+    key: 'getCarouselTemplate',
+    value: function getCarouselTemplate() {
+      return (0, _jQuery2.default)('\n      <div class="carousel" data-carousel>\n        <div class="carousel-slider-container">\n          <ul class="carousel-slider" data-slider>\n          </ul>\n        </div>\n        <div class="carousel-nav">\n          <div class="carousel-btn left" data-carousel-left-bttn>left</div>\n          <div class="carousel-btn right" data-carousel-right-bttn>right</div>\n        </div>\n      </div>\n    ');
+    }
+  }, {
+    key: 'getCarouselItemTemplate',
+    value: function getCarouselItemTemplate($content) {
+      return (0, _jQuery2.default)('\n      <li class="carousel-item"></li>\n    ').append($content);
+    }
+  }]);
+
+  return Carousel;
+}();
+
+exports.default = Carousel;
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  website: [{ alt: "test 1", srcSmall: "blahblah", srcLarge: "blahLargeBlahLarge" }, { alt: "test 2", srcSmall: "blahblah2", srcLarge: "blahLargeBlahLarge2" }, { alt: "test 3", srcSmall: "blahblah3", srcLarge: "blahLargeBlahLarge3" }, { alt: "test 4", srcSmall: "blahblah4", srcLarge: "blahLargeBlahLarge4" }, { alt: "test 5", srcSmall: "blahblah5", srcLarge: "blahLargeBlahLarge5" }, { alt: "test 6", srcSmall: "blahblah6", srcLarge: "blahLargeBlahLarge6" }]
+};
 
 /***/ })
 /******/ ]);

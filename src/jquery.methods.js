@@ -20,11 +20,6 @@ let Methods = {
       heightPercentage: box.height / window.height,
     };
 
-    // console.log(boxPercentage);
-    // console.log('width', boxPercentage.widthPercentage);
-    // console.log('height', boxPercentage.heightPercentage);
-    // console.log('width % less than height', boxPercentage.widthPercentage < boxPercentage.heightPercentage);
-
     return $.extend({}, boxPercentage, {
       axis: (boxPercentage.widthPercentage > boxPercentage.heightPercentage) ? 'width' : 'height'
     });

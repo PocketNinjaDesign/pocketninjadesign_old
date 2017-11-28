@@ -251,6 +251,74 @@ ul {
   .swatch.colour8:after {
     background: rgba(207, 208, 210, 0.25); }
 
+/*
+ * Carousel
+ *
+ *
+ */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px; }
+  .carousel .carousel-slider-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden; }
+    .carousel .carousel-slider-container .carousel-slider {
+      position: absolute;
+      height: 100%;
+      text-align: center;
+      left: 0;
+      transition: left 300ms; }
+      .carousel .carousel-slider-container .carousel-slider li {
+        position: absolute;
+        height: 100%;
+        color: #fff; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(1) {
+          background: #fff; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(2) {
+          background: #841619; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(3) {
+          background: #1b1c1c; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(4) {
+          background: #9f191f; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(5) {
+          background: #841619; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(6) {
+          background: #cfd0d2; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(7) {
+          background: #1b1c1c; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(8) {
+          background: #9f191f; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(9) {
+          background: #841619; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(10) {
+          background: #cfd0d2; }
+        .carousel .carousel-slider-container .carousel-slider li:nth-of-type(11) {
+          background: #1b1c1c; }
+  .carousel .carousel-nav .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+    background: #cfd0d2;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 300ms; }
+    .carousel .carousel-nav .carousel-btn:hover {
+      background: #1b1c1c; }
+    .carousel .carousel-nav .carousel-btn.left {
+      left: 40px; }
+    .carousel .carousel-nav .carousel-btn.right {
+      right: 40px; }
+
 .grid.grid-small .grid-item {
   margin-bottom: 20px;
   width: calc(33.33333% - 26.66667px);

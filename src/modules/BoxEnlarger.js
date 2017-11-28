@@ -13,6 +13,8 @@ const DEFAULT_SETTINGS = {
   targetString: `data-${BOX_ENLARGER_NAME}`,
   clone: false,
   screenPercentage: 0.7,
+  cloneContent: undefined,
+  callBack: function() {},
 };
 
 $BOX_OVERLAY.appendTo('body');
@@ -44,6 +46,7 @@ $BOX_OVERLAY.appendTo('body');
 class BoxEnlarger {
   constructor(newOptions) {
     this.options = $.extend({}, DEFAULT_SETTINGS, newOptions);
+    this.currentClone;
   }
 
   init() {
@@ -56,6 +59,8 @@ class BoxEnlarger {
         let box = $methods.getBoxOffsetFull($e);
         let $clone = $methods.makeClone($e, root.options.clone);
         let resizeTimeout;
+
+        console.log(index);
 
         let setNewSizeAndPosition = () => {
           let boxPercentage, newWidth, newHeight, newXPos, newYPos, windowBox;
@@ -76,12 +81,26 @@ class BoxEnlarger {
           newXPos = (windowBox.width / 2) - (newWidth / 2);
           newYPos = (windowBox.height / 2) - (newHeight / 2);
 
-          $clone.css({
-            width: newWidth,
-            height: newHeight,
-            left: newXPos,
-            top: newYPos,
-          });
+          $clone
+            .on('click', function(e) {
+              e.stopPropagation();
+            })
+            .css({
+              width: newWidth,
+              height: newHeight,
+              left: newXPos,
+              top: newYPos,
+            });
+
+          if(root.options.cloneContent !== undefined) {
+            $clone
+              .html('')
+              .append(root.options.cloneContent);
+          }
+
+          root.options.callBack(index);
+          
+          root.currentClone = $clone;
         }
 
         // Activate box overlay
@@ -90,6 +109,8 @@ class BoxEnlarger {
           .append($clone.css(box).addClass('clone-item'))
           .on('click', () => {
             $clone.remove();
+            root.currentClone = undefined;
+
             $BOX_OVERLAY.removeClass('box-overlay-active').html('');
             $BOX_OVERLAY.off('click');
             $(window).off('resize.enlarge');
@@ -111,6 +132,15 @@ class BoxEnlarger {
         }, 1000);
       });
     });
+  }
+
+  ChangeCloneContent($content) {
+    // Ability to alter the content of the clone to show anything
+    if(this.currentClone !== undefined) {
+      this
+      .currentClone.html('')
+      .append($content)
+    }
   }
 }
 
