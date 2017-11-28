@@ -60,8 +60,6 @@ class BoxEnlarger {
         let $clone = $methods.makeClone($e, root.options.clone);
         let resizeTimeout;
 
-        console.log(index);
-
         let setNewSizeAndPosition = () => {
           let boxPercentage, newWidth, newHeight, newXPos, newYPos, windowBox;
           windowBox = $methods.getBoxWindow();
@@ -98,7 +96,7 @@ class BoxEnlarger {
               .append(root.options.cloneContent);
           }
 
-          root.options.callBack(index);
+          root.options.callBack(index, $clone);
           
           root.currentClone = $clone;
         }
@@ -106,7 +104,7 @@ class BoxEnlarger {
         // Activate box overlay
         $BOX_OVERLAY
           .addClass('box-overlay-active')
-          .append($clone.css(box).addClass('clone-item'))
+          .append($clone.css(box).addClass('box-enlarge-item'))
           .on('click', () => {
             $clone.remove();
             root.currentClone = undefined;
@@ -120,7 +118,6 @@ class BoxEnlarger {
         $(window).on('resize.enlarge', function() {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(function() {
-            console.log('resize and position activated');
             setNewSizeAndPosition();
           }, 200);
         });

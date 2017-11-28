@@ -13,31 +13,49 @@ class PanelPortfolio extends Panel {
   }
 
   init() {
-    let testFunction = (index) => {
-      console.log(`You clicked on the ${index} shape.`);
+    // let newCarousel = new Carousel({
+    //   fullRender: true,
+    //   renderContainer: $('#carouselHolder'),
+    // });
+    // newCarousel.init();
+
+    // let CarouselContentList = [];
+    // for(let i = 0; i < PortfolioData.website.length; i++) {
+    //   CarouselContentList.push($('<img/>', {
+    //     src: `${PortfolioData.website[i].srcLarge}`,
+    //     alt: `${PortfolioData.website[i].alt}`,
+    //   }));
+    // }
+    // newCarousel.AddCarouselItem(CarouselContentList);
+
+
+
+    let boxEnlargeCallback = (index, clone) => {
+      //console.log(`You clicked on the ${index} shape.`);
+
+      clone.html('');
+
+      let newCarousel = new Carousel({
+        fullRender: true,
+        renderContainer: clone,
+      });
+      newCarousel.init();
+  
+      let CarouselContentList = [];
+      for(let i = 0; i < PortfolioData.website.length; i++) {
+        CarouselContentList.push($('<img/>', {
+          src: `${PortfolioData.website[i].srcLarge}`,
+          alt: `${PortfolioData.website[i].alt}`,
+        }));
+      }
+      newCarousel.AddCarouselItem(CarouselContentList);
     };
-
-    let newCarousel = new Carousel({
-      //$carousel: $('#carouselHolder').find('.carousel'),
-      fullRender: true,
-      renderContainer: $('#carouselHolder'),
-    });
-    newCarousel.init();
-
-    let CarouselContentList = [];
-    for(let i = 0; i < PortfolioData.website.length; i++) {
-      CarouselContentList.push($('<img/>', {
-        src: `${PortfolioData.website[i].srcLarge}`,
-        alt: `${PortfolioData.website[i].alt}`,
-      }));
-    }
-    newCarousel.AddCarouselItem(CarouselContentList);
 
     this.boxEnlargerBatch = new boxEnlarger({
       base: this.$base,
       targetString: '.portfolio-swatch',
       cloneContent: undefined,
-      callBack: testFunction,
+      callBack: boxEnlargeCallback,
     });
     this.boxEnlargerBatch.init();
   }

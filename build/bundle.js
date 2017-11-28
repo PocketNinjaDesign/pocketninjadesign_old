@@ -11166,8 +11166,6 @@ var BoxEnlarger = function () {
           var $clone = _jquery2.default.makeClone($e, root.options.clone);
           var resizeTimeout = void 0;
 
-          console.log(index);
-
           var setNewSizeAndPosition = function setNewSizeAndPosition() {
             var boxPercentage = void 0,
                 newWidth = void 0,
@@ -11204,13 +11202,13 @@ var BoxEnlarger = function () {
               $clone.html('').append(root.options.cloneContent);
             }
 
-            root.options.callBack(index);
+            root.options.callBack(index, $clone);
 
             root.currentClone = $clone;
           };
 
           // Activate box overlay
-          $BOX_OVERLAY.addClass('box-overlay-active').append($clone.css(box).addClass('clone-item')).on('click', function () {
+          $BOX_OVERLAY.addClass('box-overlay-active').append($clone.css(box).addClass('box-enlarge-item')).on('click', function () {
             $clone.remove();
             root.currentClone = undefined;
 
@@ -11223,7 +11221,6 @@ var BoxEnlarger = function () {
           (0, _jQuery2.default)(window).on('resize.enlarge', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(function () {
-              console.log('resize and position activated');
               setNewSizeAndPosition();
             }, 200);
           });
@@ -12733,31 +12730,48 @@ var PanelPortfolio = function (_Panel) {
   _createClass(PanelPortfolio, [{
     key: 'init',
     value: function init() {
-      var testFunction = function testFunction(index) {
-        console.log('You clicked on the ' + index + ' shape.');
+      // let newCarousel = new Carousel({
+      //   fullRender: true,
+      //   renderContainer: $('#carouselHolder'),
+      // });
+      // newCarousel.init();
+
+      // let CarouselContentList = [];
+      // for(let i = 0; i < PortfolioData.website.length; i++) {
+      //   CarouselContentList.push($('<img/>', {
+      //     src: `${PortfolioData.website[i].srcLarge}`,
+      //     alt: `${PortfolioData.website[i].alt}`,
+      //   }));
+      // }
+      // newCarousel.AddCarouselItem(CarouselContentList);
+
+
+      var boxEnlargeCallback = function boxEnlargeCallback(index, clone) {
+        //console.log(`You clicked on the ${index} shape.`);
+
+        clone.html('');
+
+        var newCarousel = new _Carousel2.default({
+          fullRender: true,
+          renderContainer: clone
+        });
+        newCarousel.init();
+
+        var CarouselContentList = [];
+        for (var i = 0; i < _portfolioData2.default.website.length; i++) {
+          CarouselContentList.push((0, _jQuery2.default)('<img/>', {
+            src: '' + _portfolioData2.default.website[i].srcLarge,
+            alt: '' + _portfolioData2.default.website[i].alt
+          }));
+        }
+        newCarousel.AddCarouselItem(CarouselContentList);
       };
-
-      var newCarousel = new _Carousel2.default({
-        //$carousel: $('#carouselHolder').find('.carousel'),
-        fullRender: true,
-        renderContainer: (0, _jQuery2.default)('#carouselHolder')
-      });
-      newCarousel.init();
-
-      var CarouselContentList = [];
-      for (var i = 0; i < _portfolioData2.default.website.length; i++) {
-        CarouselContentList.push((0, _jQuery2.default)('<img/>', {
-          src: '' + _portfolioData2.default.website[i].srcLarge,
-          alt: '' + _portfolioData2.default.website[i].alt
-        }));
-      }
-      newCarousel.AddCarouselItem(CarouselContentList);
 
       this.boxEnlargerBatch = new _BoxEnlarger2.default({
         base: this.$base,
         targetString: '.portfolio-swatch',
         cloneContent: undefined,
-        callBack: testFunction
+        callBack: boxEnlargeCallback
       });
       this.boxEnlargerBatch.init();
     }

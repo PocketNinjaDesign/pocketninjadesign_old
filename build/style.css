@@ -375,11 +375,11 @@ section.block {
     background-color: rgba(0, 0, 0, 0.9);
     right: 0;
     bottom: 0; }
-  .box-enlarger-overlay .clone-item {
+  .box-enlarger-overlay .box-enlarge-item {
     position: absolute;
     transition: all 1000ms;
     margin: 0; }
-    .box-enlarger-overlay .clone-item.active {
+    .box-enlarger-overlay .box-enlarge-item.active {
       top: 0 !important;
       left: 0 !important;
       width: 80% !important;
@@ -629,6 +629,9 @@ section.block {
     height: 291px;
     background: url("/styles/images/ninja-small-bonsai.png") no-repeat center center;
     background-size: contain; }
+
+.box-enlarge-item .carousel {
+  height: 100%; }
 
 .panel.styleguide {
   background: #fff; }
