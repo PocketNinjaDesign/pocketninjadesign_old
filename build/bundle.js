@@ -12738,9 +12738,9 @@ var PanelPortfolio = function (_Panel) {
       };
 
       var newCarousel = new _Carousel2.default({
-        $carousel: (0, _jQuery2.default)('#carouselHolder').find('.carousel')
-        // fullRender: true,
-        // renderContainer: $('#carouselHolder'),
+        //$carousel: $('#carouselHolder').find('.carousel'),
+        fullRender: true,
+        renderContainer: (0, _jQuery2.default)('#carouselHolder')
       });
       newCarousel.init();
 

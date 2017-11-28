@@ -18,9 +18,9 @@ class PanelPortfolio extends Panel {
     };
 
     let newCarousel = new Carousel({
-      $carousel: $('#carouselHolder').find('.carousel'),
-      // fullRender: true,
-      // renderContainer: $('#carouselHolder'),
+      //$carousel: $('#carouselHolder').find('.carousel'),
+      fullRender: true,
+      renderContainer: $('#carouselHolder'),
     });
     newCarousel.init();
 
