@@ -96,10 +96,10 @@ class BoxEnlarger {
               .append(root.options.cloneContent);
           }
 
-          root.options.callBack(index, $clone);
-          
           root.currentClone = $clone;
         }
+
+        root.options.callBack(index, $clone);
 
         // Activate box overlay
         $BOX_OVERLAY

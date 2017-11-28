@@ -299,25 +299,29 @@ ul {
           background: #cfd0d2; }
         .carousel .carousel-slider-container .carousel-slider li:nth-of-type(11) {
           background: #1b1c1c; }
-  .carousel .carousel-nav .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: perspective(1px) translateY(-50%);
-    background: #cfd0d2;
-    color: #fff;
-    font-size: 16px;
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 300ms; }
-    .carousel .carousel-nav .carousel-btn:hover {
-      background: #1b1c1c; }
-    .carousel .carousel-nav .carousel-btn.left {
-      left: 40px; }
-    .carousel .carousel-nav .carousel-btn.right {
-      right: 40px; }
+  .carousel .carousel-nav {
+    display: none; }
+    .carousel .carousel-nav .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: perspective(1px) translateY(-50%);
+      background: #cfd0d2;
+      color: #fff;
+      font-size: 16px;
+      padding: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 300ms; }
+      .carousel .carousel-nav .carousel-btn:hover {
+        background: #1b1c1c; }
+      .carousel .carousel-nav .carousel-btn.left {
+        left: 40px; }
+      .carousel .carousel-nav .carousel-btn.right {
+        right: 40px; }
+  .carousel:hover .carousel-nav {
+    display: block; }
 
 .grid.grid-small .grid-item {
   margin-bottom: 20px;

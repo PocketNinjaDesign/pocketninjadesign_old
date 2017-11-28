@@ -11202,10 +11202,10 @@ var BoxEnlarger = function () {
               $clone.html('').append(root.options.cloneContent);
             }
 
-            root.options.callBack(index, $clone);
-
             root.currentClone = $clone;
           };
+
+          root.options.callBack(index, $clone);
 
           // Activate box overlay
           $BOX_OVERLAY.addClass('box-overlay-active').append($clone.css(box).addClass('box-enlarge-item')).on('click', function () {

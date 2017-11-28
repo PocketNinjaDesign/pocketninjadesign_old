@@ -47,6 +47,8 @@
   }
 
   .carousel-nav {
+    display: none;
+
     .carousel-btn {
       position: absolute;
       top: 50%;
@@ -71,6 +73,12 @@
       &.right {
         right: 40px;
       }
+    }
+  }
+
+  &:hover {
+    .carousel-nav {
+      display: block;
     }
   }
 }
