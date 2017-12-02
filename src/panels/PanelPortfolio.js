@@ -13,26 +13,9 @@ class PanelPortfolio extends Panel {
   }
 
   init() {
-    // let newCarousel = new Carousel({
-    //   fullRender: true,
-    //   renderContainer: $('#carouselHolder'),
-    // });
-    // newCarousel.init();
-
-    // let CarouselContentList = [];
-    // for(let i = 0; i < PortfolioData.website.length; i++) {
-    //   CarouselContentList.push($('<img/>', {
-    //     src: `${PortfolioData.website[i].srcLarge}`,
-    //     alt: `${PortfolioData.website[i].alt}`,
-    //   }));
-    // }
-    // newCarousel.AddCarouselItem(CarouselContentList);
-
-
-
     let boxEnlargeCallback = (index, clone) => {
-      //console.log(`You clicked on the ${index} shape.`);
-
+      // Reset the clone content ready
+      // for the carousel content
       clone.html('');
 
       let newCarousel = new Carousel({

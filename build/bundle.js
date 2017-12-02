@@ -11048,15 +11048,15 @@ var _PanelPortfolio = __webpack_require__(46);
 
 var _PanelPortfolio2 = _interopRequireDefault(_PanelPortfolio);
 
-var _PanelStyleguide = __webpack_require__(49);
+var _PanelStyleguide = __webpack_require__(51);
 
 var _PanelStyleguide2 = _interopRequireDefault(_PanelStyleguide);
 
-var _PanelContact = __webpack_require__(50);
+var _PanelContact = __webpack_require__(52);
 
 var _PanelContact2 = _interopRequireDefault(_PanelContact);
 
-var _PanelExperiments = __webpack_require__(52);
+var _PanelExperiments = __webpack_require__(54);
 
 var _PanelExperiments2 = _interopRequireDefault(_PanelExperiments);
 
@@ -11281,7 +11281,7 @@ var _PanelBase2 = _interopRequireDefault(_PanelBase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var css = __webpack_require__(53);
+var css = __webpack_require__(55);
 
 // Modules
 
@@ -12698,11 +12698,11 @@ var _BoxEnlarger = __webpack_require__(16);
 
 var _BoxEnlarger2 = _interopRequireDefault(_BoxEnlarger);
 
-var _Carousel = __webpack_require__(55);
+var _Carousel = __webpack_require__(49);
 
 var _Carousel2 = _interopRequireDefault(_Carousel);
 
-var _portfolioData = __webpack_require__(56);
+var _portfolioData = __webpack_require__(50);
 
 var _portfolioData2 = _interopRequireDefault(_portfolioData);
 
@@ -12730,25 +12730,9 @@ var PanelPortfolio = function (_Panel) {
   _createClass(PanelPortfolio, [{
     key: 'init',
     value: function init() {
-      // let newCarousel = new Carousel({
-      //   fullRender: true,
-      //   renderContainer: $('#carouselHolder'),
-      // });
-      // newCarousel.init();
-
-      // let CarouselContentList = [];
-      // for(let i = 0; i < PortfolioData.website.length; i++) {
-      //   CarouselContentList.push($('<img/>', {
-      //     src: `${PortfolioData.website[i].srcLarge}`,
-      //     alt: `${PortfolioData.website[i].alt}`,
-      //   }));
-      // }
-      // newCarousel.AddCarouselItem(CarouselContentList);
-
-
       var boxEnlargeCallback = function boxEnlargeCallback(index, clone) {
-        //console.log(`You clicked on the ${index} shape.`);
-
+        // Reset the clone content ready
+        // for the carousel content
         clone.html('');
 
         var newCarousel = new _Carousel2.default({
@@ -12950,205 +12934,6 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _Panel2 = __webpack_require__(2);
-
-var _Panel3 = _interopRequireDefault(_Panel2);
-
-var _BoxEnlarger = __webpack_require__(16);
-
-var _BoxEnlarger2 = _interopRequireDefault(_BoxEnlarger);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PanelStyleguide = function (_Panel) {
-  _inherits(PanelStyleguide, _Panel);
-
-  function PanelStyleguide() {
-    _classCallCheck(this, PanelStyleguide);
-
-    var _this = _possibleConstructorReturn(this, (PanelStyleguide.__proto__ || Object.getPrototypeOf(PanelStyleguide)).call(this));
-
-    _this.boxEnlargerBatch;
-    _this.$base = (0, _jQuery2.default)('#panelStyleguide');
-    return _this;
-  }
-
-  _createClass(PanelStyleguide, [{
-    key: 'init',
-    value: function init() {
-      this.boxEnlargerTest1 = new _BoxEnlarger2.default({
-        base: this.$base,
-        targetString: '#EnlargementTest1'
-      });
-      this.boxEnlargerTest1.init();
-
-      this.boxEnlargerTest2 = new _BoxEnlarger2.default({
-        base: this.$base,
-        targetString: '.widget-enlargement-test'
-      });
-      this.boxEnlargerTest2.init();
-    }
-  }]);
-
-  return PanelStyleguide;
-}(_Panel3.default);
-
-exports.default = PanelStyleguide;
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Panel2 = __webpack_require__(2);
-
-var _Panel3 = _interopRequireDefault(_Panel2);
-
-var _FormValidation = __webpack_require__(51);
-
-var _FormValidation2 = _interopRequireDefault(_FormValidation);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PanelContact = function (_Panel) {
-  _inherits(PanelContact, _Panel);
-
-  function PanelContact() {
-    _classCallCheck(this, PanelContact);
-
-    var _this = _possibleConstructorReturn(this, (PanelContact.__proto__ || Object.getPrototypeOf(PanelContact)).call(this));
-
-    _this.$base = (0, _jQuery2.default)('#panelContact');
-    _this.$form;
-    return _this;
-  }
-
-  _createClass(PanelContact, [{
-    key: 'init',
-    value: function init() {
-      this.$form = (0, _jQuery2.default)('#contactForm');
-      this.$form.submit(function (e) {
-        // Write all Form validation here
-        console.log('Form submit called and stopped');
-        console.log(_FormValidation2.default.sayHello());
-        e.preventDefault();
-      });
-    }
-  }]);
-
-  return PanelContact;
-}(_Panel3.default);
-
-exports.default = PanelContact;
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  sayHello: function sayHello() {
-    return "Hello";
-  }
-};
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Panel2 = __webpack_require__(2);
-
-var _Panel3 = _interopRequireDefault(_Panel2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PanelExperiments = function (_Panel) {
-  _inherits(PanelExperiments, _Panel);
-
-  function PanelExperiments() {
-    _classCallCheck(this, PanelExperiments);
-
-    var _this = _possibleConstructorReturn(this, (PanelExperiments.__proto__ || Object.getPrototypeOf(PanelExperiments)).call(this));
-
-    _this.$base = (0, _jQuery2.default)('#panelExperiments');
-    return _this;
-  }
-
-  return PanelExperiments;
-}(_Panel3.default);
-
-exports.default = PanelExperiments;
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 54 */,
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13259,7 +13044,7 @@ var Carousel = function () {
 exports.default = Carousel;
 
 /***/ }),
-/* 56 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13271,6 +13056,204 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   website: [{ alt: "test 1", srcSmall: "blahblah", srcLarge: "blahLargeBlahLarge" }, { alt: "test 2", srcSmall: "blahblah2", srcLarge: "blahLargeBlahLarge2" }, { alt: "test 3", srcSmall: "blahblah3", srcLarge: "blahLargeBlahLarge3" }, { alt: "test 4", srcSmall: "blahblah4", srcLarge: "blahLargeBlahLarge4" }, { alt: "test 5", srcSmall: "blahblah5", srcLarge: "blahLargeBlahLarge5" }, { alt: "test 6", srcSmall: "blahblah6", srcLarge: "blahLargeBlahLarge6" }]
 };
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Panel2 = __webpack_require__(2);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
+var _BoxEnlarger = __webpack_require__(16);
+
+var _BoxEnlarger2 = _interopRequireDefault(_BoxEnlarger);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PanelStyleguide = function (_Panel) {
+  _inherits(PanelStyleguide, _Panel);
+
+  function PanelStyleguide() {
+    _classCallCheck(this, PanelStyleguide);
+
+    var _this = _possibleConstructorReturn(this, (PanelStyleguide.__proto__ || Object.getPrototypeOf(PanelStyleguide)).call(this));
+
+    _this.boxEnlargerBatch;
+    _this.$base = (0, _jQuery2.default)('#panelStyleguide');
+    return _this;
+  }
+
+  _createClass(PanelStyleguide, [{
+    key: 'init',
+    value: function init() {
+      this.boxEnlargerTest1 = new _BoxEnlarger2.default({
+        base: this.$base,
+        targetString: '#EnlargementTest1'
+      });
+      this.boxEnlargerTest1.init();
+
+      this.boxEnlargerTest2 = new _BoxEnlarger2.default({
+        base: this.$base,
+        targetString: '.widget-enlargement-test'
+      });
+      this.boxEnlargerTest2.init();
+    }
+  }]);
+
+  return PanelStyleguide;
+}(_Panel3.default);
+
+exports.default = PanelStyleguide;
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Panel2 = __webpack_require__(2);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
+var _FormValidation = __webpack_require__(53);
+
+var _FormValidation2 = _interopRequireDefault(_FormValidation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PanelContact = function (_Panel) {
+  _inherits(PanelContact, _Panel);
+
+  function PanelContact() {
+    _classCallCheck(this, PanelContact);
+
+    var _this = _possibleConstructorReturn(this, (PanelContact.__proto__ || Object.getPrototypeOf(PanelContact)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelContact');
+    _this.$form;
+    return _this;
+  }
+
+  _createClass(PanelContact, [{
+    key: 'init',
+    value: function init() {
+      this.$form = (0, _jQuery2.default)('#contactForm');
+      this.$form.submit(function (e) {
+        // Write all Form validation here
+        console.log('Form submit called and stopped');
+        console.log(_FormValidation2.default.sayHello());
+        e.preventDefault();
+      });
+    }
+  }]);
+
+  return PanelContact;
+}(_Panel3.default);
+
+exports.default = PanelContact;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  sayHello: function sayHello() {
+    return "Hello";
+  }
+};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Panel2 = __webpack_require__(2);
+
+var _Panel3 = _interopRequireDefault(_Panel2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PanelExperiments = function (_Panel) {
+  _inherits(PanelExperiments, _Panel);
+
+  function PanelExperiments() {
+    _classCallCheck(this, PanelExperiments);
+
+    var _this = _possibleConstructorReturn(this, (PanelExperiments.__proto__ || Object.getPrototypeOf(PanelExperiments)).call(this));
+
+    _this.$base = (0, _jQuery2.default)('#panelExperiments');
+    return _this;
+  }
+
+  return PanelExperiments;
+}(_Panel3.default);
+
+exports.default = PanelExperiments;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
