@@ -13,6 +13,8 @@ class PanelPortfolio extends Panel {
   }
 
   init() {
+    // Generate web design portfolio pieces
+
     let boxEnlargeCallback = (index, clone) => {
       // Reset the clone content ready
       // for the carousel content

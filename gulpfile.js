@@ -11,6 +11,7 @@ gulp.task('compile', function() {
     ,'./templates/styleguide.html'
     ,'./templates/contact.html'
     ,'./templates/experiments.html'
+    ,'./templates/form-submit.html'
   ])
   .pipe(twig({
     data: {
@@ -20,4 +21,10 @@ gulp.task('compile', function() {
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('default', ['compile']);
+gulp.task('send', function() {
+  return gulp
+    .src('./build/**/*')
+    .pipe(gulp.dest('C:/xampp/htdocs/pnd'));
+});
+
+gulp.task('default', ['compile', 'send']);

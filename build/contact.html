@@ -45,17 +45,17 @@
   <p>State your name and mission objectives and I will deploy a ninja to respond as soon as possible.</p>
 
   <form id="contactForm" method="POST" name="contact-form" action="contact-us.php">
-    <div class="form-block">
-  <label for="name">name</label>
-  <input name="name" type="text">
+    <div data-form-block='{"type": "text"}' class="form-block" id="formContactName">
+  <label for="contactname">name</label>
+  <input data-form-element class="input input-name" name="contactname" type="text">
 </div>
-    <div class="form-block">
-  <label for="email">email</label>
-  <input name="email" type="email">
+    <div data-form-block='{"type": "email"}' class="form-block" id="formContactEmail">
+  <label for="contactemail">email</label>
+  <input data-form-element class="input input-email" name="contactemail" type="email">
 </div>
-    <div class="form-block">
-  <label for="mission information">mission information</label>
-  <textarea class="text-area">
+    <div data-form-block='{"type": "textarea"}' class="form-block" id="formContactInfo">
+  <label for="contactmessage">Mission Information</label>
+  <textarea data-form-element name="contactmessage" class="text-area text-area-mission-information">
     Temp text in here
   </textarea>
 </div>

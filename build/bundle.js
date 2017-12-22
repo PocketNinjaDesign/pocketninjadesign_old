@@ -10330,7 +10330,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  urlPrefix: 'http://localhost:9000/'
+  urlPrefix: 'http://localhost:8002/'
+  // urlPrefix: 'http://localhost:9000/',
 };
 
 /***/ }),
@@ -11423,7 +11424,7 @@ var Overlay = function () {
 
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
 
-      this.$overlay.on('click', function () {
+      this.$overlay.addClass('click-enabled').on('click', function () {
         fn();
         _this.toggle();
       });
@@ -12462,6 +12463,10 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _Overlay = __webpack_require__(20);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12477,6 +12482,7 @@ var LoaderBase = function () {
 
     this.$animation;
     this.setContainer(this.options.$container);
+    this.overlay = new _Overlay2.default();
   }
 
   _createClass(LoaderBase, [{
@@ -12494,6 +12500,7 @@ var LoaderBase = function () {
     key: 'show',
     value: function show() {
       this.options.$container.append(this.$animation);
+      this.overlay.show();
     }
   }, {
     key: 'hide',
@@ -12505,6 +12512,7 @@ var LoaderBase = function () {
     value: function remove() {
       // Remove the Loader Animation
       this.$animation.remove();
+      this.overlay.remove();
     }
   }, {
     key: 'getAnimWrapper',
@@ -12730,6 +12738,8 @@ var PanelPortfolio = function (_Panel) {
   _createClass(PanelPortfolio, [{
     key: 'init',
     value: function init() {
+      // Generate web design portfolio pieces
+
       var boxEnlargeCallback = function boxEnlargeCallback(index, clone) {
         // Reset the clone content ready
         // for the carousel content
@@ -13146,9 +13156,17 @@ var _Panel2 = __webpack_require__(2);
 
 var _Panel3 = _interopRequireDefault(_Panel2);
 
-var _FormValidation = __webpack_require__(53);
+var _Form = __webpack_require__(60);
 
-var _FormValidation2 = _interopRequireDefault(_FormValidation);
+var _Form2 = _interopRequireDefault(_Form);
+
+var _FormBlock = __webpack_require__(58);
+
+var _FormBlock2 = _interopRequireDefault(_FormBlock);
+
+var _FormSubmit = __webpack_require__(59);
+
+var _FormSubmit2 = _interopRequireDefault(_FormSubmit);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13167,20 +13185,14 @@ var PanelContact = function (_Panel) {
     var _this = _possibleConstructorReturn(this, (PanelContact.__proto__ || Object.getPrototypeOf(PanelContact)).call(this));
 
     _this.$base = (0, _jQuery2.default)('#panelContact');
-    _this.$form;
     return _this;
   }
 
   _createClass(PanelContact, [{
     key: 'init',
     value: function init() {
-      this.$form = (0, _jQuery2.default)('#contactForm');
-      this.$form.submit(function (e) {
-        // Write all Form validation here
-        console.log('Form submit called and stopped');
-        console.log(_FormValidation2.default.sayHello());
-        e.preventDefault();
-      });
+      var contactForm = new _Form2.default((0, _jQuery2.default)('#contactForm'), 'contact-form.php');
+      contactForm.init();
     }
   }]);
 
@@ -13190,22 +13202,7 @@ var PanelContact = function (_Panel) {
 exports.default = PanelContact;
 
 /***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  sayHello: function sayHello() {
-    return "Hello";
-  }
-};
-
-/***/ }),
+/* 53 */,
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13254,6 +13251,314 @@ exports.default = PanelExperiments;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 56 */,
+/* 57 */,
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_OPTIONS = {
+  keyUpCheckMode: false,
+  overrideRegex: undefined,
+  type: 'text',
+  name: undefined, // required
+  $formBlock: undefined, // required
+  $formElement: undefined // required
+};
+
+var FormBlock = function () {
+  function FormBlock(newOptions) {
+    _classCallCheck(this, FormBlock);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, newOptions);
+
+    // Check every time the key is pressed
+    this.type = this.options.type;
+    this.regex;
+    this.setRegEx();
+    this.isElementValid = false;
+
+    this.$formBlock = this.options.$formBlock;
+    this.$formElement = this.$formBlock.find('[data-form-element]');
+
+    this.prepareForValidating();
+  }
+
+  // Set regex based on type or using the overrideRegex
+
+
+  _createClass(FormBlock, [{
+    key: 'setRegEx',
+    value: function setRegEx() {
+      if (this.options.overrideRegex === undefined) {
+        switch (this.type) {
+          case 'email':
+            this.regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            break;
+          case 'textarea':
+            this.regex = /^[\w\s\r?!,@$#\.\-]*$/;
+            break;
+          default:
+            this.regex = /^[\w\s]+$/;
+        }
+      } else {
+        this.regex = this.options.overrideRegex;
+      }
+    }
+
+    // Start Validating after focus out
+
+  }, {
+    key: 'prepareForValidating',
+    value: function prepareForValidating() {
+      var root = this;
+
+      this.$formBlock.on('focusout', function (e) {
+        root.$formBlock.off('focusout');
+        root.options.keyUpCheckMode = true;
+        root.startValidating();
+      });
+    }
+  }, {
+    key: 'startValidating',
+    value: function startValidating() {
+      // Begin validaton of the form block
+      var root = this;
+
+      var keyUpHandler = function keyUpHandler(e) {
+        root.isElementValid = root.checkValidation();
+
+        if (root.isElementValid) {
+          root.$formElement.removeClass('is-not-valid').addClass('is-valid');
+        } else {
+          root.$formElement.removeClass('is-valid').addClass('is-not-valid');
+        }
+      };
+
+      this.$formBlock.on('keyup', function (e) {
+        keyUpHandler(e);
+      });
+
+      keyUpHandler();
+    }
+  }, {
+    key: 'checkValidation',
+    value: function checkValidation() {
+      // Check if the content of the form block is correct
+      var result = false;
+      var value = this.$formElement.val();
+
+      if (value.length > 0) {
+        result = this.regex.test(value);
+      }
+
+      return result;
+    }
+  }, {
+    key: 'getValue',
+    value: function getValue() {
+      return this.$formElement.val();
+    }
+  }, {
+    key: 'isValid',
+    value: function isValid() {
+      return this.isElementValid;
+    }
+  }, {
+    key: 'getName',
+    value: function getName() {
+      return this.options.name;
+    }
+  }]);
+
+  return FormBlock;
+}();
+
+exports.default = FormBlock;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _globals = __webpack_require__(4);
+
+var _globals2 = _interopRequireDefault(_globals);
+
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FormSubmit = function () {
+  function FormSubmit(formPath) {
+    _classCallCheck(this, FormSubmit);
+
+    this.URL = '' + _globals2.default.urlPrefix + formPath + '?';
+  }
+
+  _createClass(FormSubmit, [{
+    key: 'run',
+    value: function run() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return (0, _axios2.default)({
+        method: 'post',
+        url: '' + this.URL + _jQuery2.default.param(data)
+      }).then(function (response) {
+        console.log('axios', response.data);
+        return response;
+      });
+    }
+  }]);
+
+  return FormSubmit;
+}();
+
+exports.default = FormSubmit;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _FormBlock = __webpack_require__(58);
+
+var _FormBlock2 = _interopRequireDefault(_FormBlock);
+
+var _FormSubmit = __webpack_require__(59);
+
+var _FormSubmit2 = _interopRequireDefault(_FormSubmit);
+
+var _LoaderAnim = __webpack_require__(41);
+
+var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
+
+var _Overlay = __webpack_require__(20);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Form = function () {
+  function Form($form, formPathname) {
+    _classCallCheck(this, Form);
+
+    this.$form = $form;
+    this.formPathname = formPathname;
+    this.formElementList = [];
+  }
+
+  _createClass(Form, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+
+      // Find all form blocks and push to formElementList
+      this.$form.find('[data-form-block]').map(function (index, element) {
+        var $element = (0, _jQuery2.default)(element);
+
+        root.formElementList.push(new _FormBlock2.default({
+          $formBlock: $element,
+          type: $element.data('form-block').type,
+          name: $element.find('[data-form-element]').attr('name')
+        }));
+      });
+
+      this.$form.submit(function (e) {
+        e.preventDefault();
+
+        if (root.allFormElementsValid()) {
+          var contactForm = new _FormSubmit2.default(root.formPathname);
+          var postData = {};
+
+          root.formElementList.forEach(function (element) {
+            postData[element.getName()] = element.getValue();
+          });
+
+          // Create new loaderAnim
+          var panelLoader = new _LoaderAnim2.default({
+            positionType: 'fixed'
+          });
+          panelLoader.create();
+          panelLoader.show();
+
+          contactForm.run(postData).then(function (response) {
+            panelLoader.remove();
+            // Show Model of success
+            // or
+            // Nothing as you shouldn't be able to submit if it is invalid
+          });
+        }
+      });
+    }
+  }, {
+    key: 'allFormElementsValid',
+    value: function allFormElementsValid() {
+      var result = true;
+
+      this.formElementList.forEach(function (element) {
+        if (!element.isValid()) {
+          result = false;
+        }
+      });
+
+      // if all not false then return true
+      return result;
+    }
+  }]);
+
+  return Form;
+}();
+
+exports.default = Form;
 
 /***/ })
 /******/ ]);

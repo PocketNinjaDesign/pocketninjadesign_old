@@ -1,4 +1,5 @@
 import $ from 'jQuery';
+import Overlay from '../Overlay';
 
 class LoaderBase {
   constructor(_options) {
@@ -9,6 +10,7 @@ class LoaderBase {
 
     this.$animation;
     this.setContainer(this.options.$container);
+    this.overlay = new Overlay();
   }
 
   setContainer(_container) {
@@ -22,6 +24,7 @@ class LoaderBase {
 
   show() {
     this.options.$container.append(this.$animation);
+    this.overlay.show();
   }
 
   hide() {
@@ -31,6 +34,7 @@ class LoaderBase {
   remove() {
     // Remove the Loader Animation
     this.$animation.remove();
+    this.overlay.remove();
   }
 
   getAnimWrapper() {

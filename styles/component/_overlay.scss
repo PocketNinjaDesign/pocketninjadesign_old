@@ -4,9 +4,12 @@
   background: rgba(#000, 0.9);
   z-index: 1000;
   display: none;
-  cursor: pointer;
 
   &.active {
     display: block;
+  }
+
+  &.click-enabled {
+    cursor: pointer;
   }
 }

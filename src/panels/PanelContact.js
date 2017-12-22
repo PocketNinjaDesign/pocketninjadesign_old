@@ -1,22 +1,19 @@
 import $ from 'jQuery';
+
 import Panel from './Panel';
-import FormValidation from '../modules/FormValidation';
+import Form from '../modules/form/Form';
+import FormBlock from '../modules/form/FormBlock';
+import FormSubmitService from '../services/FormSubmit.service';
 
 class PanelContact extends Panel {
   constructor() {
     super();
     this.$base = $('#panelContact');
-    this.$form;
   }
 
   init() {
-    this.$form = $('#contactForm');
-    this.$form.submit(function(e) {
-      // Write all Form validation here
-      console.log('Form submit called and stopped');
-      console.log(FormValidation.sayHello());
-      e.preventDefault();
-    });
+    let contactForm = new Form($('#contactForm'), 'contact-form.php');
+    contactForm.init();
   }
 }
 

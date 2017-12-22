@@ -14,10 +14,12 @@ class Overlay {
   }
 
   setClick(fn = function() {}) {
-    this.$overlay.on('click', () => {
-      fn();
-      this.toggle();
-    });
+    this.$overlay
+      .addClass('click-enabled')
+      .on('click', () => {
+        fn();
+        this.toggle();
+      });
   }
 
   toggle() {

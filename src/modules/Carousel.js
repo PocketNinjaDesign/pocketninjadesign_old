@@ -88,7 +88,7 @@ class Carousel {
         this.getCarouselItemTemplate($contentList[i])
       );
     }
-    
+
     this.setCarouselItemStyles();
   }
 

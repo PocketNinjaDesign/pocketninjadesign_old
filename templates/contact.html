@@ -14,9 +14,9 @@
   <p>State your name and mission objectives and I will deploy a ninja to respond as soon as possible.</p>
 
   <form id="contactForm" method="POST" name="contact-form" action="contact-us.php">
-    {% include "common/forms/form-block-text.html" with { "text": "name", "type": "text" } %}
-    {% include "common/forms/form-block-text.html" with { "text": "email", "type": "email" } %}
-    {% include "common/forms/form-block-textarea.html" with { "text": "mission information" } %}
+    {% include "common/forms/form-block-text.html" with { "id": "formContactName", "label": "name", "text": "name", "type": "text", "name": "contactname" } %}
+    {% include "common/forms/form-block-text.html" with { "id": "formContactEmail", "label": "email", "text": "email", "type": "email", "name": "contactemail" } %}
+    {% include "common/forms/form-block-textarea.html" with { "id": "formContactInfo", "label": "Mission Information", "text": "mission-information", "name": "contactmessage" } %}
     <button type="submit">Send Mission Request</button>
   </form>
 </div>
