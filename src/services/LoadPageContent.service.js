@@ -74,5 +74,35 @@ export default {
     }
 
     return false;
+  },
+
+  getTemplate(options) {
+    options = $.extend({}, {
+      templateName: '',
+      addClass: '',
+    }, options);
+
+    const TEMPLATE_NAME = options.templateName;
+    const TEMPLATE_ADDITIONAL_CLASS = options.addClass;
+    const URL = `${globals.urlPrefix}templates/${TEMPLATE_NAME}.html`;
+    const WARNING_TEMPLATE = () => {
+      return $('<div/>', {
+        class: 'warning',
+      }).html("Sorry the template wasn't found :-S");
+    }
+
+    return Axios({
+      method:'get',
+      url: URL
+    })
+    .then(function(response) {
+      if(!response.data) {
+        return WARNING_TEMPLATE();
+      }
+      return $(response.data).addClass(TEMPLATE_ADDITIONAL_CLASS);
+    })
+    .catch(function() {
+      return WARNING_TEMPLATE();
+    });
   }
 };

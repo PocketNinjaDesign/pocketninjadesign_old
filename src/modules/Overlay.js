@@ -13,12 +13,14 @@ class Overlay {
     counter++;
   }
 
-  setClick(fn = function() {}) {
+  setClick(fn = function() {}, isToggle) {
     this.$overlay
       .addClass('click-enabled')
       .on('click', () => {
         fn();
-        this.toggle();
+        if(isToggle) {
+          this.toggle();
+        }
       });
   }
 
@@ -35,7 +37,12 @@ class Overlay {
   }
 
   remove() {
-    this.$overlay.remove();
+    let root = this;
+    this.$overlay.addClass('fadeOut');
+
+    setTimeout(function() {
+      root.$overlay.remove();
+    }, 300);
   }
 }
 

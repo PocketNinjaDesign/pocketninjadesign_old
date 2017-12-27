@@ -63,18 +63,24 @@ class FormBlock {
       root.isElementValid = root.checkValidation();
 
       if(root.isElementValid) {
+        root.$formBlock
+          .removeClass('form-block-not-valid')
+          .addClass('form-block-is-valid');
         root.$formElement
           .removeClass('is-not-valid')
           .addClass('is-valid');
       }
       else {
+        root.$formBlock
+          .addClass('form-block-is-valid')
+          .removeClass('form-block-not-valid');
         root.$formElement
           .removeClass('is-valid')
           .addClass('is-not-valid');
       }
     }
 
-    this.$formBlock.on('keyup', function(e) {
+    this.$formElement.on('keyup', function(e) {
       keyUpHandler(e);
     });
 
@@ -91,6 +97,20 @@ class FormBlock {
     }
 
     return result;
+  }
+
+  reset() {
+    // clean up the form block
+    this.$formBlock.removeClass('form-block-is-valid form-block-not-valid');
+
+    // clean up form block element
+    this.$formElement
+      .removeClass('is-valid is-not-valid')
+      .val('')
+      .off('keyup');
+
+    this.options.keyUpCheckMode = false;
+    this.isElementValid = false;
   }
 
   getValue() {

@@ -4,9 +4,15 @@
   background: rgba(#000, 0.9);
   z-index: 1000;
   display: none;
+  opacity: 1;
+  transition: opacity 300ms;
 
   &.active {
     display: block;
+  }
+
+  &.fadeOut {
+    opacity: 0;
   }
 
   &.click-enabled {

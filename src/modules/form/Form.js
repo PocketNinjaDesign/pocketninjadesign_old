@@ -4,15 +4,22 @@ import FormBlock from './FormBlock';
 import FormSubmitService from '../../services/FormSubmit.service';
 import LoaderAnim from '../loaderAnims/LoaderAnim';
 import Overlay from '../Overlay';
+import Modal from '../Modal';
 
 class Form {
-  constructor($form, formPathname) {
+  constructor($form, formPathname, $modalSuccessTemplate) {
     this.$form = $form;
     this.formPathname = formPathname;
     this.formElementList = [];
+    this.$modalSuccessTemplate = $modalSuccessTemplate || undefined;
   }
 
   init() {
+    this.setFormBlocks();
+    this.setFormAction();
+  }
+
+  setFormBlocks() {
     let root = this;
 
     // Find all form blocks and push to formElementList
@@ -25,6 +32,10 @@ class Form {
         name: $element.find('[data-form-element]').attr('name'),
       }));
     });
+  }
+
+  setFormAction() {
+    let root = this;
 
     this.$form.submit(function(e) {
       e.preventDefault();
@@ -44,17 +55,33 @@ class Form {
         panelLoader.create();
         panelLoader.show();
 
+        // Create Modal
+        let modalSuccess = new Modal({
+          addedClassName: 'modal-contact-form-success',
+          $modalContent: root.$modalSuccessTemplate,
+        });
+        modalSuccess.init();
+
         contactForm.run(postData).then(function(response) {
           panelLoader.remove();
-          // Show Model of success
-          // or
-          // Nothing as you shouldn't be able to submit if it is invalid
+          modalSuccess.show();
+          root.resetForm();
+          // Show Model of success - no need to show anything else as validation happens on the form
+          // Clear the form and reset
         });
       }
     });
   }
 
+  formIsEmpty() {
+    return this.formElementList.length < 1;
+  }
+
   allFormElementsValid() {
+    if(this.formIsEmpty()) {
+      return false;
+    }
+
     let result = true;
 
     this.formElementList.forEach(function(element) {
@@ -65,6 +92,17 @@ class Form {
 
     // if all not false then return true
     return result;
+  }
+
+  resetForm() {
+    // loop through form blocks and reset
+    this.formElementList.forEach(function(elementItem) {
+      elementItem.reset();
+    });
+
+    // clear formElementList and remove
+    this.formElementList = [];
+    this.setFormBlocks();
   }
 }
 

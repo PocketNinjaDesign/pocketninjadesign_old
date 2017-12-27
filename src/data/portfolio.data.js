@@ -1,4 +1,6 @@
 
+// Basic simulation of a database
+
 export default {
   website: [
     { alt: "test 1", srcSmall: "blahblah", srcLarge: "blahLargeBlahLarge" },

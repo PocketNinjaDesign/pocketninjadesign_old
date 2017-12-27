@@ -10567,6 +10567,33 @@ exports.default = {
     }
 
     return false;
+  },
+  getTemplate: function getTemplate(options) {
+    options = _jQuery2.default.extend({}, {
+      templateName: '',
+      addClass: ''
+    }, options);
+
+    var TEMPLATE_NAME = options.templateName;
+    var TEMPLATE_ADDITIONAL_CLASS = options.addClass;
+    var URL = _globals2.default.urlPrefix + 'templates/' + TEMPLATE_NAME + '.html';
+    var WARNING_TEMPLATE = function WARNING_TEMPLATE() {
+      return (0, _jQuery2.default)('<div/>', {
+        class: 'warning'
+      }).html("Sorry the template wasn't found :-S");
+    };
+
+    return (0, _axios2.default)({
+      method: 'get',
+      url: URL
+    }).then(function (response) {
+      if (!response.data) {
+        return WARNING_TEMPLATE();
+      }
+      return (0, _jQuery2.default)(response.data).addClass(TEMPLATE_ADDITIONAL_CLASS);
+    }).catch(function () {
+      return WARNING_TEMPLATE();
+    });
   }
 };
 
@@ -11423,10 +11450,13 @@ var Overlay = function () {
       var _this = this;
 
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+      var isToggle = arguments[1];
 
       this.$overlay.addClass('click-enabled').on('click', function () {
         fn();
-        _this.toggle();
+        if (isToggle) {
+          _this.toggle();
+        }
       });
     }
   }, {
@@ -11447,7 +11477,12 @@ var Overlay = function () {
   }, {
     key: 'remove',
     value: function remove() {
-      this.$overlay.remove();
+      var root = this;
+      this.$overlay.addClass('fadeOut');
+
+      setTimeout(function () {
+        root.$overlay.remove();
+      }, 300);
     }
   }]);
 
@@ -13063,6 +13098,9 @@ exports.default = Carousel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+// Basic simulation of a database
+
 exports.default = {
   website: [{ alt: "test 1", srcSmall: "blahblah", srcLarge: "blahLargeBlahLarge" }, { alt: "test 2", srcSmall: "blahblah2", srcLarge: "blahLargeBlahLarge2" }, { alt: "test 3", srcSmall: "blahblah3", srcLarge: "blahLargeBlahLarge3" }, { alt: "test 4", srcSmall: "blahblah4", srcLarge: "blahLargeBlahLarge4" }, { alt: "test 5", srcSmall: "blahblah5", srcLarge: "blahLargeBlahLarge5" }, { alt: "test 6", srcSmall: "blahblah6", srcLarge: "blahLargeBlahLarge6" }]
 };
@@ -13191,7 +13229,9 @@ var PanelContact = function (_Panel) {
   _createClass(PanelContact, [{
     key: 'init',
     value: function init() {
-      var contactForm = new _Form2.default((0, _jQuery2.default)('#contactForm'), 'contact-form.php');
+      var $modalSuccessTemplate = (0, _jQuery2.default)('<div class="modal-success">Your message is in transit by digital pigeon and a ninja will be dispatched as soon as possible.  Just listen for a rusting in the trees,  and if there are no trees!  We apologize for the sudden appearence.</div>');
+
+      var contactForm = new _Form2.default((0, _jQuery2.default)('#contactForm'), 'contact-form.php', $modalSuccessTemplate);
       contactForm.init();
     }
   }]);
@@ -13347,13 +13387,15 @@ var FormBlock = function () {
         root.isElementValid = root.checkValidation();
 
         if (root.isElementValid) {
+          root.$formBlock.removeClass('form-block-not-valid').addClass('form-block-is-valid');
           root.$formElement.removeClass('is-not-valid').addClass('is-valid');
         } else {
+          root.$formBlock.addClass('form-block-is-valid').removeClass('form-block-not-valid');
           root.$formElement.removeClass('is-valid').addClass('is-not-valid');
         }
       };
 
-      this.$formBlock.on('keyup', function (e) {
+      this.$formElement.on('keyup', function (e) {
         keyUpHandler(e);
       });
 
@@ -13371,6 +13413,18 @@ var FormBlock = function () {
       }
 
       return result;
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      // clean up the form block
+      this.$formBlock.removeClass('form-block-is-valid form-block-not-valid');
+
+      // clean up form block element
+      this.$formElement.removeClass('is-valid is-not-valid').val('').off('keyup');
+
+      this.options.keyUpCheckMode = false;
+      this.isElementValid = false;
     }
   }, {
     key: 'getValue',
@@ -13483,22 +13537,33 @@ var _Overlay = __webpack_require__(20);
 
 var _Overlay2 = _interopRequireDefault(_Overlay);
 
+var _Modal = __webpack_require__(61);
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Form = function () {
-  function Form($form, formPathname) {
+  function Form($form, formPathname, $modalSuccessTemplate) {
     _classCallCheck(this, Form);
 
     this.$form = $form;
     this.formPathname = formPathname;
     this.formElementList = [];
+    this.$modalSuccessTemplate = $modalSuccessTemplate || undefined;
   }
 
   _createClass(Form, [{
     key: 'init',
     value: function init() {
+      this.setFormBlocks();
+      this.setFormAction();
+    }
+  }, {
+    key: 'setFormBlocks',
+    value: function setFormBlocks() {
       var root = this;
 
       // Find all form blocks and push to formElementList
@@ -13511,6 +13576,11 @@ var Form = function () {
           name: $element.find('[data-form-element]').attr('name')
         }));
       });
+    }
+  }, {
+    key: 'setFormAction',
+    value: function setFormAction() {
+      var root = this;
 
       this.$form.submit(function (e) {
         e.preventDefault();
@@ -13530,18 +13600,35 @@ var Form = function () {
           panelLoader.create();
           panelLoader.show();
 
+          // Create Modal
+          var modalSuccess = new _Modal2.default({
+            addedClassName: 'modal-contact-form-success',
+            $modalContent: root.$modalSuccessTemplate
+          });
+          modalSuccess.init();
+
           contactForm.run(postData).then(function (response) {
             panelLoader.remove();
-            // Show Model of success
-            // or
-            // Nothing as you shouldn't be able to submit if it is invalid
+            modalSuccess.show();
+            root.resetForm();
+            // Show Model of success - no need to show anything else as validation happens on the form
+            // Clear the form and reset
           });
         }
       });
     }
   }, {
+    key: 'formIsEmpty',
+    value: function formIsEmpty() {
+      return this.formElementList.length < 1;
+    }
+  }, {
     key: 'allFormElementsValid',
     value: function allFormElementsValid() {
+      if (this.formIsEmpty()) {
+        return false;
+      }
+
       var result = true;
 
       this.formElementList.forEach(function (element) {
@@ -13553,12 +13640,129 @@ var Form = function () {
       // if all not false then return true
       return result;
     }
+  }, {
+    key: 'resetForm',
+    value: function resetForm() {
+      // loop through form blocks and reset
+      this.formElementList.forEach(function (elementItem) {
+        elementItem.reset();
+      });
+
+      // clear formElementList and remove
+      this.formElementList = [];
+      this.setFormBlocks();
+    }
   }]);
 
   return Form;
 }();
 
 exports.default = Form;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Overlay = __webpack_require__(20);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var counter = function () {
+  var counter = 1;
+
+  return function () {
+    counter += 1;
+  };
+}();
+
+var DEFAULT_OPTIONS = {
+  addedClassName: '',
+  $modalContent: (0, _jQuery2.default)('<div>Action was successful, a ninja has been dispatched!</div>')
+};
+
+var Modal = function () {
+  function Modal(_options) {
+    _classCallCheck(this, Modal);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, _options);
+    this.id = 'model' + counter();
+    this.overlay = new _Overlay2.default();
+    this.$modal;
+    this.$modalInner;
+  }
+
+  _createClass(Modal, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+
+      this.$modal = (0, _jQuery2.default)(this.getBaseTemplate());
+      this.$modalInner = (0, _jQuery2.default)(this.getInnerTemplate());
+      this.$modal.append(this.$modalInner);
+
+      this.overlay.setClick(function () {
+        root.hide();
+      }, false);
+    }
+  }, {
+    key: 'show',
+    value: function show() {
+      var root = this;
+
+      // Show Model
+      this.overlay.show();
+      (0, _jQuery2.default)('body').append(this.$modal);
+      setTimeout(function () {
+        root.$modalInner.find('.modal-content').append(root.options.$modalContent);
+      }, 2000);
+    }
+  }, {
+    key: 'hide',
+    value: function hide() {
+      var root = this;
+      this.$modal.find('.animation-1').removeClass('animation-1-in').addClass('animation-1-out');
+
+      this.$modalInner.hide();
+
+      // Hide Model
+      setTimeout(function () {
+        root.overlay.remove();
+        root.$modal.remove();
+      }, 150);
+    }
+  }, {
+    key: 'getBaseTemplate',
+    value: function getBaseTemplate() {
+      return '\n      <div id="' + this.id + '" class="modal ' + this.options.addedClassName + '">\n        <div class="animation-1 animation-1-in">\n          <div class="anim-piece piece-1"></div>\n          <div class="anim-piece piece-2"></div>\n          <div class="anim-piece piece-3"></div>\n          <div class="anim-piece piece-4"></div>\n        </div>\n      </div>\n    ';
+    }
+  }, {
+    key: 'getInnerTemplate',
+    value: function getInnerTemplate() {
+      return '\n      <div class="modal-inner">\n        <header class="modal-content-head"></header>\n        <div class="modal-content"></div>\n        <footer class="modal-content-footer"><span class="btn"></span></footer>\n      </div>\n    ';
+    }
+  }]);
+
+  return Modal;
+}();
+
+exports.default = Modal;
 
 /***/ })
 /******/ ]);
