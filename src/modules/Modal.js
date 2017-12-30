@@ -37,13 +37,24 @@ class Modal {
 
   show() {
     let root = this;
+    let animation = this.$modal.find('.animation-1')
+      .on('animationstart', function(e) {
+        console.log(e);
+        //console.log(`animation started ${e.originalEvent.animationName} testing`);
+      })
+      .on('animationend', function(e) {
+        console.log(e);
+        //console.log(`animation finished ${e.originalEvent.animationName} testing`);
+        root.$modalInner.find('.modal-content').append(root.options.$modalContent);
+      });
 
     // Show Model
     this.overlay.show();
     $('body').append(this.$modal);
-    setTimeout(function() {
-      root.$modalInner.find('.modal-content').append(root.options.$modalContent);
-    }, 2000);
+
+    // setTimeout(function() {
+    //   root.$modalInner.find('.modal-content').append(root.options.$modalContent);
+    // }, 2000);
   }
 
   hide() {
