@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link hrefs="https://fonts.googleapis.com/css?family=Dosis:300,500,800|Fredoka+One:400|Source+Sans+Pro:300" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <div class="navigation" id="primarySideNav">
+      <div class="nav-action" id="primaryNavAction">
+        <div class="band top"></div>
+        <div class="band middle"></div>
+        <div class="band bottom"></div>
+      </div>
+      <div class="nav-wrapper">
+        {% include "common/navigation.html" with { "id": "nav" } %}
+      </div>
+    </div>
+
+    <div id="panelBase" class="panel-base">
+
+      <div id="panelLanding" class="panel landing" data-panel='{"name": "landing", "top": 0, "left": 0}'>
+        {% include "page/landing.html" %}
+      </div>
+
+      <div id="panelHome" class="panel home" data-panel='{"name": "home", "top": 25, "left": 25}'>
+        <div class="content">
+        </div>
+      </div>
+
+      <div id="panelPortfolio" class="panel portfolio" data-panel='{"name": "portfolio", "top": 0, "left": 75}'>
+        <div class="content">
+        </div>
+      </div>
+
+      <div id="panelAbout" class="panel about" data-panel='{"name": "about", "top": 50, "left": 50}'>
+        <div class="content">
+        </div>
+      </div>
+
+      <div id="panelContact" class="panel contact" data-panel='{"name": "contact", "top": 90, "left": 90}'>
+        <div class="content">
+        </div>
+      </div>
+
+      <div id="panelExperiments" class="panel experiments" data-panel='{"name": "experiments", "top": 75, "left": 60}'>
+        <div class="content">
+        </div>
+      </div>
+      
+      <div id="panelStyleguide" class="panel styleguide" data-panel='{"name": "styleguide", "top": 75, "left": 15}'>
+        <div class="content">
+        </div>
+      </div>
+
+    </div>
+
+    <script src="bundle.js"></script>
+  </body>
+</html>

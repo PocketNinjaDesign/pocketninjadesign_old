@@ -1,22 +1,47 @@
 import $ from 'jQuery';
+import PnModule from './PnModule';
 
 let counter = 1;
 
-class Overlay {
-  constructor(container = 'body') {
-    this.container = container;
+const ANIMATION_FADE_OUT = 'fadeOut';
+const ACTIVE_CLASSNAME = 'active';
+const CLICK_ENABLED_CLASSNAME = 'click-enabled';
+
+const DEFAULT_OPTIONS = {
+  container: 'body',
+  onClick: undefined,
+  addedClass: '',
+  isToggle: false,
+};
+
+class Overlay extends PnModule {
+  constructor(options) {
+    super();
+    this.options = $.extend({}, DEFAULT_OPTIONS, options);
     this.$overlay = $('<div/>', {
-      id: `overlay${counter}`,
-      class: 'overlay'
+      id: `overlay-${counter}`,
+      class: `overlay ${this.options.addedClass}`
     });
-    this.$overlay.appendTo(this.container);
     counter++;
   }
 
-  setClick(fn = function() {}, isToggle) {
+  init() {
+    if(this.hasClick()) {
+      setClick(this.options.onClick, this.options.isToggle);
+    }
+    this.$overlay.appendTo(this.options.container);
+  }
+
+  /**
+   * setClick
+   * 
+   * @param {function} fn 
+   * @param {Boolean} isToggle
+   */
+  setClick(fn = function() {}, isToggle = false) {
     this.$overlay
-      .addClass('click-enabled')
-      .on('click', () => {
+      .addClass(CLICK_ENABLED_CLASSNAME)
+      .on('click', function() {
         fn();
         if(isToggle) {
           this.toggle();
@@ -24,25 +49,38 @@ class Overlay {
       });
   }
 
+  hasClick() {
+    return this.options.onClick !== undefined;
+  }
+
+  clearClick() {
+    if(this.hasClick()) {
+      this.options.onClick = undefined;
+    }
+  }
+
   toggle() {
-    this.$overlay.toggleClass("active");
+    this.$overlay.toggleClass(ACTIVE_CLASSNAME);
   }
 
   show() {
-    this.$overlay.addClass('active');
+    this.$overlay.addClass(ACTIVE_CLASSNAME);
   }
 
   hide() {
-    this.$overlay.removeClass('active');
+    this.$overlay.removeClass(ACTIVE_CLASSNAME);
   }
 
   remove() {
     let root = this;
-    this.$overlay.addClass('fadeOut');
+    this.$overlay.addClass(ANIMATION_FADE_OUT);
 
-    setTimeout(function() {
-      root.$overlay.remove();
-    }, 300);
+    this.clearClick();
+
+    this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT).then((e) => {
+      //console.log(`animation ${e.originalEvent.animationName} complete`);
+      this.$overlay.remove();
+    });
   }
 }
 

@@ -11295,18 +11295,6 @@ var _PrimaryNavigation = __webpack_require__(19);
 
 var _PrimaryNavigation2 = _interopRequireDefault(_PrimaryNavigation);
 
-var _PanelScrollBase = __webpack_require__(6);
-
-var _PanelScrollBase2 = _interopRequireDefault(_PanelScrollBase);
-
-var _LoadPageContent = __webpack_require__(8);
-
-var _LoadPageContent2 = _interopRequireDefault(_LoadPageContent);
-
-var _PanelBase = __webpack_require__(15);
-
-var _PanelBase2 = _interopRequireDefault(_PanelBase);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(55);
@@ -11317,11 +11305,8 @@ var css = __webpack_require__(55);
 // Services
 
 
-// Panels
-
-
 (0, _jQuery2.default)(function () {
-  _PanelBase2.default.landing.init();
+  console.log('Hello World');
 });
 
 /***/ }),
@@ -11384,7 +11369,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var $primaryNavAction = (0, _jQuery2.default)('#primaryNavAction');
 var $primarySideNav = (0, _jQuery2.default)('#primarySideNav');
 
-var primaryOverlay = new _Overlay2.default();
+var primaryOverlay = new _Overlay2.default({});
+primaryOverlay.init();
 
 var onClick = function onClick() {
   $primarySideNav.toggleClass("active");
@@ -11394,6 +11380,7 @@ var onClick = function onClick() {
 $primaryNavAction.on('click', onClick);
 primaryOverlay.setClick(function () {
   $primarySideNav.toggleClass("active");
+  primaryOverlay.remove();
 });
 
 // Create the panel Navigation
@@ -11423,71 +11410,123 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
+var _PnModule2 = __webpack_require__(62);
+
+var _PnModule3 = _interopRequireDefault(_PnModule2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var counter = 1;
 
-var Overlay = function () {
-  function Overlay() {
-    var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'body';
+var ANIMATION_FADE_OUT = 'fadeOut';
+var ACTIVE_CLASSNAME = 'active';
+var CLICK_ENABLED_CLASSNAME = 'click-enabled';
 
+var DEFAULT_OPTIONS = {
+  container: 'body',
+  onClick: undefined,
+  addedClass: '',
+  isToggle: false
+};
+
+var Overlay = function (_PnModule) {
+  _inherits(Overlay, _PnModule);
+
+  function Overlay(options) {
     _classCallCheck(this, Overlay);
 
-    this.container = container;
-    this.$overlay = (0, _jQuery2.default)('<div/>', {
-      id: 'overlay' + counter,
-      class: 'overlay'
+    var _this = _possibleConstructorReturn(this, (Overlay.__proto__ || Object.getPrototypeOf(Overlay)).call(this));
+
+    _this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
+    _this.$overlay = (0, _jQuery2.default)('<div/>', {
+      id: 'overlay-' + counter,
+      class: 'overlay ' + _this.options.addedClass
     });
-    this.$overlay.appendTo(this.container);
     counter++;
+    return _this;
   }
 
   _createClass(Overlay, [{
+    key: 'init',
+    value: function init() {
+      if (this.hasClick()) {
+        setClick(this.options.onClick, this.options.isToggle);
+      }
+      this.$overlay.appendTo(this.options.container);
+    }
+
+    /**
+     * setClick
+     * 
+     * @param {function} fn 
+     * @param {Boolean} isToggle
+     */
+
+  }, {
     key: 'setClick',
     value: function setClick() {
-      var _this = this;
-
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
-      var isToggle = arguments[1];
+      var isToggle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      this.$overlay.addClass('click-enabled').on('click', function () {
+      this.$overlay.addClass(CLICK_ENABLED_CLASSNAME).on('click', function () {
         fn();
         if (isToggle) {
-          _this.toggle();
+          this.toggle();
         }
       });
     }
   }, {
+    key: 'hasClick',
+    value: function hasClick() {
+      return this.options.onClick !== undefined;
+    }
+  }, {
+    key: 'clearClick',
+    value: function clearClick() {
+      if (this.hasClick()) {
+        this.options.onClick = undefined;
+      }
+    }
+  }, {
     key: 'toggle',
     value: function toggle() {
-      this.$overlay.toggleClass("active");
+      this.$overlay.toggleClass(ACTIVE_CLASSNAME);
     }
   }, {
     key: 'show',
     value: function show() {
-      this.$overlay.addClass('active');
+      this.$overlay.addClass(ACTIVE_CLASSNAME);
     }
   }, {
     key: 'hide',
     value: function hide() {
-      this.$overlay.removeClass('active');
+      this.$overlay.removeClass(ACTIVE_CLASSNAME);
     }
   }, {
     key: 'remove',
     value: function remove() {
-      var root = this;
-      this.$overlay.addClass('fadeOut');
+      var _this2 = this;
 
-      setTimeout(function () {
-        root.$overlay.remove();
-      }, 300);
+      var root = this;
+      this.$overlay.addClass(ANIMATION_FADE_OUT);
+
+      this.clearClick();
+
+      this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT).then(function (e) {
+        //console.log(`animation ${e.originalEvent.animationName} complete`);
+        _this2.$overlay.remove();
+      });
     }
   }]);
 
   return Overlay;
-}();
+}(_PnModule3.default);
 
 exports.default = Overlay;
 
@@ -13772,6 +13811,67 @@ var Modal = function () {
 }();
 
 exports.default = Modal;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Animation = __webpack_require__(63);
+
+var _Animation2 = _interopRequireDefault(_Animation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PnModule = function PnModule() {
+  _classCallCheck(this, PnModule);
+
+  this.AnimationService = _Animation2.default;
+};
+
+;
+
+exports.default = PnModule;
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  checkComplete: function checkComplete($element, animationName) {
+    return new Promise(function (resolve, reject) {
+      $element.on('animationend', function (e) {
+        if (animationName === e.originalEvent.animationName) {
+          resolve(e);
+        }
+      });
+    });
+  },
+  sayHello: function sayHello() {
+    console.log('Helloo Animation Service');
+  }
+};
 
 /***/ })
 /******/ ]);

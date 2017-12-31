@@ -4,6 +4,12 @@
   to {
     transform: rotate(360deg); } }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
 @keyframes rotateOnce {
   0% {
     transform: scale(0.1) rotate(-360deg); }
@@ -653,116 +659,6 @@ section.block {
   .overlay.active {
     display: block; }
   .overlay.fadeOut {
-    opacity: 0; }
+    animation: fadeOut 300ms forwards; }
   .overlay.click-enabled {
     cursor: pointer; }
-
-.panel.about {
-  background: #fff; }
-  .panel.about .site-width {
-    text-align: left; }
-  .panel.about .job-block {
-    margin-bottom: 30px; }
-    .panel.about .job-block::after {
-      clear: both;
-      content: "";
-      display: table; }
-    .panel.about .job-block .left-col {
-      float: left;
-      width: 40%; }
-    .panel.about .job-block .right-col {
-      float: left;
-      width: 60%; }
-
-.panel.landing {
-  background: #fff;
-  top: 0;
-  left: 0;
-  z-index: 1000; }
-  .panel.landing .header-large h1 {
-    font-size: 30px;
-    padding-bottom: 4px;
-    transition: font-size 150ms; }
-    @media screen and (min-width: 500px) {
-      .panel.landing .header-large h1 {
-        font-size: 40px; } }
-    @media screen and (min-width: 900px) {
-      .panel.landing .header-large h1 {
-        font-size: 50px; } }
-  .panel.landing .content h2 {
-    font-family: "dosis", sans-serif;
-    font-size: 34px;
-    font-weight: 500;
-    color: #d91f2d;
-    line-height: 1;
-    margin-bottom: 14px;
-    font-size: 18px;
-    margin-top: 7px;
-    transition: font-size 150ms; }
-    @media screen and (min-width: 500px) {
-      .panel.landing .content h2 {
-        font-size: 20px; } }
-    @media screen and (min-width: 900px) {
-      .panel.landing .content h2 {
-        font-size: 24px; } }
-  .panel.landing .content p {
-    font-size: 16px;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-    transition: font-size 150ms, margin-bottom 150ms; }
-    @media screen and (min-width: 900px) {
-      .panel.landing .content p {
-        font-size: 18px;
-        margin-bottom: 65px; } }
-  .panel.landing .content .nav-options {
-    margin-bottom: 30px; }
-    .panel.landing .content .nav-options a {
-      text-transform: uppercase;
-      font-family: "dosis", sans-serif;
-      font-size: 35px;
-      line-height: 1.1;
-      color: rgba(207, 208, 210, 0.25);
-      text-decoration: none;
-      margin: 0 4px;
-      transition: color 300ms, font-size 150ms, margin 150ms; }
-      .panel.landing .content .nav-options a:hover {
-        color: #cfd0d2; }
-      @media screen and (min-width: 500px) {
-        .panel.landing .content .nav-options a {
-          font-size: 50px; } }
-      @media screen and (min-width: 624px) {
-        .panel.landing .content .nav-options a {
-          font-size: 70px;
-          margin: 0 8px; } }
-      @media screen and (min-width: 900px) {
-        .panel.landing .content .nav-options a {
-          font-size: 104px; } }
-  .panel.landing .content .ninja-tree {
-    height: 291px;
-    background: url("/styles/images/ninja-small-bonsai.png") no-repeat center center;
-    background-size: contain; }
-
-.box-enlarge-item .carousel {
-  height: 100%; }
-
-.panel.styleguide {
-  background: #fff; }
-  .panel.styleguide .site-width {
-    text-align: left; }
-    .panel.styleguide .site-width .header-mini {
-      padding: 40px 20px; }
-  .panel.styleguide .widget-enlargement .widget-enlargement-test,
-  .panel.styleguide .widget-enlargement #EnlargementTest1 {
-    margin-bottom: 30px; }
-
-.widget-enlargement-test {
-  font-family: "dosis", sans-serif;
-  font-size: 38px;
-  font-weight: 700;
-  color: #d91f2d;
-  line-height: 1;
-  margin-bottom: 18px;
-  color: #8a8a8a;
-  width: 500px;
-  height: 300px;
-  background: #cfd0d2; }

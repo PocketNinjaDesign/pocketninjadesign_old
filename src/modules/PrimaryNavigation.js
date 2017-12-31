@@ -5,7 +5,8 @@ import PanelNavigation from './panel/PanelNavigation';
 let $primaryNavAction = $('#primaryNavAction');
 let $primarySideNav = $('#primarySideNav');
 
-let primaryOverlay = new Overlay();
+let primaryOverlay = new Overlay({});
+primaryOverlay.init();
 
 let onClick = function() {
   $primarySideNav.toggleClass("active");
@@ -15,6 +16,7 @@ let onClick = function() {
 $primaryNavAction.on('click', onClick);
 primaryOverlay.setClick(function() {
   $primarySideNav.toggleClass("active");
+  primaryOverlay.remove();
 });
 
 // Create the panel Navigation

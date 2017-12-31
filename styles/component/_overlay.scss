@@ -12,7 +12,7 @@
   }
 
   &.fadeOut {
-    opacity: 0;
+    animation: fadeOut 300ms forwards;
   }
 
   &.click-enabled {

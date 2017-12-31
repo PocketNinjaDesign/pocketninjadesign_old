@@ -1,0 +1,28 @@
+
+section.block {
+  margin-bottom: 50px;
+}
+
+.section {
+  padding: 20px;
+  border-top: 1px solid $swatch8;
+  margin-bottom: 30px;
+  //border-radius: 6px;
+
+  .section-head {
+  }
+
+  .section-content {
+    @include clearfix;
+    padding-left: 50px;
+
+    .section-item {
+      margin-bottom: 50px;
+
+      .section-item-title {
+        color: $swatch7;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
