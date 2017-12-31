@@ -11425,7 +11425,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var counter = 1;
 
-var ANIMATION_FADE_OUT = 'fadeOut';
+var ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
+var ANIMATION_FADE_OUT_NAME = 'fadeOut';
 var ACTIVE_CLASSNAME = 'active';
 var CLICK_ENABLED_CLASSNAME = 'click-enabled';
 
@@ -11499,7 +11500,6 @@ var Overlay = function (_PnModule) {
   }, {
     key: 'toggle',
     value: function toggle() {
-      console.log('toggle clicked');
       this.$overlay.toggleClass(ACTIVE_CLASSNAME);
     }
   }, {
@@ -11518,12 +11518,11 @@ var Overlay = function (_PnModule) {
       var _this2 = this;
 
       var root = this;
-      this.$overlay.addClass(ANIMATION_FADE_OUT);
+      this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
 
       this.clearClick();
 
-      this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT).then(function (e) {
-        //console.log(`animation ${e.originalEvent.animationName} complete`);
+      this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then(function (e) {
         _this2.$overlay.remove();
       });
     }
@@ -13862,18 +13861,40 @@ var _jQuery2 = _interopRequireDefault(_jQuery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
-  checkComplete: function checkComplete($element, animationName) {
-    return new Promise(function (resolve, reject) {
-      $element.on('animationend', function (e) {
-        if (animationName === e.originalEvent.animationName) {
-          resolve(e);
-        }
-      });
+var privateGetPromise = function privateGetPromise($element, animationName, type) {
+  return new Promise(function (resolve, reject) {
+    $element.on('animation' + type, function (e) {
+      if (animationName === e.originalEvent.animationName) {
+        //console.log(`animation ${e.originalEvent.animationName} ${type}`);
+        resolve(e);
+      }
     });
+  });
+};
+
+exports.default = {
+
+  /**
+   * checkStarted
+   * checks the given jQuery element when a particular animation has started
+   * 
+   * @param {jQuery} $()  
+   * @param {String} animationName 
+   */
+  checkStarted: function checkStarted($element, animationName) {
+    return privateGetPromise($element, animationName, 'start');
   },
-  sayHello: function sayHello() {
-    console.log('Helloo Animation Service');
+
+
+  /**
+   * checkComplete
+   * Checks the given jQuery element when a particular animation has finished
+   * 
+   * @param {jQuery} $()
+   * @param {String} animationName 
+   */
+  checkComplete: function checkComplete($element, animationName) {
+    return privateGetPromise($element, animationName, 'end');
   }
 };
 

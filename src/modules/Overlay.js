@@ -3,7 +3,8 @@ import PnModule from './PnModule';
 
 let counter = 1;
 
-const ANIMATION_FADE_OUT = 'fadeOut';
+const ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
+const ANIMATION_FADE_OUT_NAME = 'fadeOut';
 const ACTIVE_CLASSNAME = 'active';
 const CLICK_ENABLED_CLASSNAME = 'click-enabled';
 
@@ -62,7 +63,6 @@ class Overlay extends PnModule {
   }
 
   toggle() {
-    console.log('toggle clicked');
     this.$overlay.toggleClass(ACTIVE_CLASSNAME);
   }
 
@@ -76,12 +76,11 @@ class Overlay extends PnModule {
 
   remove() {
     let root = this;
-    this.$overlay.addClass(ANIMATION_FADE_OUT);
+    this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
 
     this.clearClick();
 
-    this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT).then((e) => {
-      //console.log(`animation ${e.originalEvent.animationName} complete`);
+    this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then((e) => {
       this.$overlay.remove();
     });
   }
