@@ -11369,7 +11369,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var $primaryNavAction = (0, _jQuery2.default)('#primaryNavAction');
 var $primarySideNav = (0, _jQuery2.default)('#primarySideNav');
 
-var primaryOverlay = new _Overlay2.default({});
+var primaryOverlay = new _Overlay2.default({
+  onClick: function onClick() {
+    $primarySideNav.toggleClass("active");
+  },
+  isToggle: true
+});
 primaryOverlay.init();
 
 var onClick = function onClick() {
@@ -11378,10 +11383,6 @@ var onClick = function onClick() {
 };
 
 $primaryNavAction.on('click', onClick);
-primaryOverlay.setClick(function () {
-  $primarySideNav.toggleClass("active");
-  primaryOverlay.remove();
-});
 
 // Create the panel Navigation
 var panelNav = new _PanelNavigation2.default('#nav', onClick);
@@ -11456,7 +11457,7 @@ var Overlay = function (_PnModule) {
     key: 'init',
     value: function init() {
       if (this.hasClick()) {
-        setClick(this.options.onClick, this.options.isToggle);
+        this.setClick(this.options.onClick, this.options.isToggle);
       }
       this.$overlay.appendTo(this.options.container);
     }
@@ -11474,10 +11475,12 @@ var Overlay = function (_PnModule) {
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
       var isToggle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
+      var root = this;
+
       this.$overlay.addClass(CLICK_ENABLED_CLASSNAME).on('click', function () {
         fn();
         if (isToggle) {
-          this.toggle();
+          root.toggle();
         }
       });
     }
@@ -11496,6 +11499,7 @@ var Overlay = function (_PnModule) {
   }, {
     key: 'toggle',
     value: function toggle() {
+      console.log('toggle clicked');
       this.$overlay.toggleClass(ACTIVE_CLASSNAME);
     }
   }, {

@@ -27,7 +27,7 @@ class Overlay extends PnModule {
 
   init() {
     if(this.hasClick()) {
-      setClick(this.options.onClick, this.options.isToggle);
+      this.setClick(this.options.onClick, this.options.isToggle);
     }
     this.$overlay.appendTo(this.options.container);
   }
@@ -39,12 +39,14 @@ class Overlay extends PnModule {
    * @param {Boolean} isToggle
    */
   setClick(fn = function() {}, isToggle = false) {
+    let root = this;
+
     this.$overlay
       .addClass(CLICK_ENABLED_CLASSNAME)
       .on('click', function() {
         fn();
         if(isToggle) {
-          this.toggle();
+          root.toggle();
         }
       });
   }
@@ -60,6 +62,7 @@ class Overlay extends PnModule {
   }
 
   toggle() {
+    console.log('toggle clicked');
     this.$overlay.toggleClass(ACTIVE_CLASSNAME);
   }
 

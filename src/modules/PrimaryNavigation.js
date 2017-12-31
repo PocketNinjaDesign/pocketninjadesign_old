@@ -5,7 +5,12 @@ import PanelNavigation from './panel/PanelNavigation';
 let $primaryNavAction = $('#primaryNavAction');
 let $primarySideNav = $('#primarySideNav');
 
-let primaryOverlay = new Overlay({});
+let primaryOverlay = new Overlay({
+  onClick: function() {
+    $primarySideNav.toggleClass("active");
+  },
+  isToggle: true,
+});
 primaryOverlay.init();
 
 let onClick = function() {
@@ -14,10 +19,6 @@ let onClick = function() {
 }
 
 $primaryNavAction.on('click', onClick);
-primaryOverlay.setClick(function() {
-  $primarySideNav.toggleClass("active");
-  primaryOverlay.remove();
-});
 
 // Create the panel Navigation
 let panelNav = new PanelNavigation('#nav', onClick);
