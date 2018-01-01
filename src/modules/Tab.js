@@ -8,20 +8,19 @@ const DEFAULT_OPTIONS = {
 class Tab {
   constructor(options) {
     this.options = $.extend({}, DEFAULT_OPTIONS, options);
-    this.$navigation;
-    this.$navigationList;
-    this.$content;
-    this.currentSelection = this.options.startIndex;
-  }
 
-  init() {
+    this.currentSelection = this.options.startIndex;
+
+    // Set jQuery objects
     this.$navigation = this.options.$tab.find('[data-tab-nav]');
     this.$navigationList = this.$navigation.find('li');
     this.$content = this.options.$tab.find('[data-tab-content]');
     this.$contentList = this.$content.find('.tab-content-item');
 
-    this.setCurrentSelection(this.currentSelection);
+  }
 
+  init() {
+    this.setCurrentSelection(this.currentSelection);
     this.setEvents();
   }
 
