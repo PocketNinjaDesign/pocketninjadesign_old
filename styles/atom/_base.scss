@@ -25,7 +25,5 @@ body {
 }
 
 body {
-  overflow: hidden;
-  background: $swatch1;
   @include defaultFont();
 }

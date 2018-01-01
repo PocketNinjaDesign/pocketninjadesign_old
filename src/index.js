@@ -3,13 +3,17 @@ const css = require('../styles/primary.scss');
 import $ from 'jQuery';
 import globals from './globals';
 
+
 // Modules
-import PrimaryNavigation from './modules/PrimaryNavigation';
+import SideNavigation from './modules/nav/SideNavigation';
 
 // Services
 
 
+// Sections
+import Portfolio from './modules/section/Portfolio';
 
-$(() => {
-  console.log('Hello World');
-});
+//
+// Index Script
+//
+SideNavigation.init();

@@ -18,7 +18,7 @@
   font-weight: 800;
   color: $swatch3;
   line-height: 1;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 @mixin size2 {
@@ -27,7 +27,7 @@
   font-weight: 700;
   color: $swatch5;
   line-height: 1;
-  margin-bottom: 18px;
+  padding-bottom: 18px;
 }
 
 @mixin size3 {
@@ -36,7 +36,7 @@
   font-weight: 500;
   color: $swatch5;
   line-height: 1;
-  margin-bottom: 14px;
+  padding-bottom: 14px;
 }
 
 @mixin size4 {
@@ -45,7 +45,7 @@
   font-weight: 500;
   color: $swatch4;
   line-height: 1;
-  margin-bottom: 12px;
+  padding-bottom: 12px;
 }
 
 @mixin size5 {
@@ -54,5 +54,5 @@
   font-weight: 500;
   color: $swatch4;
   line-height: 1;
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 }

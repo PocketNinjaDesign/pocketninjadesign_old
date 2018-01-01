@@ -1,4 +1,3 @@
-import $ from 'jQuery';
 
 const privateGetPromise = ($element, animationName, type) => {
   return new Promise((resolve, reject) => {

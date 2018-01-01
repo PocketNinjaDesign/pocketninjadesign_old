@@ -18,13 +18,13 @@
       </div>
     </div>
 
-    <header class="header-large">
+    <header id="header" class="header-large bg-color-1">
       <div class="site-width">
         {% include "common/logo.html" %}
       </div>
     </header>
 
-    <section id="about">
+    <section id="about" class="section bg-color-8">
       <div class="site-width">
         <h1>Welcome to my world</h1>
         <h2>Web front end design / developer</h2>
@@ -32,20 +32,57 @@
       </div>
     </section>
 
-    <section id="portfolio">
-      <div class="site-width"></div>
+    <section id="portfolio" class="section bg-color-9">
+      <div class="site-width">
+        <h1>Portfolio</h1>
+        <ul id="portfolioNavigation" class="portfolio-navigation">
+          <li>Websites</li>
+          <li>Graphics</li>
+          <li>Illustrations</li>
+        </ul>
+        <div id="portfolioCarousel" class="carousel" data-carousel>
+          <div class="carousel-slider-container">
+            <ul class="carousel-slider" data-slider>
+              <li class="carousel-item">
+                {% include "common/portfolio-list.html" %}
+              </li>
+              <li class="carousel-item">
+                {% include "common/portfolio-list.html" %}
+              </li>
+            </ul>
+          </div>
+          <div class="carousel-nav">
+            <div class="carousel-btn left" data-carousel-left-bttn>left</div>
+            <div class="carousel-btn right" data-carousel-right-bttn>right</div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="codepen">
-      <div class="site-width"></div>
+    <section id="codepen" class="section bg-color-7">
+      <div class="site-width">
+        <h1>Codepen</h1>
+        <ul class="grid grid-medium codepen-list">
+          <li class="grid-item"></li>
+          <li class="grid-item"></li>
+          <li class="grid-item"></li>
+          <li class="grid-item"></li>
+          <li class="grid-item"></li>
+          <li class="grid-item"></li>
+        </ul>
+      </div>
     </section>
 
-    <section id="contact">
-      <div class="site-width"></div>
+    <section id="contact" class="section bg-color-2">
+      <div class="site-width">
+        <h1>Contact</h1>
+      </div>
     </section>
     
-    <footer id="footer">
-      <div class="site-width"></div>
+    <footer id="footer" class="primary-footer bg-color-10">
+      <div class="site-width">
+
+      </div>
     </footer>
 
     <script src="bundle.js"></script>

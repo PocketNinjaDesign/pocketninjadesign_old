@@ -9,4 +9,9 @@
   to { opacity: 0 }
 }
 
+@keyframes fadeIn {
+  from { opacity: 1 }
+  to { opacity: 0 }
+}
+
 @import "animations/4box";

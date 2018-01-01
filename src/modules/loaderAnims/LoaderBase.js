@@ -1,12 +1,16 @@
 import $ from 'jQuery';
 import Overlay from '../Overlay';
 
+
+const DEFAULT_OPTIONS = {
+  $container: 'body',
+  positionType: 'absolute',
+};
+
+
 class LoaderBase {
   constructor(_options) {
-    this.options = $.extend({
-      $container: 'body',
-      positionType: 'absolute'
-    }, _options);
+    this.options = $.extend({}, DEFAULT_OPTIONS, _options);
 
     this.$animation;
     this.setContainer(this.options.$container);
