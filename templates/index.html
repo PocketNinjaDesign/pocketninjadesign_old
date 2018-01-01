@@ -32,29 +32,26 @@
       </div>
     </section>
 
-    <section id="portfolio" class="section bg-color-9">
+    <section id="portfolio" class="section section-portfolio bg-color-9">
       <div class="site-width">
         <h1>Portfolio</h1>
-        <ul id="portfolioNavigation" class="portfolio-navigation">
-          <li>Websites</li>
-          <li>Graphics</li>
-          <li>Illustrations</li>
-        </ul>
-        <div id="portfolioCarousel" class="carousel" data-carousel>
-          <div class="carousel-slider-container">
-            <ul class="carousel-slider" data-slider>
-              <li class="carousel-item">
-                {% include "common/portfolio-list.html" %}
-              </li>
-              <li class="carousel-item">
-                {% include "common/portfolio-list.html" %}
-              </li>
-            </ul>
-          </div>
-          <div class="carousel-nav">
-            <div class="carousel-btn left" data-carousel-left-bttn>left</div>
-            <div class="carousel-btn right" data-carousel-right-bttn>right</div>
-          </div>
+        <div id="portfolioTab" class="tab" data-tab>
+          <ul class="tab-navigation" data-tab-nav>
+            <li>Websites</li>
+            <li>Graphics</li>
+            <li>Illustrations</li>
+          </ul>
+          <ul class="tab-content-list" data-tab-content>
+            <li class="tab-content-item">
+              {% include "common/portfolio-list.html" %}
+            </li>
+            <li class="tab-content-item">
+              {% include "common/portfolio-list.html" %}
+            </li>
+            <li class="tab-content-item">
+              {% include "common/portfolio-list.html" %}
+            </li>
+          </ul>
         </div>
       </div>
     </section>

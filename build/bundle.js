@@ -10132,133 +10132,6 @@ exports.default = {
 
 /***/ }),
 
-/***/ 49:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_OPTIONS = {
-  $carousel: undefined,
-  fullRender: false,
-  renderContainer: undefined,
-  startIndex: 0
-};
-
-var Carousel = function () {
-  function Carousel(newOptions) {
-    _classCallCheck(this, Carousel);
-
-    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, newOptions);
-
-    this.$slider;
-    this.$leftButton;
-    this.$rightButton;
-
-    this.itemCount;
-    this.itemWidth;
-    this.currentIndex = this.options.startIndex;
-  }
-
-  _createClass(Carousel, [{
-    key: 'init',
-    value: function init() {
-      var root = this;
-
-      if (this.options.fullRender) {
-        this.options.$carousel = this.getCarouselTemplate();
-        this.options.renderContainer.append(this.options.$carousel);
-      }
-
-      this.$slider = root.options.$carousel.find('[data-slider]');
-
-      this.setCarouselItemStyles();
-      this.setButtons();
-    }
-  }, {
-    key: 'moveSlider',
-    value: function moveSlider(num) {
-      this.currentIndex += num;
-      this.$slider.css('left', -(100 * this.currentIndex) + '%');
-    }
-  }, {
-    key: 'setButtons',
-    value: function setButtons() {
-      var root = this;
-
-      this.$leftButton = this.options.$carousel.find('[data-carousel-left-bttn]').on('click', function () {
-        if (root.currentIndex > 0) {
-          root.moveSlider(-1);
-        }
-      });
-
-      this.$rightButton = this.options.$carousel.find('[data-carousel-right-bttn]').on('click', function () {
-        if (root.currentIndex < root.itemCount - 1) {
-          root.moveSlider(1);
-        }
-      });
-    }
-  }, {
-    key: 'setCarouselItemStyles',
-    value: function setCarouselItemStyles() {
-      var root = this;
-
-      this.itemCount = this.$slider.find('.carousel-item').length || 0;
-      this.itemWidth = 100 / this.itemCount;
-
-      this.$slider.css('width', 100 * this.itemCount + '%').find('.carousel-item').each(function (index) {
-        (0, _jQuery2.default)(this).css({
-          width: root.itemWidth + '%',
-          left: root.itemWidth * index + '%'
-        });
-      });
-    }
-
-    // $contentList - List of jQuery objects
-
-  }, {
-    key: 'AddCarouselItem',
-    value: function AddCarouselItem($contentList) {
-      for (var i = 0; i < $contentList.length; i++) {
-        var $item = this.getCarouselItemTemplate();
-        this.$slider.append(this.getCarouselItemTemplate($contentList[i]));
-      }
-
-      this.setCarouselItemStyles();
-    }
-  }, {
-    key: 'getCarouselTemplate',
-    value: function getCarouselTemplate() {
-      return (0, _jQuery2.default)('\n      <div class="carousel" data-carousel>\n        <div class="carousel-slider-container">\n          <ul class="carousel-slider" data-slider>\n          </ul>\n        </div>\n        <div class="carousel-nav">\n          <div class="carousel-btn left" data-carousel-left-bttn>left</div>\n          <div class="carousel-btn right" data-carousel-right-bttn>right</div>\n        </div>\n      </div>\n    ');
-    }
-  }, {
-    key: 'getCarouselItemTemplate',
-    value: function getCarouselItemTemplate($content) {
-      return (0, _jQuery2.default)('\n      <li class="carousel-item"></li>\n    ').append($content);
-    }
-  }]);
-
-  return Carousel;
-}();
-
-exports.default = Carousel;
-
-/***/ }),
-
 /***/ 55:
 /***/ (function(module, exports) {
 
@@ -10494,9 +10367,9 @@ var _Section2 = __webpack_require__(68);
 
 var _Section3 = _interopRequireDefault(_Section2);
 
-var _Carousel = __webpack_require__(49);
+var _Tab = __webpack_require__(69);
 
-var _Carousel2 = _interopRequireDefault(_Carousel);
+var _Tab2 = _interopRequireDefault(_Tab);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10516,12 +10389,11 @@ exports.default = new (function (_Section) {
 
     _this.$portfolio = (0, _jQuery2.default)('#portfolio');
     _this.$portfolioNavigation = (0, _jQuery2.default)('#portfolioNavigation');
-    _this.$carousel = (0, _jQuery2.default)('#portfolioCarousel');
-
-    _this.carousel = new _Carousel2.default({
-      $carousel: _this.$carousel
+    _this.$tab = (0, _jQuery2.default)('#portfolioTab');
+    _this.portfolioTab = new _Tab2.default({
+      $tab: _this.$tab
     });
-    _this.carousel.init();
+    _this.portfolioTab.init();
     return _this;
   }
 
@@ -10549,6 +10421,83 @@ var Section = function Section() {
 };
 
 exports.default = Section;
+
+/***/ }),
+
+/***/ 69:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_OPTIONS = {
+  $tab: undefined,
+  startIndex: 0
+};
+
+var Tab = function () {
+  function Tab(options) {
+    _classCallCheck(this, Tab);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
+    this.$navigation;
+    this.$navigationList;
+    this.$content;
+    this.currentSelection = this.options.startIndex;
+  }
+
+  _createClass(Tab, [{
+    key: 'init',
+    value: function init() {
+      this.$navigation = this.options.$tab.find('[data-tab-nav]');
+      this.$navigationList = this.$navigation.find('li');
+      this.$content = this.options.$tab.find('[data-tab-content]');
+      this.$contentList = this.$content.find('.tab-content-item');
+
+      this.setCurrentSelection(this.currentSelection);
+
+      this.setEvents();
+    }
+  }, {
+    key: 'setEvents',
+    value: function setEvents() {
+      var root = this;
+
+      this.$navigationList.on('click', function () {
+        root.setCurrentSelection((0, _jQuery2.default)(this).index());
+      });
+    }
+  }, {
+    key: 'setCurrentSelection',
+    value: function setCurrentSelection(newPosition) {
+      this.$navigationList.eq(this.currentSelection).removeClass('active');
+      this.$navigationList.eq(newPosition).addClass('active');
+
+      this.$contentList.eq(this.currentSelection).hide();
+      this.$contentList.eq(newPosition).show();
+
+      this.currentSelection = newPosition;
+    }
+  }]);
+
+  return Tab;
+}();
+
+exports.default = Tab;
 
 /***/ })
 

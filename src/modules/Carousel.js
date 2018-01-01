@@ -80,6 +80,7 @@ class Carousel {
       });
   }
 
+
   // $contentList - List of jQuery objects
   AddCarouselItem($contentList) {
     for(let i = 0; i < $contentList.length; i++) {
@@ -91,6 +92,7 @@ class Carousel {
 
     this.setCarouselItemStyles();
   }
+
 
   getCarouselTemplate() {
     return $(`
@@ -106,6 +108,7 @@ class Carousel {
       </div>
     `);
   }
+
 
   getCarouselItemTemplate($content) {
     return $(`

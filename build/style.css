@@ -707,3 +707,21 @@ p {
     animation: fadeOut 300ms forwards; }
   .overlay.click-enabled {
     cursor: pointer; }
+
+.tab .tab-navigation > li {
+  cursor: pointer; }
+  .tab .tab-navigation > li.active {
+    color: #d91f2d; }
+
+.tab .tab-content-list .tab-content-item {
+  display: none; }
+
+.section-portfolio .tab-navigation {
+  margin: 0 0 20px 0; }
+  .section-portfolio .tab-navigation::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .section-portfolio .tab-navigation > li {
+    float: left;
+    margin-right: 10px; }

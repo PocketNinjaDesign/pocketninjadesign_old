@@ -1,17 +1,16 @@
 import $ from 'jQuery';
 import Section from './Section';
-import Carousel from '../Carousel';
+import Tab from '../Tab';
 
 export default new class extends Section {
   constructor() {
     super();
     this.$portfolio = $('#portfolio');
     this.$portfolioNavigation = $('#portfolioNavigation');
-    this.$carousel = $('#portfolioCarousel');
-
-    this.carousel = new Carousel({
-      $carousel: this.$carousel
+    this.$tab = $('#portfolioTab');
+    this.portfolioTab = new Tab({
+      $tab: this.$tab
     });
-    this.carousel.init();
+    this.portfolioTab.init();
   }
 }
