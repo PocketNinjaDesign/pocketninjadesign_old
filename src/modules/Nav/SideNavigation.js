@@ -20,6 +20,7 @@ class SideNavigation {
         root.$primarySideNav.toggleClass("active");
       },
       isToggle: true,
+      zIndex: 1000,
     });
     this.primaryOverlay.init();
 

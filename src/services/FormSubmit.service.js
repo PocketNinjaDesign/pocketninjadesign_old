@@ -14,7 +14,6 @@ class FormSubmit {
       url: `${this.URL}${$.param(data)}`,
     })
     .then(function(response) {
-      console.log('axios', response.data);
       return response;
     });
   }

@@ -63,11 +63,14 @@ class Form {
         modalSuccess.init();
 
         contactForm.run(postData).then(function(response) {
+          // Add removeCallback function for when the overlay has
+          // finished animating out
+          panelLoader.setRemoveCallBack(function() {
+            modalSuccess.show();
+            root.resetForm();
+          });
+
           panelLoader.remove();
-          modalSuccess.show();
-          root.resetForm();
-          // Show Model of success - no need to show anything else as validation happens on the form
-          // Clear the form and reset
         });
       }
     });

@@ -10808,7 +10808,6 @@ var css = __webpack_require__(55);
 
 // Modules
 
-// import Overlay from './modules/Overlay';
 
 // Services
 
@@ -10820,9 +10819,6 @@ var css = __webpack_require__(55);
 // Index Script
 //
 _SideNavigation2.default.init();
-// let newOverlay = new Overlay();
-// newOverlay.init();
-// newOverlay.show();
 
 /***/ }),
 /* 18 */
@@ -10894,9 +10890,12 @@ var CLICK_ENABLED_CLASSNAME = 'click-enabled';
 var DEFAULT_OPTIONS = {
   container: 'body',
   onClick: undefined,
+  removeCallback: function removeCallback() {},
   addedClass: '',
   isToggle: false,
-  fullBody: true
+  fullBody: true,
+  animateOut: false,
+  zIndex: undefined
 };
 
 var Overlay = function (_PnModule) {
@@ -10912,6 +10911,11 @@ var Overlay = function (_PnModule) {
       id: 'overlay-' + counter,
       class: 'overlay ' + _this.options.addedClass
     });
+
+    if (_this.options.zIndex !== undefined) {
+      _this.$overlay.css('z-index', _this.options.zIndex);
+    }
+
     _this.scrollTop;
     _this.active = false;
     counter++;
@@ -10950,6 +10954,11 @@ var Overlay = function (_PnModule) {
       });
     }
   }, {
+    key: 'setRemoveCallBack',
+    value: function setRemoveCallBack(fn) {
+      this.options.removeCallback = fn;
+    }
+  }, {
     key: 'hasClick',
     value: function hasClick() {
       return this.options.onClick !== undefined;
@@ -10967,15 +10976,17 @@ var Overlay = function (_PnModule) {
       this.$overlay.toggleClass(ACTIVE_CLASSNAME);
       this.active = !this.active;
 
-      this.toggleFullBody();
+      if (this.active) {
+        this.addFullBodyMode();
+      } else {
+        this.removeFullBodyMode();
+      }
     }
   }, {
     key: 'show',
     value: function show() {
-      console.log('scrolltop = ' + (0, _jQuery2.default)(window).scrollTop());
       this.active = true;
       this.$overlay.addClass(ACTIVE_CLASSNAME);
-
       this.addFullBodyMode();
     }
   }, {
@@ -10983,17 +10994,7 @@ var Overlay = function (_PnModule) {
     value: function hide() {
       this.active = false;
       this.$overlay.removeClass(ACTIVE_CLASSNAME);
-
       this.removeFullBodyMode();
-    }
-  }, {
-    key: 'toggleFullBody',
-    value: function toggleFullBody() {
-      if (this.active) {
-        this.addFullBodyMode();
-      } else {
-        this.removeFullBodyMode();
-      }
     }
   }, {
     key: 'addFullBodyMode',
@@ -11018,13 +11019,27 @@ var Overlay = function (_PnModule) {
     value: function remove() {
       var _this2 = this;
 
-      this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
-      this.clearClick();
+      return new Promise(function (resolve, reject) {
+        _this2.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
+        _this2.clearClick();
 
-      this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then(function (e) {
-        _this2.hide();
-        _this2.$overlay.remove();
+        if (_this2.options.animateOut) {
+          _this2.AnimationService.checkComplete(_this2.$overlay, ANIMATION_FADE_OUT_NAME).then(function (e) {
+            _this2.removeActionComplete();
+            resolve(e);
+          });
+        } else {
+          _this2.removeActionComplete();
+          resolve();
+        }
       });
+    }
+  }, {
+    key: 'removeActionComplete',
+    value: function removeActionComplete() {
+      this.hide();
+      this.$overlay.remove();
+      this.options.removeCallback();
     }
   }]);
 
@@ -11987,9 +12002,16 @@ var LoaderBase = function () {
   }, {
     key: 'remove',
     value: function remove() {
+      var _this = this;
+
       // Remove the Loader Animation
       this.$animation.remove();
-      this.overlay.remove();
+
+      return new Promise(function (resolve, reject) {
+        _this.overlay.remove().then(function () {
+          resolve();
+        });
+      });
     }
   }, {
     key: 'getAnimWrapper',
@@ -12229,7 +12251,6 @@ var FormSubmit = function () {
         method: 'post',
         url: '' + this.URL + _jQuery2.default.param(data)
       }).then(function (response) {
-        console.log('axios', response.data);
         return response;
       });
     }
@@ -12339,16 +12360,18 @@ var Form = function () {
           // Create Modal
           var modalSuccess = new _Modal2.default({
             addedClassName: 'modal-contact-form-success',
-            $modalContent: root.$modalSuccessTemplate
+            $modalContent: root.$modalSuccessTemplate,
+            removeCallback: function removeCallback() {
+              root.resetForm();
+            }
           });
           modalSuccess.init();
 
           contactForm.run(postData).then(function (response) {
-            panelLoader.remove();
-            modalSuccess.show();
-            root.resetForm();
-            // Show Model of success - no need to show anything else as validation happens on the form
-            // Clear the form and reset
+            panelLoader.remove().then(function () {
+              modalSuccess.show();
+              root.resetForm();
+            });
           });
         }
       });
@@ -12424,17 +12447,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var counter = function () {
-  var counter = 1;
-
-  return function () {
-    counter += 1;
-  };
-}();
+var counter = 1;
 
 var DEFAULT_OPTIONS = {
   addedClassName: '',
-  $modalContent: (0, _jQuery2.default)('<div>Action was successful, a ninja has been dispatched!</div>')
+  $modalContent: (0, _jQuery2.default)('<div>Action was successful, a ninja has been dispatched!</div>'),
+  removeCallback: function removeCallback() {},
+  okayCallback: function okayCallback() {}
 };
 
 var Modal = function () {
@@ -12442,11 +12461,14 @@ var Modal = function () {
     _classCallCheck(this, Modal);
 
     this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, _options);
-    this.id = 'model' + counter();
-    this.overlay = new _Overlay2.default();
-    this.overlay.init();
+    this.id = 'model' + counter;
+    this.overlay;
     this.$modal;
     this.$modalInner;
+    this.$closeButton;
+    this.$confirmButton;
+
+    counter++;
   }
 
   _createClass(Modal, [{
@@ -12457,48 +12479,77 @@ var Modal = function () {
       this.$modal = (0, _jQuery2.default)(this.getBaseTemplate());
       this.$modalInner = (0, _jQuery2.default)(this.getInnerTemplate());
       this.$modal.append(this.$modalInner);
+      this.$closeButton = this.$modal.find('.close-bttn');
+      this.$closeButton.on('click', function () {
+        root.remove();
+      });
 
+      this.$confirmButton = this.$modal.find('.modal-btn-confirm');
+      this.$confirmButton.on('click', function () {
+        root.remove();
+      });
+
+      this.overlay = new _Overlay2.default({
+        animateOut: true
+      });
+      this.overlay.init();
       this.overlay.setClick(function () {
-        root.hide();
+        root.remove();
       });
     }
   }, {
     key: 'show',
     value: function show() {
+      var _this = this;
+
       var root = this;
+      var $animElement = this.$modal.find('.animation-1');
 
       // Show Model
       (0, _jQuery2.default)('body').append(this.$modal);
-
-      _Animation2.default.checkComplete(this.$modal.find('.animation-1'), 'rotateOncePiece1').then(function (e) {
-        root.$modalInner.find('.modal-content').append(root.options.$modalContent);
-      });
-
+      $animElement.addClass('animation-1-in');
       this.overlay.show();
+
+      _Animation2.default.checkComplete($animElement, 'rotateOncePiece1').then(function (e) {
+        // Add the content to the body of the modal
+        _this.$modalInner.find('.modal-content').append(_this.options.$modalContent);
+      });
     }
   }, {
-    key: 'hide',
-    value: function hide() {
+    key: 'remove',
+    value: function remove() {
       var root = this;
-      this.$modal.find('.animation-1').removeClass('animation-1-in').addClass('animation-1-out');
+      var $animElement = this.$modal.find('.animation-1');
 
-      this.$modalInner.hide();
+      $animElement.removeClass('animation-1-in').addClass('animation-1-out');
 
-      // Hide Model
-      setTimeout(function () {
-        root.overlay.remove();
-        root.$modal.remove();
-      }, 150);
+      // empty the modal content before animating out
+      this.$modalInner.find('.modal-content').html('');
+
+      return new Promise(function (resolve, reject) {
+        _Animation2.default.checkComplete($animElement, 'animation1Out').then(function (e) {
+          root.$modal.remove();
+          root.overlay.remove().then(function () {
+            root.removeActionComplete(e);
+            resolve(e);
+          });
+        });
+      });
+    }
+  }, {
+    key: 'removeActionComplete',
+    value: function removeActionComplete(e) {
+      this.options.removeCallback();
     }
   }, {
     key: 'getBaseTemplate',
     value: function getBaseTemplate() {
-      return '\n      <div id="' + this.id + '" class="modal ' + this.options.addedClassName + '">\n        <div class="animation-1 animation-1-in">\n          <div class="anim-piece piece-1"></div>\n          <div class="anim-piece piece-2"></div>\n          <div class="anim-piece piece-3"></div>\n          <div class="anim-piece piece-4"></div>\n        </div>\n      </div>\n    ';
+      return '\n      <div id="' + this.id + '" class="modal ' + this.options.addedClassName + '">\n        <div class="close-bttn">X</div>\n        <div class="animation-1 animation-1-in">\n          <div class="anim-piece piece-1"></div>\n          <div class="anim-piece piece-2"></div>\n          <div class="anim-piece piece-3"></div>\n          <div class="anim-piece piece-4"></div>\n        </div>\n      </div>\n    ';
     }
   }, {
     key: 'getInnerTemplate',
     value: function getInnerTemplate() {
-      return '\n      <div class="modal-inner">\n        <header class="modal-content-head"></header>\n        <div class="modal-content"></div>\n        <footer class="modal-content-footer"><span class="btn"></span></footer>\n      </div>\n    ';
+      return '\n      <div class="modal-inner">\n        <div class="modal-content"></div>\n        <footer class="modal-content-footer">\n          <span class="btn modal-btn-confirm">okay</span>\n        </footer>\n      </div>\n    ';
     }
   }]);
 
@@ -12634,7 +12685,8 @@ var SideNavigation = function () {
         onClick: function onClick() {
           root.$primarySideNav.toggleClass("active");
         },
-        isToggle: true
+        isToggle: true,
+        zIndex: 1000
       });
       this.primaryOverlay.init();
 

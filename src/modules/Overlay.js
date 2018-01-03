@@ -11,9 +11,12 @@ const CLICK_ENABLED_CLASSNAME = 'click-enabled';
 const DEFAULT_OPTIONS = {
   container: 'body',
   onClick: undefined,
+  removeCallback: function() {},
   addedClass: '',
   isToggle: false,
   fullBody: true,
+  animateOut: false,
+  zIndex: undefined,
 };
 
 class Overlay extends PnModule {
@@ -24,6 +27,11 @@ class Overlay extends PnModule {
       id: `overlay-${counter}`,
       class: `overlay ${this.options.addedClass}`
     });
+
+    if (this.options.zIndex !== undefined) {
+      this.$overlay.css('z-index', this.options.zIndex);
+    }
+
     this.scrollTop;
     this.active = false;
     counter++;
@@ -55,6 +63,10 @@ class Overlay extends PnModule {
       });
   }
 
+  setRemoveCallBack(fn) {
+    this.options.removeCallback = fn;
+  }
+
   hasClick() {
     return this.options.onClick !== undefined;
   }
@@ -68,32 +80,25 @@ class Overlay extends PnModule {
   toggle() {
     this.$overlay.toggleClass(ACTIVE_CLASSNAME);
     this.active = !this.active;
-
-    this.toggleFullBody();
-  }
-
-  show() {
-    console.log('scrolltop = ' + $(window).scrollTop());
-    this.active = true;
-    this.$overlay.addClass(ACTIVE_CLASSNAME);
-
-    this.addFullBodyMode();
-  }
-
-  hide() {
-    this.active = false;
-    this.$overlay.removeClass(ACTIVE_CLASSNAME);
-
-    this.removeFullBodyMode();
-  }
-
-  toggleFullBody() {
+    
     if(this.active) {
       this.addFullBodyMode();
     }
     else {
       this.removeFullBodyMode();
     }
+  }
+
+  show() {
+    this.active = true;
+    this.$overlay.addClass(ACTIVE_CLASSNAME);
+    this.addFullBodyMode();
+  }
+
+  hide() {
+    this.active = false;
+    this.$overlay.removeClass(ACTIVE_CLASSNAME);
+    this.removeFullBodyMode();
   }
 
   addFullBodyMode() {
@@ -113,13 +118,27 @@ class Overlay extends PnModule {
   }
 
   remove() {
-    this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
-    this.clearClick();
+    return new Promise((resolve, reject) => {
+      this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
+      this.clearClick();
 
-    this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then((e) => {
-      this.hide();
-      this.$overlay.remove();
+      if (this.options.animateOut) {
+        this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then((e) => {
+          this.removeActionComplete();
+          resolve(e);
+        });
+      }
+      else {
+        this.removeActionComplete();
+        resolve();
+      }
     });
+  }
+
+  removeActionComplete() {
+    this.hide();
+    this.$overlay.remove();
+    this.options.removeCallback();
   }
 }
 

@@ -39,7 +39,12 @@ class LoaderBase {
   remove() {
     // Remove the Loader Animation
     this.$animation.remove();
-    this.overlay.remove();
+
+    return new Promise((resolve, reject) => {
+      this.overlay.remove().then(() => {
+        resolve();
+      });
+    });
   }
 
   getAnimWrapper() {

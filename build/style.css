@@ -583,15 +583,29 @@ p {
 
 .modal {
   position: fixed;
-  z-index: 1100;
+  z-index: 2100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
   height: 200px;
   padding: 20px; }
+  .modal .close-bttn {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    background: #841619;
+    border-radius: 40px;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center; }
   .modal .modal-inner {
     position: relative; }
+    .modal .modal-inner .modal-content-footer .btn {
+      cursor: pointer; }
 
 .navigation {
   position: fixed;
@@ -696,7 +710,7 @@ p {
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.9);
-  z-index: 1000;
+  z-index: 2000;
   display: none;
   opacity: 0;
   transition: opacity 300ms; }

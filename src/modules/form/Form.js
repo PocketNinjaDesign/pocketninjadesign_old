@@ -59,15 +59,17 @@ class Form {
         let modalSuccess = new Modal({
           addedClassName: 'modal-contact-form-success',
           $modalContent: root.$modalSuccessTemplate,
+          removeCallback: function() {
+            root.resetForm();
+          }
         });
         modalSuccess.init();
 
         contactForm.run(postData).then(function(response) {
-          panelLoader.remove();
-          modalSuccess.show();
-          root.resetForm();
-          // Show Model of success - no need to show anything else as validation happens on the form
-          // Clear the form and reset
+          panelLoader.remove().then(() => {
+            modalSuccess.show();
+            root.resetForm();
+          });
         });
       }
     });
