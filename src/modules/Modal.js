@@ -1,5 +1,6 @@
 import $ from 'jQuery';
 import Overlay from './Overlay';
+import AnimationService from '../services/Animation.service';
 
 let counter = function() {
   let counter = 1;
@@ -19,6 +20,7 @@ class Modal {
     this.options = $.extend({}, DEFAULT_OPTIONS, _options);
     this.id = `model${counter()}`;
     this.overlay = new Overlay();
+    this.overlay.init();
     this.$modal;
     this.$modalInner;
   }
@@ -32,29 +34,22 @@ class Modal {
 
     this.overlay.setClick(function() {
       root.hide();
-    }, false);
+    });
   }
 
   show() {
     let root = this;
-    let animation = this.$modal.find('.animation-1')
-      .on('animationstart', function(e) {
-        console.log(e);
-        //console.log(`animation started ${e.originalEvent.animationName} testing`);
-      })
-      .on('animationend', function(e) {
-        console.log(e);
-        //console.log(`animation finished ${e.originalEvent.animationName} testing`);
+
+    // Show Model
+    $('body').append(this.$modal);
+
+    AnimationService
+      .checkComplete(this.$modal.find('.animation-1'), 'rotateOncePiece1')
+      .then(function(e) {
         root.$modalInner.find('.modal-content').append(root.options.$modalContent);
       });
 
-    // Show Model
     this.overlay.show();
-    $('body').append(this.$modal);
-
-    // setTimeout(function() {
-    //   root.$modalInner.find('.modal-content').append(root.options.$modalContent);
-    // }, 2000);
   }
 
   hide() {

@@ -13,6 +13,7 @@ const DEFAULT_OPTIONS = {
   onClick: undefined,
   addedClass: '',
   isToggle: false,
+  fullBody: true,
 };
 
 class Overlay extends PnModule {
@@ -23,6 +24,8 @@ class Overlay extends PnModule {
       id: `overlay-${counter}`,
       class: `overlay ${this.options.addedClass}`
     });
+    this.scrollTop;
+    this.active = false;
     counter++;
   }
 
@@ -64,23 +67,57 @@ class Overlay extends PnModule {
 
   toggle() {
     this.$overlay.toggleClass(ACTIVE_CLASSNAME);
+    this.active = !this.active;
+
+    this.toggleFullBody();
   }
 
   show() {
+    console.log('scrolltop = ' + $(window).scrollTop());
+    this.active = true;
     this.$overlay.addClass(ACTIVE_CLASSNAME);
+
+    this.addFullBodyMode();
   }
 
   hide() {
+    this.active = false;
     this.$overlay.removeClass(ACTIVE_CLASSNAME);
+
+    this.removeFullBodyMode();
+  }
+
+  toggleFullBody() {
+    if(this.active) {
+      this.addFullBodyMode();
+    }
+    else {
+      this.removeFullBodyMode();
+    }
+  }
+
+  addFullBodyMode() {
+    if (this.options.fullBody) {
+      this.scrollTop = $(window).scrollTop();
+      $('.main').css('top', -this.scrollTop);
+      $('html').addClass('full-overlay-mode');
+    }
+  }
+
+  removeFullBodyMode() {
+    if (this.options.fullBody) {
+      $('html').removeClass('full-overlay-mode');
+      $('.main').removeAttr('style');
+      $(window).scrollTop(this.scrollTop);
+    }
   }
 
   remove() {
-    let root = this;
     this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
-
     this.clearClick();
 
     this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then((e) => {
+      this.hide();
       this.$overlay.remove();
     });
   }

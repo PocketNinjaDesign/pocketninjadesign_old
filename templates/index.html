@@ -18,70 +18,77 @@
       </div>
     </div>
 
-    <header id="header" class="header-large bg-color-1">
-      <div class="site-width">
-        {% include "common/logo.html" %}
-      </div>
-    </header>
-
-    <section id="about" class="section bg-color-8">
-      <div class="site-width">
-        <h1>Welcome to my world</h1>
-        <h2>Web front end design / developer</h2>
-        <p>For full time or freelance work</p>
-      </div>
-    </section>
-
-    <section id="portfolio" class="section section-portfolio bg-color-9">
-      <div class="site-width">
-        <h1>Portfolio</h1>
-        <div id="portfolioTab" class="tab" data-tab>
-          <ul class="tab-navigation" data-tab-nav>
-            <li>Websites</li>
-            <li>Graphics</li>
-            <li>Illustrations</li>
-          </ul>
-          <ul class="tab-content-list" data-tab-content>
-            <li class="tab-content-item">
-              {% include "common/portfolio-list.html" %}
-            </li>
-            <li class="tab-content-item">
-              {% include "common/portfolio-list.html" %}
-            </li>
-            <li class="tab-content-item">
-              {% include "common/portfolio-list.html" %}
-            </li>
+    <div class="main">
+      <header id="header" class="header-large bg-color-1">
+        <div class="site-width">
+          {% include "common/logo.html" %}
+        </div>
+      </header>
+  
+      <section id="about" class="section bg-color-8">
+        <div class="site-width">
+          <h1>Welcome to my world</h1>
+          <h2>Web front end design / developer</h2>
+          <p>For full time or freelance work</p>
+        </div>
+      </section>
+  
+      <section id="portfolio" class="section section-portfolio bg-color-9">
+        <div class="site-width">
+          <h1>Portfolio</h1>
+          <div id="portfolioTab" class="tab" data-tab>
+            <ul class="tab-navigation" data-tab-nav>
+              <li>Websites</li>
+              <li>Graphics</li>
+              <li>Illustrations</li>
+            </ul>
+            <ul class="tab-content-list" data-tab-content>
+              <li class="tab-content-item">
+                {% include "common/portfolio-list.html" %}
+              </li>
+              <li class="tab-content-item">
+                {% include "common/portfolio-list.html" %}
+              </li>
+              <li class="tab-content-item">
+                {% include "common/portfolio-list.html" %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+  
+      <section id="codepen" class="section bg-color-7">
+        <div class="site-width">
+          <h1>Codepen</h1>
+          <ul class="grid grid-medium codepen-list">
+            <li class="grid-item"></li>
+            <li class="grid-item"></li>
+            <li class="grid-item"></li>
+            <li class="grid-item"></li>
+            <li class="grid-item"></li>
+            <li class="grid-item"></li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <section id="codepen" class="section bg-color-7">
-      <div class="site-width">
-        <h1>Codepen</h1>
-        <ul class="grid grid-medium codepen-list">
-          <li class="grid-item"></li>
-          <li class="grid-item"></li>
-          <li class="grid-item"></li>
-          <li class="grid-item"></li>
-          <li class="grid-item"></li>
-          <li class="grid-item"></li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="contact" class="section bg-color-2">
-      <div class="site-width">
-        <h1>Contact</h1>
-      </div>
-    </section>
-    
-    <footer id="footer" class="primary-footer bg-color-10">
-      <div class="site-width">
-
-      </div>
-    </footer>
-
+      </section>
+  
+      <section id="contact" class="section bg-color-2">
+        <div class="site-width">
+          <h1>Contact</h1>
+          <form id="contactForm" method="POST" name="contact-form" action="contact-us.php">
+              {% include "common/forms/form-block-text.html" with { "id": "formContactName", "label": "name", "text": "name", "type": "text", "name": "contactname" } %}
+              {% include "common/forms/form-block-text.html" with { "id": "formContactEmail", "label": "email", "text": "email", "type": "email", "name": "contactemail" } %}
+              {% include "common/forms/form-block-textarea.html" with { "id": "formContactInfo", "label": "Mission Information", "text": "mission-information", "name": "contactmessage" } %}
+              <button type="submit">Send Mission Request</button>
+          </form>
+        </div>
+      </section>
+      
+      <footer id="footer" class="primary-footer bg-color-10">
+        <div class="site-width">
+  
+        </div>
+      </footer>
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>

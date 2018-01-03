@@ -708,6 +708,17 @@ p {
   .overlay.click-enabled {
     cursor: pointer; }
 
+html.full-overlay-mode,
+html.full-overlay-mode body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+  html.full-overlay-mode .main,
+  html.full-overlay-mode body .main {
+    position: fixed;
+    width: 100%; }
+
 .tab .tab-navigation > li {
   cursor: pointer; }
   .tab .tab-navigation > li.active {

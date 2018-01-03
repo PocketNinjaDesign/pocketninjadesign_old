@@ -15,6 +15,7 @@ class LoaderBase {
     this.$animation;
     this.setContainer(this.options.$container);
     this.overlay = new Overlay();
+    this.overlay.init();
   }
 
   setContainer(_container) {
