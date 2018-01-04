@@ -14,6 +14,7 @@ import SideNavigation from './modules/nav/SideNavigation';
 // Sections
 import Portfolio from './modules/section/Portfolio';
 import Contact from './modules/section/Contact';
+import Codepen from './modules/section/Codepen';
 
 
 //

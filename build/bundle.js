@@ -10802,6 +10802,10 @@ var _Contact = __webpack_require__(70);
 
 var _Contact2 = _interopRequireDefault(_Contact);
 
+var _Codepen = __webpack_require__(71);
+
+var _Codepen2 = _interopRequireDefault(_Codepen);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var css = __webpack_require__(55);
@@ -12959,6 +12963,66 @@ exports.default = new (function (_Section) {
   }
 
   return Contact;
+}(_Section3.default))();
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Section2 = __webpack_require__(68);
+
+var _Section3 = _interopRequireDefault(_Section2);
+
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var $codepenList = (0, _jQuery2.default)('#codepenList');
+
+exports.default = new (function (_Section) {
+  _inherits(Codepen, _Section);
+
+  function Codepen() {
+    var _ret;
+
+    _classCallCheck(this, Codepen);
+
+    // load codepen data
+    var _this = _possibleConstructorReturn(this, (Codepen.__proto__ || Object.getPrototypeOf(Codepen)).call(this));
+
+    return _ret = (0, _axios2.default)({
+      method: 'get',
+      url: 'https://cpv2api.com/pens/public/pocketninjadesign'
+    }).then(function (response) {
+      // display the data on the page
+      // response;
+      response.data.data.map(function (element) {
+        console.log(element);
+        $codepenList.append((0, _jQuery2.default)('\n          <li class="grid-item">\n            <a href="' + element.link + '" target="_blank">\n              <img src="' + element.images.small + '">\n            </a>\n          </li>\n        '));
+      });
+    }), _possibleConstructorReturn(_this, _ret);
+  }
+
+  return Codepen;
 }(_Section3.default))();
 
 /***/ })
