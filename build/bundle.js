@@ -11327,18 +11327,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _globals = __webpack_require__(3);
-
-var _globals2 = _interopRequireDefault(_globals);
-
-var _LoadData = __webpack_require__(7);
-
-var _LoadData2 = _interopRequireDefault(_LoadData);
-
-var _Category = __webpack_require__(39);
-
-var _Category2 = _interopRequireDefault(_Category);
-
 var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
@@ -11350,6 +11338,10 @@ var _Section3 = _interopRequireDefault(_Section2);
 var _Tab = __webpack_require__(40);
 
 var _Tab2 = _interopRequireDefault(_Tab);
+
+var _CategoryList = __webpack_require__(51);
+
+var _CategoryList2 = _interopRequireDefault(_CategoryList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11379,40 +11371,10 @@ exports.default = new (function (_Section) {
   _createClass(_class, [{
     key: 'init',
     value: function init() {
-      this.startTab();
-      this.loadCategory('websites');
+      this.portfolioTab = new _Tab2.default({ $tab: this.$tab }).init();
+
+      _CategoryList2.default.generate('websites', this.$tabContent);
       this.activateNavigation();
-    }
-  }, {
-    key: 'startTab',
-    value: function startTab() {
-      this.portfolioTab = new _Tab2.default({
-        $tab: this.$tab
-      });
-      this.portfolioTab.init();
-    }
-  }, {
-    key: 'loadCategory',
-    value: function loadCategory(categoryName) {
-      var _this2 = this;
-
-      if (!_Category2.default[categoryName].activated) {
-        var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
-
-        _LoadData2.default.load(url).then(function (response) {
-          var $categoryContent = _this2.$tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
-          _Category2.default[categoryName].data = response.data;
-
-          for (var i = 0; i < response.data.length; i++) {
-            var item = response.data[i];
-            $categoryContent.append(_this2.getTemplateSmallItem(item));
-          }
-
-          _Category2.default[categoryName].activated = true;
-        });
-      } else {
-        console.log('already activated!');
-      }
     }
   }, {
     key: 'activateNavigation',
@@ -11420,13 +11382,8 @@ exports.default = new (function (_Section) {
       var root = this;
 
       this.$portfolioNavigation.find('li').on('click', function () {
-        root.loadCategory((0, _jQuery2.default)(this).data('portfolio-cat'));
+        _CategoryList2.default.generate((0, _jQuery2.default)(this).data('portfolio-cat'), root.$tabContent);
       });
-    }
-  }, {
-    key: 'getTemplateSmallItem',
-    value: function getTemplateSmallItem(item) {
-      return (0, _jQuery2.default)('\n      <li class="grid-item portfolio-swatch">\n        <div class="inner">\n          <img src="' + item.small_image + '">\n        </div>\n      </li>\n    ');
     }
   }]);
 
@@ -13140,6 +13097,85 @@ exports.default = new (function (_Section) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _globals = __webpack_require__(3);
+
+var _globals2 = _interopRequireDefault(_globals);
+
+var _LoadData = __webpack_require__(7);
+
+var _LoadData2 = _interopRequireDefault(_LoadData);
+
+var _Category = __webpack_require__(39);
+
+var _Category2 = _interopRequireDefault(_Category);
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _CategoryItem = __webpack_require__(52);
+
+var _CategoryItem2 = _interopRequireDefault(_CategoryItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  generate: function generate(categoryName, $tabContent) {
+    if (!_Category2.default[categoryName].activated) {
+      var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
+
+      _LoadData2.default.load(url).then(function (response) {
+        var $categoryContent = $tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
+        _Category2.default[categoryName].data = response.data;
+
+        for (var i = 0; i < response.data.length; i++) {
+          var item = response.data[i];
+          $categoryContent.append(_CategoryItem2.default.getTemplateSmallItem(item));
+        }
+
+        _Category2.default[categoryName].activated = true;
+      });
+    } else {
+      // console.log('already activated!');
+    }
+  }
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  getTemplateSmallItem: function getTemplateSmallItem(item) {
+    return (0, _jQuery2.default)('\n      <li class="grid-item portfolio-swatch">\n        <div class="inner">\n          <img src="' + item.small_image + '">\n        </div>\n      </li>\n    ');
+  }
+};
 
 /***/ })
 /******/ ]);
