@@ -39,20 +39,23 @@
           <a name="Portfolio"></a>
           <h1>Portfolio</h1>
           <div id="portfolioTab" class="tab" data-tab>
-            <ul class="tab-navigation" data-tab-nav>
-              <li>Websites</li>
-              <li>Graphics</li>
-              <li>Illustrations</li>
+            <ul id="portfolioNavigation" class="tab-navigation" data-tab-nav>
+              <li data-portfolio-cat="websites">Websites</li>
+              <li data-portfolio-cat="graphics">Graphics</li>
+              <li data-portfolio-cat="illustrations">Illustrations</li>
             </ul>
-            <ul class="tab-content-list" data-tab-content>
-              <li class="tab-content-item">
-                {% include "common/portfolio-list.html" %}
+            <ul id="portfolioTabContent" class="tab-content-list" data-tab-content>
+              <li data-portfolio-view="websites" class="tab-content-item">
+                <ul class="grid grid-small portfolio-list">
+                </ul>
               </li>
-              <li class="tab-content-item">
-                {% include "common/portfolio-list.html" %}
+              <li data-portfolio-view="graphics" id="portfolioGraphics" class="tab-content-item">
+                <ul class="grid grid-small portfolio-list">
+                </ul>
               </li>
-              <li class="tab-content-item">
-                {% include "common/portfolio-list.html" %}
+              <li data-portfolio-view="illustrations" class="tab-content-item">
+                <ul class="grid grid-small portfolio-list">
+                </ul>
               </li>
             </ul>
           </div>

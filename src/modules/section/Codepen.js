@@ -1,31 +1,36 @@
 import $ from 'jQuery';
 import Section from './Section';
-import Axios from 'axios';
+import LoadDataService from '../../services/LoadData.service';
 
 const $codepenList = $('#codepenList');
 
 export default new class Codepen extends Section {
   constructor() {
     super();
+  }
 
-    // load codepen data
-    return Axios({
-      method:'get',
-      url: 'https://cpv2api.com/pens/public/pocketninjadesign'
-    })
-    .then(function(response) {
-      // display the data on the page
-      // response;
-      response.data.data.map(function(element) {
-        console.log(element);
-        $codepenList.append($(`
-          <li class="grid-item">
-            <a href="${element.link}" target="_blank">
-              <img src="${element.images.small}">
-            </a>
-          </li>
-        `));
+  init() {
+    LoadDataService
+      .load('https://cpv2api.com/pens/public/pocketninjadesign')
+      .then((response) => {
+        response.data.data.map((element) => {
+          $codepenList.append(this.getTemplate(element));
+        });
       });
-    });
+  }
+
+  getTemplate(content) {
+    return $(`
+      <li class="grid-item">
+        <a class="codepen-item" href="${content.link}" title="${content.title}" target="_blank">
+          <span class="codepen-item-inner">
+            <img src="${content.images.small}">
+            <span class="codepen-item-detail">
+              <span class="codepen-item-title">${content.title}</span>
+            </span>
+          </span>
+        </a>
+      </li>
+    `);
   }
 }

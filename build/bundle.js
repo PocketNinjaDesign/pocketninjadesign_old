@@ -10314,7 +10314,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   urlPrefix: 'http://localhost:8002/',
   // urlPrefix: 'http://localhost:9000/',
-  portfolioHeaders: ['websites', 'graphics', 'illustrations']
+  portfolioCategories: ['websites', 'graphics', 'illustrations']
 };
 
 /***/ }),
@@ -10823,6 +10823,11 @@ var css = __webpack_require__(55);
 // Index Script
 //
 _SideNavigation2.default.init();
+
+// this will activate when scrolled on the page later on
+_Portfolio2.default.init();
+_Codepen2.default.init();
+_Contact2.default.init();
 
 /***/ }),
 /* 18 */
@@ -12781,6 +12786,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _globals = __webpack_require__(4);
+
+var _globals2 = _interopRequireDefault(_globals);
+
+var _LoadData = __webpack_require__(72);
+
+var _LoadData2 = _interopRequireDefault(_LoadData);
+
+var _Category = __webpack_require__(73);
+
+var _Category2 = _interopRequireDefault(_Category);
+
 var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
@@ -12812,12 +12831,67 @@ exports.default = new (function (_Section) {
     _this.$portfolio = (0, _jQuery2.default)('#portfolio');
     _this.$portfolioNavigation = (0, _jQuery2.default)('#portfolioNavigation');
     _this.$tab = (0, _jQuery2.default)('#portfolioTab');
-    _this.portfolioTab = new _Tab2.default({
-      $tab: _this.$tab
-    });
-    _this.portfolioTab.init();
+    _this.$tabContent = (0, _jQuery2.default)('#portfolioTabContent');
+
+    _this.portfolioTab;
     return _this;
   }
+
+  _createClass(_class, [{
+    key: 'init',
+    value: function init() {
+      this.startTab();
+      this.loadCategory('websites');
+      this.activateNavigation();
+    }
+  }, {
+    key: 'startTab',
+    value: function startTab() {
+      this.portfolioTab = new _Tab2.default({
+        $tab: this.$tab
+      });
+      this.portfolioTab.init();
+    }
+  }, {
+    key: 'loadCategory',
+    value: function loadCategory(categoryName) {
+      var _this2 = this;
+
+      if (!_Category2.default[categoryName].activated) {
+        var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
+
+        _LoadData2.default.load(url).then(function (response) {
+          var $categoryContent = _this2.$tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
+          _Category2.default[categoryName].data = response.data;
+
+          for (var i = 0; i < response.data.length; i++) {
+            var item = response.data[i];
+            // console.log(item);
+            // getItemTemplate
+            $categoryContent.append(_this2.getTemplateSmallItem(item));
+          }
+
+          _Category2.default[categoryName].activated = true;
+        });
+      } else {
+        console.log('already activated!');
+      }
+    }
+  }, {
+    key: 'activateNavigation',
+    value: function activateNavigation() {
+      var root = this;
+
+      this.$portfolioNavigation.find('li').on('click', function () {
+        root.loadCategory((0, _jQuery2.default)(this).data('portfolio-cat'));
+      });
+    }
+  }, {
+    key: 'getTemplateSmallItem',
+    value: function getTemplateSmallItem(item) {
+      return (0, _jQuery2.default)('\n      <li class="grid-item portfolio-swatch">\n        <div class="inner">\n          <img src="' + item.small_image + '">\n        </div>\n      </li>\n    ');
+    }
+  }]);
 
   return _class;
 }(_Section3.default))();
@@ -12928,6 +13002,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
@@ -12958,9 +13034,15 @@ exports.default = new (function (_Section) {
 
     _this.$form = (0, _jQuery2.default)('#contactForm');
     _this.form = new _Form2.default(_this.$form, '/contact-form.php', (0, _jQuery2.default)('<div/>').html('Form has been submitted'));
-    _this.form.init();
     return _this;
   }
+
+  _createClass(Contact, [{
+    key: 'init',
+    value: function init() {
+      this.form.init();
+    }
+  }]);
 
   return Contact;
 }(_Section3.default))();
@@ -12976,6 +13058,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
@@ -12984,9 +13068,9 @@ var _Section2 = __webpack_require__(68);
 
 var _Section3 = _interopRequireDefault(_Section2);
 
-var _axios = __webpack_require__(22);
+var _LoadData = __webpack_require__(72);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _LoadData2 = _interopRequireDefault(_LoadData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13002,28 +13086,84 @@ exports.default = new (function (_Section) {
   _inherits(Codepen, _Section);
 
   function Codepen() {
-    var _ret;
-
     _classCallCheck(this, Codepen);
 
-    // load codepen data
-    var _this = _possibleConstructorReturn(this, (Codepen.__proto__ || Object.getPrototypeOf(Codepen)).call(this));
-
-    return _ret = (0, _axios2.default)({
-      method: 'get',
-      url: 'https://cpv2api.com/pens/public/pocketninjadesign'
-    }).then(function (response) {
-      // display the data on the page
-      // response;
-      response.data.data.map(function (element) {
-        console.log(element);
-        $codepenList.append((0, _jQuery2.default)('\n          <li class="grid-item">\n            <a href="' + element.link + '" target="_blank">\n              <img src="' + element.images.small + '">\n            </a>\n          </li>\n        '));
-      });
-    }), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, (Codepen.__proto__ || Object.getPrototypeOf(Codepen)).call(this));
   }
+
+  _createClass(Codepen, [{
+    key: 'init',
+    value: function init() {
+      var _this2 = this;
+
+      _LoadData2.default.load('https://cpv2api.com/pens/public/pocketninjadesign').then(function (response) {
+        response.data.data.map(function (element) {
+          $codepenList.append(_this2.getTemplate(element));
+        });
+      });
+    }
+  }, {
+    key: 'getTemplate',
+    value: function getTemplate(content) {
+      return (0, _jQuery2.default)('\n      <li class="grid-item">\n        <a class="codepen-item" href="' + content.link + '" title="' + content.title + '" target="_blank">\n          <span class="codepen-item-inner">\n            <img src="' + content.images.small + '">\n            <span class="codepen-item-detail">\n              <span class="codepen-item-title">' + content.title + '</span>\n            </span>\n          </span>\n        </a>\n      </li>\n    ');
+    }
+  }]);
 
   return Codepen;
 }(_Section3.default))();
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  load: function load(url) {
+    return (0, _axios2.default)({
+      method: 'get',
+      url: url
+    }).then(function (response) {
+      return response;
+    });
+  }
+};
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  websites: {
+    activated: false,
+    data: []
+  },
+  graphics: {
+    activated: false,
+    data: []
+  },
+  illustrations: {
+    activated: false,
+    data: []
+  }
+};
 
 /***/ })
 /******/ ]);
