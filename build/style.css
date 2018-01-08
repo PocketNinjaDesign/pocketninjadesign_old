@@ -471,6 +471,8 @@ p {
     left: 0; }
     .codepen-item .codepen-item-inner img {
       width: 100%; }
+    .codepen-item .codepen-item-inner .codepen-item-detail {
+      display: none; }
 
 /*
  * Carousel
