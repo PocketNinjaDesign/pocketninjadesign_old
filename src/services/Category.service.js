@@ -26,7 +26,7 @@ export default {
         })
       }
       else {
-        if(!AllReturn) {
+        if(AllReturn) {
           resolve(category.data);
         }
       }
