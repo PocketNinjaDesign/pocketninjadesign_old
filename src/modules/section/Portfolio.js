@@ -41,8 +41,6 @@ export default new class extends Section {
 
         for (let i = 0; i < response.data.length; i++) {
           let item = response.data[i];
-          // console.log(item);
-          // getItemTemplate
           $categoryContent.append(this.getTemplateSmallItem(item));
         }
 

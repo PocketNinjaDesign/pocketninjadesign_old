@@ -11,4 +11,8 @@ export default {
     activated: false,
     data: []
   },
+
+  load() {
+    
+  }
 };

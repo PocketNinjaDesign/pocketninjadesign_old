@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9897,7 +9897,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 	return jQuery;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
 /* 1 */
@@ -9909,7 +9909,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var bind = __webpack_require__(9);
-var isBuffer = __webpack_require__(24);
+var isBuffer = __webpack_require__(22);
 
 /*global toString:true*/
 
@@ -10208,15 +10208,227 @@ module.exports = {
 };
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _PnModule2 = __webpack_require__(18);
+
+var _PnModule3 = _interopRequireDefault(_PnModule2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var counter = 1;
+
+var ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
+var ANIMATION_FADE_OUT_NAME = 'fadeOut';
+var ACTIVE_CLASSNAME = 'active';
+var CLICK_ENABLED_CLASSNAME = 'click-enabled';
+
+var DEFAULT_OPTIONS = {
+  container: 'body',
+  onClick: undefined,
+  removeCallback: function removeCallback() {},
+  addedClass: '',
+  isToggle: false,
+  fullBody: true,
+  animateOut: false,
+  zIndex: undefined
+};
+
+var Overlay = function (_PnModule) {
+  _inherits(Overlay, _PnModule);
+
+  function Overlay(options) {
+    _classCallCheck(this, Overlay);
+
+    var _this = _possibleConstructorReturn(this, (Overlay.__proto__ || Object.getPrototypeOf(Overlay)).call(this));
+
+    _this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
+    _this.$overlay = (0, _jQuery2.default)('<div/>', {
+      id: 'overlay-' + counter,
+      class: 'overlay ' + _this.options.addedClass
+    });
+
+    if (_this.options.zIndex !== undefined) {
+      _this.$overlay.css('z-index', _this.options.zIndex);
+    }
+
+    _this.scrollTop;
+    _this.active = false;
+    counter++;
+    return _this;
+  }
+
+  _createClass(Overlay, [{
+    key: 'init',
+    value: function init() {
+      if (this.hasClick()) {
+        this.setClick(this.options.onClick, this.options.isToggle);
+      }
+      this.$overlay.appendTo(this.options.container);
+    }
+
+    /**
+     * setClick
+     * 
+     * @param {function} fn 
+     * @param {Boolean} isToggle
+     */
+
+  }, {
+    key: 'setClick',
+    value: function setClick() {
+      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+      var isToggle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var root = this;
+
+      this.$overlay.addClass(CLICK_ENABLED_CLASSNAME).on('click', function () {
+        fn();
+        if (isToggle) {
+          root.toggle();
+        }
+      });
+    }
+  }, {
+    key: 'setRemoveCallBack',
+    value: function setRemoveCallBack(fn) {
+      this.options.removeCallback = fn;
+    }
+  }, {
+    key: 'hasClick',
+    value: function hasClick() {
+      return this.options.onClick !== undefined;
+    }
+  }, {
+    key: 'clearClick',
+    value: function clearClick() {
+      if (this.hasClick()) {
+        this.options.onClick = undefined;
+      }
+    }
+  }, {
+    key: 'toggle',
+    value: function toggle() {
+      this.$overlay.toggleClass(ACTIVE_CLASSNAME);
+      this.active = !this.active;
+
+      if (this.active) {
+        this.addFullBodyMode();
+      } else {
+        this.removeFullBodyMode();
+      }
+    }
+  }, {
+    key: 'show',
+    value: function show() {
+      this.active = true;
+      this.$overlay.addClass(ACTIVE_CLASSNAME);
+      this.addFullBodyMode();
+    }
+  }, {
+    key: 'hide',
+    value: function hide() {
+      this.active = false;
+      this.$overlay.removeClass(ACTIVE_CLASSNAME);
+      this.removeFullBodyMode();
+    }
+  }, {
+    key: 'addFullBodyMode',
+    value: function addFullBodyMode() {
+      if (this.options.fullBody) {
+        this.scrollTop = (0, _jQuery2.default)(window).scrollTop();
+        (0, _jQuery2.default)('.main').css('top', -this.scrollTop);
+        (0, _jQuery2.default)('html').addClass('full-overlay-mode');
+      }
+    }
+  }, {
+    key: 'removeFullBodyMode',
+    value: function removeFullBodyMode() {
+      if (this.options.fullBody) {
+        (0, _jQuery2.default)('html').removeClass('full-overlay-mode');
+        (0, _jQuery2.default)('.main').removeAttr('style');
+        (0, _jQuery2.default)(window).scrollTop(this.scrollTop);
+      }
+    }
+  }, {
+    key: 'remove',
+    value: function remove() {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        _this2.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
+        _this2.clearClick();
+
+        if (_this2.options.animateOut) {
+          _this2.AnimationService.checkComplete(_this2.$overlay, ANIMATION_FADE_OUT_NAME).then(function (e) {
+            _this2.removeActionComplete();
+            resolve(e);
+          });
+        } else {
+          _this2.removeActionComplete();
+          resolve();
+        }
+      });
+    }
+  }, {
+    key: 'removeActionComplete',
+    value: function removeActionComplete() {
+      this.hide();
+      this.$overlay.remove();
+      this.options.removeCallback();
+    }
+  }]);
+
+  return Overlay;
+}(_PnModule3.default);
+
+exports.default = Overlay;
+
+/***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  urlPrefix: 'http://localhost:8002/',
+  // urlPrefix: 'http://localhost:9000/',
+  portfolioCategories: ['websites', 'graphics', 'illustrations']
+};
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(26);
+var normalizeHeaderName = __webpack_require__(24);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -10302,7 +10514,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10311,17 +10523,103 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Section = function Section() {
+  _classCallCheck(this, Section);
+
+  this.isLoaded = false;
+};
+
+exports.default = Section;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var privateGetPromise = function privateGetPromise($element, animationName, type) {
+  return new Promise(function (resolve, reject) {
+    $element.on('animation' + type, function (e) {
+      if (animationName === e.originalEvent.animationName) {
+        //console.log(`animation ${e.originalEvent.animationName} ${type}`);
+        resolve(e);
+      }
+    });
+  });
+};
+
 exports.default = {
-  urlPrefix: 'http://localhost:8002/',
-  // urlPrefix: 'http://localhost:9000/',
-  portfolioCategories: ['websites', 'graphics', 'illustrations']
+
+  /**
+   * checkStarted
+   * checks the given jQuery element when a particular animation has started
+   * 
+   * @param {jQuery} $()  
+   * @param {String} animationName 
+   */
+  checkStarted: function checkStarted($element, animationName) {
+    return privateGetPromise($element, animationName, 'start');
+  },
+
+
+  /**
+   * checkComplete
+   * Checks the given jQuery element when a particular animation has finished
+   * 
+   * @param {jQuery} $()
+   * @param {String} animationName 
+   */
+  checkComplete: function checkComplete($element, animationName) {
+    return privateGetPromise($element, animationName, 'end');
+  }
 };
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(8);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  load: function load(url) {
+    return (0, _axios2.default)({
+      method: 'get',
+      url: url
+    }).then(function (response) {
+      return response;
+    });
+  }
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(21);
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10539,12 +10837,12 @@ process.umask = function () {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(27);
-var buildURL = __webpack_require__(29);
-var parseHeaders = __webpack_require__(30);
-var isURLSameOrigin = __webpack_require__(31);
+var settle = __webpack_require__(25);
+var buildURL = __webpack_require__(27);
+var parseHeaders = __webpack_require__(28);
+var isURLSameOrigin = __webpack_require__(29);
 var createError = __webpack_require__(12);
-var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(32);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(30);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -10637,7 +10935,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(33);
+      var cookies = __webpack_require__(31);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -10719,7 +11017,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(28);
+var enhanceError = __webpack_require__(26);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -10774,9 +11072,7 @@ Cancel.prototype.__CANCEL__ = true;
 module.exports = Cancel;
 
 /***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10786,29 +11082,29 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _globals = __webpack_require__(4);
+var _globals = __webpack_require__(3);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _SideNavigation = __webpack_require__(65);
+var _SideNavigation = __webpack_require__(17);
 
 var _SideNavigation2 = _interopRequireDefault(_SideNavigation);
 
-var _Portfolio = __webpack_require__(67);
+var _Portfolio = __webpack_require__(20);
 
 var _Portfolio2 = _interopRequireDefault(_Portfolio);
 
-var _Contact = __webpack_require__(70);
+var _Contact = __webpack_require__(41);
 
 var _Contact2 = _interopRequireDefault(_Contact);
 
-var _Codepen = __webpack_require__(71);
+var _Codepen = __webpack_require__(48);
 
 var _Codepen2 = _interopRequireDefault(_Codepen);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var css = __webpack_require__(55);
+var css = __webpack_require__(49);
 
 // Modules
 
@@ -10830,7 +11126,7 @@ _Codepen2.default.init();
 _Contact2.default.init();
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10860,8 +11156,7 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 19 */,
-/* 20 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10877,9 +11172,184 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _PnModule2 = __webpack_require__(62);
+var _Overlay = __webpack_require__(2);
 
-var _PnModule3 = _interopRequireDefault(_PnModule2);
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+var _Navigation = __webpack_require__(19);
+
+var _Navigation2 = _interopRequireDefault(_Navigation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SideNavigation = function () {
+  function SideNavigation() {
+    _classCallCheck(this, SideNavigation);
+
+    this.$primaryNavAction = (0, _jQuery2.default)('#primaryNavAction');
+    this.$primarySideNav = (0, _jQuery2.default)('#primarySideNav');
+    this.primaryOverlay;
+    this.nav;
+    this.onClick;
+  }
+
+  _createClass(SideNavigation, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+
+      this.primaryOverlay = new _Overlay2.default({
+        onClick: function onClick() {
+          root.$primarySideNav.toggleClass("active");
+        },
+        isToggle: true,
+        zIndex: 1000
+      });
+      this.primaryOverlay.init();
+
+      this.onClick = function () {
+        root.$primarySideNav.toggleClass("active");
+        root.primaryOverlay.toggle();
+      };
+
+      this.$primaryNavAction.on('click', this.onClick);
+
+      // Nav
+      this.nav = new _Navigation2.default('#nav', this.onClick);
+      this.nav.init();
+    }
+  }]);
+
+  return SideNavigation;
+}();
+
+exports.default = new SideNavigation();
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Animation = __webpack_require__(6);
+
+var _Animation2 = _interopRequireDefault(_Animation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PnModule = function PnModule() {
+  _classCallCheck(this, PnModule);
+
+  this.AnimationService = _Animation2.default;
+};
+
+;
+
+exports.default = PnModule;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Navigation = function () {
+  function Navigation(element) {
+    var callBack = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+    _classCallCheck(this, Navigation);
+
+    this.$element = (0, _jQuery2.default)(element);
+    this.callBack = callBack;
+  }
+
+  _createClass(Navigation, [{
+    key: 'init',
+    value: function init() {
+      var root = this;
+
+      this.$element.find('.nav').each(function () {
+        var _this = this;
+
+        var $this = (0, _jQuery2.default)(this);
+        var option = $this.data('nav');
+
+        $this.on('click', function () {
+          var panelName = (0, _jQuery2.default)(_this).data('nav');
+
+          root.callBack();
+        });
+      });
+    }
+  }]);
+
+  return Navigation;
+}();
+
+;
+
+exports.default = Navigation;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _globals = __webpack_require__(3);
+
+var _globals2 = _interopRequireDefault(_globals);
+
+var _LoadData = __webpack_require__(7);
+
+var _LoadData2 = _interopRequireDefault(_LoadData);
+
+var _Category = __webpack_require__(39);
+
+var _Category2 = _interopRequireDefault(_Category);
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Section2 = __webpack_require__(5);
+
+var _Section3 = _interopRequireDefault(_Section2);
+
+var _Tab = __webpack_require__(40);
+
+var _Tab2 = _interopRequireDefault(_Tab);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10889,186 +11359,82 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var counter = 1;
+exports.default = new (function (_Section) {
+  _inherits(_class, _Section);
 
-var ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
-var ANIMATION_FADE_OUT_NAME = 'fadeOut';
-var ACTIVE_CLASSNAME = 'active';
-var CLICK_ENABLED_CLASSNAME = 'click-enabled';
+  function _class() {
+    _classCallCheck(this, _class);
 
-var DEFAULT_OPTIONS = {
-  container: 'body',
-  onClick: undefined,
-  removeCallback: function removeCallback() {},
-  addedClass: '',
-  isToggle: false,
-  fullBody: true,
-  animateOut: false,
-  zIndex: undefined
-};
+    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
 
-var Overlay = function (_PnModule) {
-  _inherits(Overlay, _PnModule);
+    _this.$portfolio = (0, _jQuery2.default)('#portfolio');
+    _this.$portfolioNavigation = (0, _jQuery2.default)('#portfolioNavigation');
+    _this.$tab = (0, _jQuery2.default)('#portfolioTab');
+    _this.$tabContent = (0, _jQuery2.default)('#portfolioTabContent');
 
-  function Overlay(options) {
-    _classCallCheck(this, Overlay);
-
-    var _this = _possibleConstructorReturn(this, (Overlay.__proto__ || Object.getPrototypeOf(Overlay)).call(this));
-
-    _this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
-    _this.$overlay = (0, _jQuery2.default)('<div/>', {
-      id: 'overlay-' + counter,
-      class: 'overlay ' + _this.options.addedClass
-    });
-
-    if (_this.options.zIndex !== undefined) {
-      _this.$overlay.css('z-index', _this.options.zIndex);
-    }
-
-    _this.scrollTop;
-    _this.active = false;
-    counter++;
+    _this.portfolioTab;
     return _this;
   }
 
-  _createClass(Overlay, [{
+  _createClass(_class, [{
     key: 'init',
     value: function init() {
-      if (this.hasClick()) {
-        this.setClick(this.options.onClick, this.options.isToggle);
-      }
-      this.$overlay.appendTo(this.options.container);
+      this.startTab();
+      this.loadCategory('websites');
+      this.activateNavigation();
     }
-
-    /**
-     * setClick
-     * 
-     * @param {function} fn 
-     * @param {Boolean} isToggle
-     */
-
   }, {
-    key: 'setClick',
-    value: function setClick() {
-      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
-      var isToggle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      var root = this;
-
-      this.$overlay.addClass(CLICK_ENABLED_CLASSNAME).on('click', function () {
-        fn();
-        if (isToggle) {
-          root.toggle();
-        }
+    key: 'startTab',
+    value: function startTab() {
+      this.portfolioTab = new _Tab2.default({
+        $tab: this.$tab
       });
+      this.portfolioTab.init();
     }
   }, {
-    key: 'setRemoveCallBack',
-    value: function setRemoveCallBack(fn) {
-      this.options.removeCallback = fn;
-    }
-  }, {
-    key: 'hasClick',
-    value: function hasClick() {
-      return this.options.onClick !== undefined;
-    }
-  }, {
-    key: 'clearClick',
-    value: function clearClick() {
-      if (this.hasClick()) {
-        this.options.onClick = undefined;
-      }
-    }
-  }, {
-    key: 'toggle',
-    value: function toggle() {
-      this.$overlay.toggleClass(ACTIVE_CLASSNAME);
-      this.active = !this.active;
-
-      if (this.active) {
-        this.addFullBodyMode();
-      } else {
-        this.removeFullBodyMode();
-      }
-    }
-  }, {
-    key: 'show',
-    value: function show() {
-      this.active = true;
-      this.$overlay.addClass(ACTIVE_CLASSNAME);
-      this.addFullBodyMode();
-    }
-  }, {
-    key: 'hide',
-    value: function hide() {
-      this.active = false;
-      this.$overlay.removeClass(ACTIVE_CLASSNAME);
-      this.removeFullBodyMode();
-    }
-  }, {
-    key: 'addFullBodyMode',
-    value: function addFullBodyMode() {
-      if (this.options.fullBody) {
-        this.scrollTop = (0, _jQuery2.default)(window).scrollTop();
-        (0, _jQuery2.default)('.main').css('top', -this.scrollTop);
-        (0, _jQuery2.default)('html').addClass('full-overlay-mode');
-      }
-    }
-  }, {
-    key: 'removeFullBodyMode',
-    value: function removeFullBodyMode() {
-      if (this.options.fullBody) {
-        (0, _jQuery2.default)('html').removeClass('full-overlay-mode');
-        (0, _jQuery2.default)('.main').removeAttr('style');
-        (0, _jQuery2.default)(window).scrollTop(this.scrollTop);
-      }
-    }
-  }, {
-    key: 'remove',
-    value: function remove() {
+    key: 'loadCategory',
+    value: function loadCategory(categoryName) {
       var _this2 = this;
 
-      return new Promise(function (resolve, reject) {
-        _this2.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
-        _this2.clearClick();
+      if (!_Category2.default[categoryName].activated) {
+        var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
 
-        if (_this2.options.animateOut) {
-          _this2.AnimationService.checkComplete(_this2.$overlay, ANIMATION_FADE_OUT_NAME).then(function (e) {
-            _this2.removeActionComplete();
-            resolve(e);
-          });
-        } else {
-          _this2.removeActionComplete();
-          resolve();
-        }
+        _LoadData2.default.load(url).then(function (response) {
+          var $categoryContent = _this2.$tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
+          _Category2.default[categoryName].data = response.data;
+
+          for (var i = 0; i < response.data.length; i++) {
+            var item = response.data[i];
+            $categoryContent.append(_this2.getTemplateSmallItem(item));
+          }
+
+          _Category2.default[categoryName].activated = true;
+        });
+      } else {
+        console.log('already activated!');
+      }
+    }
+  }, {
+    key: 'activateNavigation',
+    value: function activateNavigation() {
+      var root = this;
+
+      this.$portfolioNavigation.find('li').on('click', function () {
+        root.loadCategory((0, _jQuery2.default)(this).data('portfolio-cat'));
       });
     }
   }, {
-    key: 'removeActionComplete',
-    value: function removeActionComplete() {
-      this.hide();
-      this.$overlay.remove();
-      this.options.removeCallback();
+    key: 'getTemplateSmallItem',
+    value: function getTemplateSmallItem(item) {
+      return (0, _jQuery2.default)('\n      <li class="grid-item portfolio-swatch">\n        <div class="inner">\n          <img src="' + item.small_image + '">\n        </div>\n      </li>\n    ');
     }
   }]);
 
-  return Overlay;
-}(_PnModule3.default);
-
-exports.default = Overlay;
+  return _class;
+}(_Section3.default))();
 
 /***/ }),
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(23);
-
-/***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11076,8 +11442,8 @@ module.exports = __webpack_require__(23);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(9);
-var Axios = __webpack_require__(25);
-var defaults = __webpack_require__(3);
+var Axios = __webpack_require__(23);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -11111,14 +11477,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(14);
-axios.CancelToken = __webpack_require__(39);
+axios.CancelToken = __webpack_require__(37);
 axios.isCancel = __webpack_require__(13);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(40);
+axios.spread = __webpack_require__(38);
 
 module.exports = axios;
 
@@ -11126,7 +11492,7 @@ module.exports = axios;
 module.exports.default = axios;
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11155,16 +11521,16 @@ function isSlowBuffer(obj) {
 }
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(34);
-var dispatchRequest = __webpack_require__(35);
+var InterceptorManager = __webpack_require__(32);
+var dispatchRequest = __webpack_require__(33);
 
 /**
  * Create a new instance of Axios
@@ -11240,7 +11606,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = Axios;
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11258,7 +11624,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 };
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11284,7 +11650,7 @@ module.exports = function settle(resolve, reject, response) {
 };
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11312,7 +11678,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 };
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11379,7 +11745,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11435,7 +11801,7 @@ module.exports = function parseHeaders(headers) {
 };
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11504,7 +11870,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11545,7 +11911,7 @@ function btoa(input) {
 module.exports = btoa;
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11604,7 +11970,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11662,18 +12028,18 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 module.exports = InterceptorManager;
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(36);
+var transformData = __webpack_require__(34);
 var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(3);
-var isAbsoluteURL = __webpack_require__(37);
-var combineURLs = __webpack_require__(38);
+var defaults = __webpack_require__(4);
+var isAbsoluteURL = __webpack_require__(35);
+var combineURLs = __webpack_require__(36);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -11735,7 +12101,7 @@ module.exports = function dispatchRequest(config) {
 };
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11761,7 +12127,7 @@ module.exports = function transformData(data, headers, fns) {
 };
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11783,7 +12149,7 @@ module.exports = function isAbsoluteURL(url) {
 };
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11802,7 +12168,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 };
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11865,7 +12231,7 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11899,6 +12265,107 @@ module.exports = function spread(callback) {
 };
 
 /***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  websites: {
+    activated: false,
+    data: []
+  },
+  graphics: {
+    activated: false,
+    data: []
+  },
+  illustrations: {
+    activated: false,
+    data: []
+  },
+
+  load: function load() {}
+};
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_OPTIONS = {
+  $tab: undefined,
+  startIndex: 0
+};
+
+var Tab = function () {
+  function Tab(options) {
+    _classCallCheck(this, Tab);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
+
+    this.currentSelection = this.options.startIndex;
+
+    // Set jQuery objects
+    this.$navigation = this.options.$tab.find('[data-tab-nav]');
+    this.$navigationList = this.$navigation.find('li');
+    this.$content = this.options.$tab.find('[data-tab-content]');
+    this.$contentList = this.$content.find('.tab-content-item');
+  }
+
+  _createClass(Tab, [{
+    key: 'init',
+    value: function init() {
+      this.setCurrentSelection(this.currentSelection);
+      this.setEvents();
+    }
+  }, {
+    key: 'setEvents',
+    value: function setEvents() {
+      var root = this;
+
+      this.$navigationList.on('click', function () {
+        root.setCurrentSelection((0, _jQuery2.default)(this).index());
+      });
+    }
+  }, {
+    key: 'setCurrentSelection',
+    value: function setCurrentSelection(newPosition) {
+      this.$navigationList.eq(this.currentSelection).removeClass('active');
+      this.$navigationList.eq(newPosition).addClass('active');
+
+      this.$contentList.eq(this.currentSelection).hide();
+      this.$contentList.eq(newPosition).show();
+
+      this.currentSelection = newPosition;
+    }
+  }]);
+
+  return Tab;
+}();
+
+exports.default = Tab;
+
+/***/ }),
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11911,9 +12378,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _LoaderBase2 = __webpack_require__(42);
+var _jQuery = __webpack_require__(0);
 
-var _LoaderBase3 = _interopRequireDefault(_LoaderBase2);
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Section2 = __webpack_require__(5);
+
+var _Section3 = _interopRequireDefault(_Section2);
+
+var _Form = __webpack_require__(42);
+
+var _Form2 = _interopRequireDefault(_Form);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11923,26 +12398,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LoaderAnim = function (_LoaderBase) {
-  _inherits(LoaderAnim, _LoaderBase);
+exports.default = new (function (_Section) {
+  _inherits(Contact, _Section);
 
-  function LoaderAnim() {
-    _classCallCheck(this, LoaderAnim);
+  function Contact() {
+    _classCallCheck(this, Contact);
 
-    return _possibleConstructorReturn(this, (LoaderAnim.__proto__ || Object.getPrototypeOf(LoaderAnim)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this));
+
+    _this.$form = (0, _jQuery2.default)('#contactForm');
+    _this.form = new _Form2.default(_this.$form, '/contact-form.php', (0, _jQuery2.default)('<div/>').html('Form has been submitted'));
+    return _this;
   }
 
-  _createClass(LoaderAnim, [{
-    key: 'getAnimTemplate',
-    value: function getAnimTemplate() {
-      return '<div class="anim-default plinky"></div>';
+  _createClass(Contact, [{
+    key: 'init',
+    value: function init() {
+      this.form.init();
     }
   }]);
 
-  return LoaderAnim;
-}(_LoaderBase3.default);
-
-exports.default = LoaderAnim;
+  return Contact;
+}(_Section3.default))();
 
 /***/ }),
 /* 42 */
@@ -11961,108 +12438,148 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _Overlay = __webpack_require__(20);
+var _FormBlock = __webpack_require__(43);
+
+var _FormBlock2 = _interopRequireDefault(_FormBlock);
+
+var _FormSubmit = __webpack_require__(44);
+
+var _FormSubmit2 = _interopRequireDefault(_FormSubmit);
+
+var _LoaderAnim = __webpack_require__(45);
+
+var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
+
+var _Overlay = __webpack_require__(2);
 
 var _Overlay2 = _interopRequireDefault(_Overlay);
+
+var _Modal = __webpack_require__(47);
+
+var _Modal2 = _interopRequireDefault(_Modal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var DEFAULT_OPTIONS = {
-  $container: 'body',
-  positionType: 'absolute'
-};
+var Form = function () {
+  function Form($form, formPathname, $modalSuccessTemplate) {
+    _classCallCheck(this, Form);
 
-var LoaderBase = function () {
-  function LoaderBase(_options) {
-    _classCallCheck(this, LoaderBase);
-
-    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, _options);
-
-    this.$animation;
-    this.setContainer(this.options.$container);
-    this.overlay = new _Overlay2.default();
-    this.overlay.init();
+    this.$form = $form;
+    this.formPathname = formPathname;
+    this.formElementList = [];
+    this.$modalSuccessTemplate = $modalSuccessTemplate || undefined;
   }
 
-  _createClass(LoaderBase, [{
-    key: 'setContainer',
-    value: function setContainer(_container) {
-      this.options.$container = (0, _jQuery2.default)(_container);
+  _createClass(Form, [{
+    key: 'init',
+    value: function init() {
+      this.setFormBlocks();
+      this.setFormAction();
     }
   }, {
-    key: 'create',
-    value: function create() {
-      // Create a Loader Animation
-      this.$animation = (0, _jQuery2.default)(this.getAnimWrapper());
-    }
-  }, {
-    key: 'show',
-    value: function show() {
-      this.options.$container.append(this.$animation);
-      this.overlay.show();
-    }
-  }, {
-    key: 'hide',
-    value: function hide() {
-      // Hide the Loader Animation
-    }
-  }, {
-    key: 'remove',
-    value: function remove() {
-      var _this = this;
+    key: 'setFormBlocks',
+    value: function setFormBlocks() {
+      var root = this;
 
-      // Remove the Loader Animation
-      this.$animation.remove();
+      // Find all form blocks and push to formElementList
+      this.$form.find('[data-form-block]').map(function (index, element) {
+        var $element = (0, _jQuery2.default)(element);
 
-      return new Promise(function (resolve, reject) {
-        _this.overlay.remove().then(function () {
-          resolve();
-        });
+        root.formElementList.push(new _FormBlock2.default({
+          $formBlock: $element,
+          type: $element.data('form-block').type,
+          name: $element.find('[data-form-element]').attr('name')
+        }));
       });
     }
   }, {
-    key: 'getAnimWrapper',
-    value: function getAnimWrapper() {
-      return '\n      <div class="anim-wrapper anim-wrapper-' + this.options.positionType + '">\n        ' + this.getAnimTemplate() + '\n      </div>\n    ';
+    key: 'setFormAction',
+    value: function setFormAction() {
+      var root = this;
+
+      this.$form.submit(function (e) {
+        e.preventDefault();
+
+        if (root.allFormElementsValid()) {
+          var contactForm = new _FormSubmit2.default(root.formPathname);
+          var postData = {};
+
+          root.formElementList.forEach(function (element) {
+            postData[element.getName()] = element.getValue();
+          });
+
+          // Create new loaderAnim
+          var panelLoader = new _LoaderAnim2.default({
+            positionType: 'fixed'
+          });
+          panelLoader.create();
+          panelLoader.show();
+
+          // Create Modal
+          var modalSuccess = new _Modal2.default({
+            addedClassName: 'modal-contact-form-success',
+            $modalContent: root.$modalSuccessTemplate,
+            removeCallback: function removeCallback() {
+              root.resetForm();
+            }
+          });
+          modalSuccess.init();
+
+          contactForm.run(postData).then(function (response) {
+            panelLoader.remove().then(function () {
+              modalSuccess.show();
+              root.resetForm();
+            });
+          });
+        }
+      });
     }
   }, {
-    key: 'getAnimTemplate',
-    value: function getAnimTemplate() {
-      return '<div class="anim-default"></div>';
+    key: 'formIsEmpty',
+    value: function formIsEmpty() {
+      return this.formElementList.length < 1;
+    }
+  }, {
+    key: 'allFormElementsValid',
+    value: function allFormElementsValid() {
+      if (this.formIsEmpty()) {
+        return false;
+      }
+
+      var result = true;
+
+      this.formElementList.forEach(function (element) {
+        if (!element.isValid()) {
+          result = false;
+        }
+      });
+
+      // if all not false then return true
+      return result;
+    }
+  }, {
+    key: 'resetForm',
+    value: function resetForm() {
+      // loop through form blocks and reset
+      this.formElementList.forEach(function (elementItem) {
+        elementItem.reset();
+      });
+
+      // clear formElementList and remove
+      this.formElementList = [];
+      this.setFormBlocks();
     }
   }]);
 
-  return LoaderBase;
+  return Form;
 }();
 
-;
-
-exports.default = LoaderBase;
+exports.default = Form;
 
 /***/ }),
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 56 */,
-/* 57 */,
-/* 58 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12216,7 +12733,7 @@ var FormBlock = function () {
 exports.default = FormBlock;
 
 /***/ }),
-/* 59 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12232,11 +12749,11 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _globals = __webpack_require__(4);
+var _globals = __webpack_require__(3);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(8);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -12271,7 +12788,7 @@ var FormSubmit = function () {
 exports.default = FormSubmit;
 
 /***/ }),
-/* 60 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12283,152 +12800,41 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _jQuery = __webpack_require__(0);
+var _LoaderBase2 = __webpack_require__(46);
 
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _FormBlock = __webpack_require__(58);
-
-var _FormBlock2 = _interopRequireDefault(_FormBlock);
-
-var _FormSubmit = __webpack_require__(59);
-
-var _FormSubmit2 = _interopRequireDefault(_FormSubmit);
-
-var _LoaderAnim = __webpack_require__(41);
-
-var _LoaderAnim2 = _interopRequireDefault(_LoaderAnim);
-
-var _Overlay = __webpack_require__(20);
-
-var _Overlay2 = _interopRequireDefault(_Overlay);
-
-var _Modal = __webpack_require__(61);
-
-var _Modal2 = _interopRequireDefault(_Modal);
+var _LoaderBase3 = _interopRequireDefault(_LoaderBase2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Form = function () {
-  function Form($form, formPathname, $modalSuccessTemplate) {
-    _classCallCheck(this, Form);
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    this.$form = $form;
-    this.formPathname = formPathname;
-    this.formElementList = [];
-    this.$modalSuccessTemplate = $modalSuccessTemplate || undefined;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoaderAnim = function (_LoaderBase) {
+  _inherits(LoaderAnim, _LoaderBase);
+
+  function LoaderAnim() {
+    _classCallCheck(this, LoaderAnim);
+
+    return _possibleConstructorReturn(this, (LoaderAnim.__proto__ || Object.getPrototypeOf(LoaderAnim)).apply(this, arguments));
   }
 
-  _createClass(Form, [{
-    key: 'init',
-    value: function init() {
-      this.setFormBlocks();
-      this.setFormAction();
-    }
-  }, {
-    key: 'setFormBlocks',
-    value: function setFormBlocks() {
-      var root = this;
-
-      // Find all form blocks and push to formElementList
-      this.$form.find('[data-form-block]').map(function (index, element) {
-        var $element = (0, _jQuery2.default)(element);
-
-        root.formElementList.push(new _FormBlock2.default({
-          $formBlock: $element,
-          type: $element.data('form-block').type,
-          name: $element.find('[data-form-element]').attr('name')
-        }));
-      });
-    }
-  }, {
-    key: 'setFormAction',
-    value: function setFormAction() {
-      var root = this;
-
-      this.$form.submit(function (e) {
-        e.preventDefault();
-
-        if (root.allFormElementsValid()) {
-          var contactForm = new _FormSubmit2.default(root.formPathname);
-          var postData = {};
-
-          root.formElementList.forEach(function (element) {
-            postData[element.getName()] = element.getValue();
-          });
-
-          // Create new loaderAnim
-          var panelLoader = new _LoaderAnim2.default({
-            positionType: 'fixed'
-          });
-          panelLoader.create();
-          panelLoader.show();
-
-          // Create Modal
-          var modalSuccess = new _Modal2.default({
-            addedClassName: 'modal-contact-form-success',
-            $modalContent: root.$modalSuccessTemplate,
-            removeCallback: function removeCallback() {
-              root.resetForm();
-            }
-          });
-          modalSuccess.init();
-
-          contactForm.run(postData).then(function (response) {
-            panelLoader.remove().then(function () {
-              modalSuccess.show();
-              root.resetForm();
-            });
-          });
-        }
-      });
-    }
-  }, {
-    key: 'formIsEmpty',
-    value: function formIsEmpty() {
-      return this.formElementList.length < 1;
-    }
-  }, {
-    key: 'allFormElementsValid',
-    value: function allFormElementsValid() {
-      if (this.formIsEmpty()) {
-        return false;
-      }
-
-      var result = true;
-
-      this.formElementList.forEach(function (element) {
-        if (!element.isValid()) {
-          result = false;
-        }
-      });
-
-      // if all not false then return true
-      return result;
-    }
-  }, {
-    key: 'resetForm',
-    value: function resetForm() {
-      // loop through form blocks and reset
-      this.formElementList.forEach(function (elementItem) {
-        elementItem.reset();
-      });
-
-      // clear formElementList and remove
-      this.formElementList = [];
-      this.setFormBlocks();
+  _createClass(LoaderAnim, [{
+    key: 'getAnimTemplate',
+    value: function getAnimTemplate() {
+      return '<div class="anim-default plinky"></div>';
     }
   }]);
 
-  return Form;
-}();
+  return LoaderAnim;
+}(_LoaderBase3.default);
 
-exports.default = Form;
+exports.default = LoaderAnim;
 
 /***/ }),
-/* 61 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12444,11 +12850,108 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _Overlay = __webpack_require__(20);
+var _Overlay = __webpack_require__(2);
 
 var _Overlay2 = _interopRequireDefault(_Overlay);
 
-var _Animation = __webpack_require__(63);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_OPTIONS = {
+  $container: 'body',
+  positionType: 'absolute'
+};
+
+var LoaderBase = function () {
+  function LoaderBase(_options) {
+    _classCallCheck(this, LoaderBase);
+
+    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, _options);
+
+    this.$animation;
+    this.setContainer(this.options.$container);
+    this.overlay = new _Overlay2.default();
+    this.overlay.init();
+  }
+
+  _createClass(LoaderBase, [{
+    key: 'setContainer',
+    value: function setContainer(_container) {
+      this.options.$container = (0, _jQuery2.default)(_container);
+    }
+  }, {
+    key: 'create',
+    value: function create() {
+      // Create a Loader Animation
+      this.$animation = (0, _jQuery2.default)(this.getAnimWrapper());
+    }
+  }, {
+    key: 'show',
+    value: function show() {
+      this.options.$container.append(this.$animation);
+      this.overlay.show();
+    }
+  }, {
+    key: 'hide',
+    value: function hide() {
+      // Hide the Loader Animation
+    }
+  }, {
+    key: 'remove',
+    value: function remove() {
+      var _this = this;
+
+      // Remove the Loader Animation
+      this.$animation.remove();
+
+      return new Promise(function (resolve, reject) {
+        _this.overlay.remove().then(function () {
+          resolve();
+        });
+      });
+    }
+  }, {
+    key: 'getAnimWrapper',
+    value: function getAnimWrapper() {
+      return '\n      <div class="anim-wrapper anim-wrapper-' + this.options.positionType + '">\n        ' + this.getAnimTemplate() + '\n      </div>\n    ';
+    }
+  }, {
+    key: 'getAnimTemplate',
+    value: function getAnimTemplate() {
+      return '<div class="anim-default"></div>';
+    }
+  }]);
+
+  return LoaderBase;
+}();
+
+;
+
+exports.default = LoaderBase;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jQuery = __webpack_require__(0);
+
+var _jQuery2 = _interopRequireDefault(_jQuery);
+
+var _Overlay = __webpack_require__(2);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+var _Animation = __webpack_require__(6);
 
 var _Animation2 = _interopRequireDefault(_Animation);
 
@@ -12568,85 +13071,7 @@ var Modal = function () {
 exports.default = Modal;
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Animation = __webpack_require__(63);
-
-var _Animation2 = _interopRequireDefault(_Animation);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var PnModule = function PnModule() {
-  _classCallCheck(this, PnModule);
-
-  this.AnimationService = _Animation2.default;
-};
-
-;
-
-exports.default = PnModule;
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var privateGetPromise = function privateGetPromise($element, animationName, type) {
-  return new Promise(function (resolve, reject) {
-    $element.on('animation' + type, function (e) {
-      if (animationName === e.originalEvent.animationName) {
-        //console.log(`animation ${e.originalEvent.animationName} ${type}`);
-        resolve(e);
-      }
-    });
-  });
-};
-
-exports.default = {
-
-  /**
-   * checkStarted
-   * checks the given jQuery element when a particular animation has started
-   * 
-   * @param {jQuery} $()  
-   * @param {String} animationName 
-   */
-  checkStarted: function checkStarted($element, animationName) {
-    return privateGetPromise($element, animationName, 'start');
-  },
-
-
-  /**
-   * checkComplete
-   * Checks the given jQuery element when a particular animation has finished
-   * 
-   * @param {jQuery} $()
-   * @param {String} animationName 
-   */
-  checkComplete: function checkComplete($element, animationName) {
-    return privateGetPromise($element, animationName, 'end');
-  }
-};
-
-/***/ }),
-/* 64 */,
-/* 65 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12662,413 +13087,11 @@ var _jQuery = __webpack_require__(0);
 
 var _jQuery2 = _interopRequireDefault(_jQuery);
 
-var _Overlay = __webpack_require__(20);
-
-var _Overlay2 = _interopRequireDefault(_Overlay);
-
-var _Navigation = __webpack_require__(66);
-
-var _Navigation2 = _interopRequireDefault(_Navigation);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var SideNavigation = function () {
-  function SideNavigation() {
-    _classCallCheck(this, SideNavigation);
-
-    this.$primaryNavAction = (0, _jQuery2.default)('#primaryNavAction');
-    this.$primarySideNav = (0, _jQuery2.default)('#primarySideNav');
-    this.primaryOverlay;
-    this.nav;
-    this.onClick;
-  }
-
-  _createClass(SideNavigation, [{
-    key: 'init',
-    value: function init() {
-      var root = this;
-
-      this.primaryOverlay = new _Overlay2.default({
-        onClick: function onClick() {
-          root.$primarySideNav.toggleClass("active");
-        },
-        isToggle: true,
-        zIndex: 1000
-      });
-      this.primaryOverlay.init();
-
-      this.onClick = function () {
-        root.$primarySideNav.toggleClass("active");
-        root.primaryOverlay.toggle();
-      };
-
-      this.$primaryNavAction.on('click', this.onClick);
-
-      // Nav
-      this.nav = new _Navigation2.default('#nav', this.onClick);
-      this.nav.init();
-    }
-  }]);
-
-  return SideNavigation;
-}();
-
-exports.default = new SideNavigation();
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Navigation = function () {
-  function Navigation(element) {
-    var callBack = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-    _classCallCheck(this, Navigation);
-
-    this.$element = (0, _jQuery2.default)(element);
-    this.callBack = callBack;
-  }
-
-  _createClass(Navigation, [{
-    key: 'init',
-    value: function init() {
-      var root = this;
-
-      this.$element.find('.nav').each(function () {
-        var _this = this;
-
-        var $this = (0, _jQuery2.default)(this);
-        var option = $this.data('nav');
-
-        $this.on('click', function () {
-          var panelName = (0, _jQuery2.default)(_this).data('nav');
-
-          root.callBack();
-        });
-      });
-    }
-  }]);
-
-  return Navigation;
-}();
-
-;
-
-exports.default = Navigation;
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _globals = __webpack_require__(4);
-
-var _globals2 = _interopRequireDefault(_globals);
-
-var _LoadData = __webpack_require__(72);
-
-var _LoadData2 = _interopRequireDefault(_LoadData);
-
-var _Category = __webpack_require__(73);
-
-var _Category2 = _interopRequireDefault(_Category);
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Section2 = __webpack_require__(68);
+var _Section2 = __webpack_require__(5);
 
 var _Section3 = _interopRequireDefault(_Section2);
 
-var _Tab = __webpack_require__(69);
-
-var _Tab2 = _interopRequireDefault(_Tab);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-exports.default = new (function (_Section) {
-  _inherits(_class, _Section);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
-
-    _this.$portfolio = (0, _jQuery2.default)('#portfolio');
-    _this.$portfolioNavigation = (0, _jQuery2.default)('#portfolioNavigation');
-    _this.$tab = (0, _jQuery2.default)('#portfolioTab');
-    _this.$tabContent = (0, _jQuery2.default)('#portfolioTabContent');
-
-    _this.portfolioTab;
-    return _this;
-  }
-
-  _createClass(_class, [{
-    key: 'init',
-    value: function init() {
-      this.startTab();
-      this.loadCategory('websites');
-      this.activateNavigation();
-    }
-  }, {
-    key: 'startTab',
-    value: function startTab() {
-      this.portfolioTab = new _Tab2.default({
-        $tab: this.$tab
-      });
-      this.portfolioTab.init();
-    }
-  }, {
-    key: 'loadCategory',
-    value: function loadCategory(categoryName) {
-      var _this2 = this;
-
-      if (!_Category2.default[categoryName].activated) {
-        var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
-
-        _LoadData2.default.load(url).then(function (response) {
-          var $categoryContent = _this2.$tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
-          _Category2.default[categoryName].data = response.data;
-
-          for (var i = 0; i < response.data.length; i++) {
-            var item = response.data[i];
-            // console.log(item);
-            // getItemTemplate
-            $categoryContent.append(_this2.getTemplateSmallItem(item));
-          }
-
-          _Category2.default[categoryName].activated = true;
-        });
-      } else {
-        console.log('already activated!');
-      }
-    }
-  }, {
-    key: 'activateNavigation',
-    value: function activateNavigation() {
-      var root = this;
-
-      this.$portfolioNavigation.find('li').on('click', function () {
-        root.loadCategory((0, _jQuery2.default)(this).data('portfolio-cat'));
-      });
-    }
-  }, {
-    key: 'getTemplateSmallItem',
-    value: function getTemplateSmallItem(item) {
-      return (0, _jQuery2.default)('\n      <li class="grid-item portfolio-swatch">\n        <div class="inner">\n          <img src="' + item.small_image + '">\n        </div>\n      </li>\n    ');
-    }
-  }]);
-
-  return _class;
-}(_Section3.default))();
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Section = function Section() {
-  _classCallCheck(this, Section);
-
-  this.isLoaded = false;
-};
-
-exports.default = Section;
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_OPTIONS = {
-  $tab: undefined,
-  startIndex: 0
-};
-
-var Tab = function () {
-  function Tab(options) {
-    _classCallCheck(this, Tab);
-
-    this.options = _jQuery2.default.extend({}, DEFAULT_OPTIONS, options);
-
-    this.currentSelection = this.options.startIndex;
-
-    // Set jQuery objects
-    this.$navigation = this.options.$tab.find('[data-tab-nav]');
-    this.$navigationList = this.$navigation.find('li');
-    this.$content = this.options.$tab.find('[data-tab-content]');
-    this.$contentList = this.$content.find('.tab-content-item');
-  }
-
-  _createClass(Tab, [{
-    key: 'init',
-    value: function init() {
-      this.setCurrentSelection(this.currentSelection);
-      this.setEvents();
-    }
-  }, {
-    key: 'setEvents',
-    value: function setEvents() {
-      var root = this;
-
-      this.$navigationList.on('click', function () {
-        root.setCurrentSelection((0, _jQuery2.default)(this).index());
-      });
-    }
-  }, {
-    key: 'setCurrentSelection',
-    value: function setCurrentSelection(newPosition) {
-      this.$navigationList.eq(this.currentSelection).removeClass('active');
-      this.$navigationList.eq(newPosition).addClass('active');
-
-      this.$contentList.eq(this.currentSelection).hide();
-      this.$contentList.eq(newPosition).show();
-
-      this.currentSelection = newPosition;
-    }
-  }]);
-
-  return Tab;
-}();
-
-exports.default = Tab;
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Section2 = __webpack_require__(68);
-
-var _Section3 = _interopRequireDefault(_Section2);
-
-var _Form = __webpack_require__(60);
-
-var _Form2 = _interopRequireDefault(_Form);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-exports.default = new (function (_Section) {
-  _inherits(Contact, _Section);
-
-  function Contact() {
-    _classCallCheck(this, Contact);
-
-    var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this));
-
-    _this.$form = (0, _jQuery2.default)('#contactForm');
-    _this.form = new _Form2.default(_this.$form, '/contact-form.php', (0, _jQuery2.default)('<div/>').html('Form has been submitted'));
-    return _this;
-  }
-
-  _createClass(Contact, [{
-    key: 'init',
-    value: function init() {
-      this.form.init();
-    }
-  }]);
-
-  return Contact;
-}(_Section3.default))();
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _jQuery = __webpack_require__(0);
-
-var _jQuery2 = _interopRequireDefault(_jQuery);
-
-var _Section2 = __webpack_require__(68);
-
-var _Section3 = _interopRequireDefault(_Section2);
-
-var _LoadData = __webpack_require__(72);
+var _LoadData = __webpack_require__(7);
 
 var _LoadData2 = _interopRequireDefault(_LoadData);
 
@@ -13113,57 +13136,10 @@ exports.default = new (function (_Section) {
 }(_Section3.default))();
 
 /***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 49 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _axios = __webpack_require__(22);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  load: function load(url) {
-    return (0, _axios2.default)({
-      method: 'get',
-      url: url
-    }).then(function (response) {
-      return response;
-    });
-  }
-};
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  websites: {
-    activated: false,
-    data: []
-  },
-  graphics: {
-    activated: false,
-    data: []
-  },
-  illustrations: {
-    activated: false,
-    data: []
-  }
-};
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
