@@ -12231,6 +12231,13 @@ module.exports = function spread(callback) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _LoadData = __webpack_require__(7);
+
+var _LoadData2 = _interopRequireDefault(_LoadData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   websites: {
     activated: false,
@@ -12245,7 +12252,25 @@ exports.default = {
     data: []
   },
 
-  load: function load() {}
+  load: function load(url, categoryName) {
+    var AllReturn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+    var category = this[categoryName];
+
+    return new Promise(function (resolve, reject) {
+      if (!category.activated) {
+        _LoadData2.default.load(url).then(function (response) {
+          category.data = response.data;
+          category.activated = true;
+          resolve(response.data);
+        });
+      } else {
+        if (!AllReturn) {
+          resolve(category.data);
+        }
+      }
+    });
+  }
 };
 
 /***/ }),
@@ -13134,23 +13159,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
   generate: function generate(categoryName, $tabContent) {
-    if (!_Category2.default[categoryName].activated) {
-      var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
+    var url = _globals2.default.urlPrefix + 'data.php?portfolio=' + categoryName;
 
-      _LoadData2.default.load(url).then(function (response) {
-        var $categoryContent = $tabContent.find('[data-portfolio-view="' + categoryName + '"]').children();
-        _Category2.default[categoryName].data = response.data;
-
-        for (var i = 0; i < response.data.length; i++) {
-          var item = response.data[i];
-          $categoryContent.append(_CategoryItem2.default.getTemplateSmallItem(item));
-        }
-
-        _Category2.default[categoryName].activated = true;
-      });
-    } else {
-      // console.log('already activated!');
-    }
+    _Category2.default.load(url, categoryName, false).then(function (data) {
+      for (var i = 0; i < data.length; i++) {
+        $tabContent.find('[data-portfolio-view="' + categoryName + '"]').children().append(_CategoryItem2.default.getTemplateSmallItem(data[i]));
+      }
+    });
   }
 };
 
