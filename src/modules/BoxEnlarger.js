@@ -45,7 +45,7 @@ $BOX_OVERLAY.appendTo('body');
  */
 class BoxEnlarger {
   constructor(newOptions) {
-    this.options = $.extend({}, DEFAULT_SETTINGS, newOptions);
+    this.options = Object.assign({}, DEFAULT_SETTINGS, newOptions);
     this.currentClone;
   }
 

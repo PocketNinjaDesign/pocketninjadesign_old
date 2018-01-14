@@ -1,0 +1,7 @@
+
+.peekaboo {
+  @include position(absolute, 0 null null 0);
+  width: 100px;
+  height: 100px;
+  background: #fc0;
+}

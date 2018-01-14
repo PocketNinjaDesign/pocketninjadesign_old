@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS = {
 
 class Carousel {
   constructor(newOptions) {
-    this.options = $.extend({}, DEFAULT_OPTIONS, newOptions);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, newOptions);
 
     this.$slider;
     this.$leftButton;

@@ -13,7 +13,7 @@ const DEFAULT_OPTIONS = {
 
 class Modal {
   constructor(_options) {
-    this.options = $.extend({}, DEFAULT_OPTIONS, _options);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, _options);
     this.id = `model${counter}`;
     this.overlay;
     this.$modal;

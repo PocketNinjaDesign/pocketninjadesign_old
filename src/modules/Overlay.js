@@ -22,7 +22,7 @@ const DEFAULT_OPTIONS = {
 class Overlay extends PnModule {
   constructor(options) {
     super();
-    this.options = $.extend({}, DEFAULT_OPTIONS, options);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
     this.$overlay = $('<div/>', {
       id: `overlay-${counter}`,
       class: `overlay ${this.options.addedClass}`

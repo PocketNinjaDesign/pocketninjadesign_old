@@ -1,0 +1,13 @@
+.page-holding {
+  overflow: hidden;
+
+  .logo {
+    @include position(absolute, 4em null null 50%);
+    transform: translateX(-50%);
+    font-size: 80%;
+  }
+  .tree-box {
+    @include position(absolute, null null 4em 50%);
+    transform: translateX(-50%);
+  }
+}
