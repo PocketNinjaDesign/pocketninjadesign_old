@@ -1,4 +1,5 @@
 
 .peekaboo {
   @include position(absolute, 0 null null 0);
+  background: #222;
 }
