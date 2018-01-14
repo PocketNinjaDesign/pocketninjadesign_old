@@ -4,16 +4,20 @@ import Numbers from '../Numbers';
 
 import PnModule from './PnModule';
 
+const TARGET_OPTIONS = {
+  activeTime: [2000],
+  animationHideSpeed: 200,
+  animationShowSpeed: 200,
+  element: 'body',
+  inner: true,
+  pauseTime: [1000],
+  sides: ['top', 'right', 'bottom', 'left'],
+};
+
 const DEFAULT_OPTIONS = {
   $element: undefined,
-  sides: ['top', 'right', 'bottom', 'left'],
-  inner: true,
-  targets: ['body'],
-  pauseTime: [1000],
-  activeTime: [2000],
-  animationShowSpeed: 200,
-  animationHideSpeed: 200,
   rotate: true,
+  targets: [TARGET_OPTIONS],
 };
 
 const SIDE_PLACEMENT = new Map([
@@ -31,12 +35,18 @@ class Peekaboo extends PnModule {
 
     // Any peekaboo defaults
     this.opt = Object.assign({}, DEFAULT_OPTIONS, options);
+
+    // iterate targets and merge each with target option defaults
+    this.opt.targets = Lists.objectAssign(TARGET_OPTIONS, this.opt.targets);
+
     this.$peekaboo;
     this.activeTimer;
     this.id = counter;
 
     // Other properties
+    this.currentTarget;
     this.activeSide;
+    this.$target;
 
     counter += 1;
   }
@@ -47,12 +57,14 @@ class Peekaboo extends PnModule {
   }
 
   startPeekaboo() {
+    this.currentTarget = this.getTarget();
+    this.$target = $(this.currentTarget.element);
+
     this.activeTimer = setTimeout(() => {
-      this.$currentTarget = $(this.getTarget());
-      this.$currentTarget.append(this.$peekaboo);
+      this.$target.append(this.$peekaboo);
 
       // set which side to appear from
-      this.activeSide = Lists.getRandomListItem(this.opt.sides);
+      this.activeSide = Lists.getRandomListItem(this.currentTarget.sides);
 
       // Choose position along the side
       this.resetPositions();
@@ -72,7 +84,7 @@ class Peekaboo extends PnModule {
       // then
 
       this.startPeekaboo();
-    }, 1000);
+    }, this.getActiveTime());
   }
 
 
@@ -114,7 +126,7 @@ class Peekaboo extends PnModule {
    * returns an item from the pauseTime list
    */
   getPauseTime() {
-    return Lists.getRandomListItem(this.opt.pauseTime);
+    return Lists.getRandomListItem(this.currentTarget.pauseTime);
   }
 
   /**
@@ -122,16 +134,16 @@ class Peekaboo extends PnModule {
    * returns an item from the activeTime list
    */
   getActiveTime() {
-    return Lists.getRandomListItem(this.opt.activeTime);
+    return Lists.getRandomListItem(this.currentTarget.activeTime);
   }
 
   getRandomPosition(angle) {
     return (angle === 'height')?
       Numbers.rndmFlrInt(
-        Math.max(0, this.$currentTarget.innerHeight() - this.$peekaboo.innerHeight())
+        Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight())
       ) :
       Numbers.rndmFlrInt(
-        Math.max(0, this.$currentTarget.innerWidth() - this.$peekaboo.innerWidth())
+        Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth())
       );
   }
 
