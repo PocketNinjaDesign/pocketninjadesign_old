@@ -82,9 +82,12 @@ class Peekaboo extends PnModule {
 
       t1
         .to(this.opt.$element, 0, { y: 100 })
-        .to(this.opt.$element, 0.7, { y: 0, onComplete: () => {
-          this.waitPeekaboo();
-        }});
+        .to(this.opt.$element, this.opt.animationShowSpeed, {
+          y: 0,
+          onComplete: () => {
+            this.waitPeekaboo();
+          }
+        });
     }, this.getPauseTime());
   }
 
@@ -95,10 +98,13 @@ class Peekaboo extends PnModule {
       let t1 = new TimelineLite();
 
       t1.
-        to(this.opt.$element, 0.7, { y: 100, onComplete: () => {
-          this.$peekaboo.hide();
-          this.startPeekaboo();
-        }});
+        to(this.opt.$element, this.opt.animationHideSpeed, {
+          y: 100,
+          onComplete: () => {
+            this.$peekaboo.hide();
+            this.startPeekaboo();
+          }
+        });
     }, this.getActiveTime());
   }
 
