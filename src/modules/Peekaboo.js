@@ -181,6 +181,10 @@ class Peekaboo extends PnModule {
     return this.$peekaboo;
   }
 
+  getElementId() {
+    return `peekaboo-${this.id}`;
+  }
+
   /**
    * getTemplate
    * returns a template with your content inside

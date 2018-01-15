@@ -2,6 +2,7 @@
 .peekaboo {
   @include position(absolute, 0 null null 0);
   overflow: hidden;
+  z-index: 100;
 
   .peekaboo-inner {
     position: relative;

@@ -4,8 +4,7 @@ var twig = require('gulp-twig');
 gulp.task('compile', function() {
   'use strict';
   return gulp.src([
-    './templates/index.html',
-    './templates/holding.html'
+    './templates/index.html'
   ])
   .pipe(twig({
     data: {

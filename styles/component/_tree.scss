@@ -3,11 +3,13 @@
 .tree-box {
   .branch {
     @include position(absolute, -50px null null 72px);
+    z-index: 1;
     width: 100px;
-    height: 100px;
+    height: 10px;
   }
 
-  img {
+  & > img {
     position: relative;
+    z-index: 2;
   }
 }

@@ -1,11 +1,13 @@
 import $ from 'jQuery';
+
 import Peekaboo from '../modules/Peekaboo';
-import {TweenMax, Power2, TimelineLite} from 'gsap';
+import NinjaList from '../modules/ninja/NinjaList';
 
 class PageHolding {
   constructor() {
     // Primary Popup character
     this.mainNinja;
+    this.ninjas;
   }
 
   init() {
@@ -15,6 +17,12 @@ class PageHolding {
       fixedTimes: false,
     });
     this.mainNinja.init();
+
+    // Generate a load of random ninjas
+    // For now it is the list only, I'll figure out
+    // what I want from a ninja class later.
+    this.ninjas = new NinjaList();
+    this.ninjas.generateNinjas(3);
   }
 }
 

@@ -1,13 +1,89 @@
 .page-holding {
   overflow: hidden;
+  text-align: center;
 
   .logo {
-    @include position(absolute, 4em null null 50%);
-    transform: translateX(-50%);
-    font-size: 80%;
+    margin: 2em auto 0 auto;
+    font-size: 60%;
+
+    @media (min-height: 800px) {
+      margin-top: 4em;
+      font-size: 80%;
+    }
   }
+
+  .under-contruction {
+    text-align: center;
+
+    .site-width {
+      max-width: 680px;
+      font-size: 60%;
+
+      @media (min-height: 500px) {
+        font-size: 80%;
+      }
+      @media (min-width: 600px) and (min-height: 600px) {
+        font-size: 100%;
+      }
+      
+      h1 {
+        font-size: 2.5em;
+        padding-bottom: 0.3em;
+      }
+      h3 {
+        font-size: 1.75em;
+        padding-bottom: 0.625em;
+      }
+      p {
+        font-size: 16px;
+        max-width: 800px;
+        padding: 0 3.125em 0.625em 3.125em;
+
+        &.intro {
+          display: none;
+
+          @media (min-height: 500px) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
   .tree-box {
-    @include position(absolute, null null 4em 50%);
+    @include position(absolute, null null 0.625em 50%);
     transform: translateX(-50%);
+    z-index: 1;
+    display: none;
+
+    @media (min-height: 400px) {
+      display: block;
+    }
+
+    .branch {
+      top: 30px;
+      left: 24px;
+
+      @media (min-height: 800px) {
+        top: 40px;
+        left: 72px;
+      }
+    }
+
+    & > img {
+      width: 150px;
+
+      @media (min-height: 800px) {
+        width: auto;
+      }
+    }
+
+    @media (min-height: 500px) {
+      bottom: 1em;
+    }
+
+    @media (min-height: 800px) {
+      bottom: 4em;
+    }
   }
 }
