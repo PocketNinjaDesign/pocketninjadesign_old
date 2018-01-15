@@ -1,5 +1,13 @@
 
 
 .tree-box {
-  
+  .branch {
+    @include position(absolute, -50px null null 72px);
+    width: 100px;
+    height: 100px;
+  }
+
+  img {
+    position: relative;
+  }
 }

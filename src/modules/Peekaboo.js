@@ -1,30 +1,33 @@
 import $ from 'jQuery';
+import {TweenMax, Power2, TimelineLite} from 'gsap';
+
 import Lists from '../Lists';
 import Numbers from '../Numbers';
 
 import PnModule from './PnModule';
 
 const TARGET_OPTIONS = {
-  activeTime: [2000],
-  animationHideSpeed: 200,
-  animationShowSpeed: 200,
   element: 'body',
   inner: true,
-  pauseTime: [1000],
   sides: ['top', 'right', 'bottom', 'left'],
 };
 
 const DEFAULT_OPTIONS = {
+  activeTime: [2000],
+  animationHideSpeed: 0.7,
+  animationShowSpeed: 0.7,
   $element: undefined,
+  pauseTime: [1000],
   rotate: true,
   targets: [TARGET_OPTIONS],
+  fixedTimes: true,
 };
 
 const SIDE_PLACEMENT = new Map([
-  ['left', { direction: 'top', angle: 'height'}],
-  ['right', { direction: 'top', angle: 'height'}],
-  ['top', { direction: 'left', angle: 'width'}],
-  ['bottom', { direction: 'left', angle: 'width'}],
+  ['left', { direction: 'top', side: 'height', angle: 90 }],
+  ['right', { direction: 'top', side: 'height', angle: 270 }],
+  ['top', { direction: 'left', side: 'width', angle: 180 }],
+  ['bottom', { direction: 'left', side: 'width', angle: 0 }],
 ]);
 
 let counter = 1;
@@ -61,6 +64,7 @@ class Peekaboo extends PnModule {
     this.$target = $(this.currentTarget.element);
 
     this.activeTimer = setTimeout(() => {
+      this.$peekaboo.show();
       this.$target.append(this.$peekaboo);
 
       // set which side to appear from
@@ -70,20 +74,31 @@ class Peekaboo extends PnModule {
       this.resetPositions();
       this.setNewPosition();
 
-      //console.log('Start Peekaboo!!!', `Active side: ${this.activeSide}`);
-      // Show Peekaboo
-      // Wait for a Period of time
-      this.waitPeekaboo();
+      // Animate
+      let t1 = new TimelineLite();
+      let angle = SIDE_PLACEMENT.get(this.activeSide).angle;
+
+      this.$peekaboo.css('transform', `rotate(${angle}deg)`);
+
+      t1
+        .to(this.opt.$element, 0, { y: 100 })
+        .to(this.opt.$element, 0.7, { y: 0, onComplete: () => {
+          this.waitPeekaboo();
+        }});
     }, this.getPauseTime());
   }
 
   waitPeekaboo() {
+    // Peekaboo is now showing, so wait for
+    // the active time and then hide
     this.activeTime = setTimeout(() => {
-      // Hide Peekaboo
-      // Return Promise of hiding Peekaboo
-      // then
+      let t1 = new TimelineLite();
 
-      this.startPeekaboo();
+      t1.
+        to(this.opt.$element, 0.7, { y: 100, onComplete: () => {
+          this.$peekaboo.hide();
+          this.startPeekaboo();
+        }});
     }, this.getActiveTime());
   }
 
@@ -101,9 +116,9 @@ class Peekaboo extends PnModule {
   setNewPosition() {
     let newPos = {};
     let direction = SIDE_PLACEMENT.get(this.activeSide).direction;
-    let angle = SIDE_PLACEMENT.get(this.activeSide).angle;
+    let side = SIDE_PLACEMENT.get(this.activeSide).side;
 
-    newPos[direction] = `${this.getRandomPosition(angle)}px`;
+    newPos[direction] = `${this.getRandomPosition(side)}px`;
     newPos[this.activeSide] = 0;
 
     this.$peekaboo.css(newPos);
@@ -126,7 +141,9 @@ class Peekaboo extends PnModule {
    * returns an item from the pauseTime list
    */
   getPauseTime() {
-    return Lists.getRandomListItem(this.currentTarget.pauseTime);
+    return (this.opt.fixedTimes) ?
+      Lists.getRandomListItem(this.opt.pauseTime) :
+      Numbers.rndmFlrInt(Lists.getRandomListItem(this.opt.pauseTime));
   }
 
   /**
@@ -134,11 +151,13 @@ class Peekaboo extends PnModule {
    * returns an item from the activeTime list
    */
   getActiveTime() {
-    return Lists.getRandomListItem(this.currentTarget.activeTime);
+    return (this.opt.fixedTimes) ?
+      Lists.getRandomListItem(this.opt.activeTime) :
+      Numbers.rndmFlrInt(Lists.getRandomListItem(this.opt.activeTime));
   }
 
-  getRandomPosition(angle) {
-    return (angle === 'height')?
+  getRandomPosition(side) {
+    return (side === 'height')?
       Numbers.rndmFlrInt(
         Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight())
       ) :

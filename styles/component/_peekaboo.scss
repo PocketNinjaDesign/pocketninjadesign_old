@@ -1,5 +1,13 @@
 
 .peekaboo {
   @include position(absolute, 0 null null 0);
-  background: #222;
+  overflow: hidden;
+
+  .peekaboo-inner {
+    position: relative;
+
+    img {
+      display: block;
+    }
+  }
 }
