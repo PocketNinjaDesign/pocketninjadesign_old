@@ -173,6 +173,15 @@ class Peekaboo extends PnModule {
   }
 
   /**
+   * getPeekaboo
+   * @description for getting at the peekaboo element from another script
+   * @returns jQuery peekaboo object
+   */
+  getPeekaboo() {
+    return this.$peekaboo;
+  }
+
+  /**
    * getTemplate
    * returns a template with your content inside
    * @param {$()} - jQuery object with $content added
