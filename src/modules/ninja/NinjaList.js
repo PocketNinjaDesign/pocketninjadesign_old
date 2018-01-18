@@ -8,7 +8,7 @@ class NinjaList {
   constructor(targetList = DEFAULT_TARGETS) {
     this.ninjaList = new Map();
     this.ninjaColorList = ['red', 'grey', 'green', 'blue'];
-    this.targetList = targetList;
+    this.targetList = Lists.objectAssign(DEFAULT_TARGETS, targetList);
   }
 
   generateNinjas(total) {

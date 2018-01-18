@@ -22,7 +22,7 @@ class PageHolding {
     // For now it is the list only, I'll figure out
     // what I want from a ninja class later.
     this.ninjas = new NinjaList();
-    this.ninjas.generateNinjas(3);
+    this.ninjas.generateNinjas(2);
   }
 }
 
