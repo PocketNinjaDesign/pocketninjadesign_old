@@ -1,4 +1,5 @@
-import $ from 'jQuery';
+import $ from 'jqlite';
+// import $ from 'jQuery';
 import {TweenMax, Power2, TimelineLite} from 'gsap';
 
 import Lists from '../Lists';
@@ -198,17 +199,17 @@ class Peekaboo extends PnModule {
 
   getCenterPosition(side) {
     return (side === 'height')?
-      (this.$target.innerHeight() / 2) - this.$peekaboo.innerHeight() / 2 :
-      (this.$target.innerWidth() / 2) - this.$peekaboo.innerWidth() / 2;
+      (this.$target.clientHeight / 2) - this.$peekaboo.clientHeight / 2 :
+      (this.$target.clientWidth / 2) - this.$peekaboo.clientWidth / 2;
   }
 
   getRandomPosition(side) {
     return (side === 'height')?
       Numbers.rndmFlrInt(
-        Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight())
+        Math.max(0, this.$target.clientHeight - this.$peekaboo.clientHeight)
       ) :
       Numbers.rndmFlrInt(
-        Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth())
+        Math.max(0, this.$target.clientWidth - this.$peekaboo.clientWidth)
       );
   }
 
@@ -235,14 +236,15 @@ class Peekaboo extends PnModule {
    * @param {$()} - jQuery object with $content added
    */
   getTemplate($content) {
-    return $(`
-      <div id="peekaboo-${this.id}" class="peekaboo">
+    let $template = $(
+      `<div id="peekaboo-${this.id}" class="peekaboo">
         <div class="peekaboo-inner"></div>
-      </div>
-    `)
-    .find('.peekaboo-inner')
-      .append($content)
-    .end();
+      </div>`
+    );
+    $content.appendTo($template.find('.peekaboo-inner'));
+    //$template.find('.peekaboo-inner').append($content);
+
+    return $template;
   }
 }
 

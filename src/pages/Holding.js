@@ -1,4 +1,5 @@
-import $ from 'jQuery';
+import $ from 'jqlite';
+// import $ from 'jQuery';
 
 import Peekaboo from '../modules/Peekaboo';
 import NinjaList from '../modules/ninja/NinjaList';

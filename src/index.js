@@ -1,6 +1,6 @@
 const css = require('../styles/primary.scss');
 
-import $ from 'jQuery';
+// import $ from 'jQuery';
 // import globals from './globals';
 
 
