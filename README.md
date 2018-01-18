@@ -5,7 +5,7 @@ Repo for my porfolio website which in itself is a portfolio entry using the foll
    * gulp-twig
 2. Webpack / Babel / ES6
    * axios
-3. jQuery
+3. jqlite
 4. Greensock
 
 ## Gulp
@@ -16,9 +16,9 @@ Currently used for templating and pushing files to my xampp for testing with PHP
 
 Used for generating all of the lovely code
 
-## jQuery
+## jqlite
 
-For beautiful DOM manipulation of things like the peekaboo code which personally I still have no answers for in React implementation.  Anybody please feel free to show me the light but stack overflow fails as they just say you're thinking about it all wrong because you're using jQuery
+Just need that connection with jQuery mannnnnnn :-P
 
 ## Greensock
 

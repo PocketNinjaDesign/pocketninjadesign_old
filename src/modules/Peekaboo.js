@@ -1,4 +1,4 @@
-import $ from 'jqlite';
+import $ from '../jqlite.extends';
 // import $ from 'jQuery';
 import {TweenMax, Power2, TimelineLite} from 'gsap';
 
@@ -199,17 +199,17 @@ class Peekaboo extends PnModule {
 
   getCenterPosition(side) {
     return (side === 'height')?
-      (this.$target.clientHeight / 2) - this.$peekaboo.clientHeight / 2 :
-      (this.$target.clientWidth / 2) - this.$peekaboo.clientWidth / 2;
+      (this.$target.innerHeight() / 2) - this.$peekaboo.innerHeight() / 2 :
+      (this.$target.innerWidth() / 2) - this.$peekaboo.innerWidth() / 2;
   }
 
   getRandomPosition(side) {
     return (side === 'height')?
       Numbers.rndmFlrInt(
-        Math.max(0, this.$target.clientHeight - this.$peekaboo.clientHeight)
+        Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight())
       ) :
       Numbers.rndmFlrInt(
-        Math.max(0, this.$target.clientWidth - this.$peekaboo.clientWidth)
+        Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth())
       );
   }
 
