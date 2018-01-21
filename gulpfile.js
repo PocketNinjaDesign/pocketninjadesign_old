@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var twig = require('gulp-twig');
+var runSequence = require('run-sequence');
 
 gulp.task('compile', function() {
   'use strict';
@@ -17,7 +18,9 @@ gulp.task('compile', function() {
 gulp.task('send', function() {
   return gulp
     .src('./build/**/*')
-    .pipe(gulp.dest('C:/xampp/htdocs/pnd'));
+    .pipe(gulp.dest('E:/vhosts/pocketninjadesign'));
 });
 
-gulp.task('default', ['compile', 'send']);
+gulp.task('default', function() {
+  runSequence('compile', 'send');
+});
