@@ -24,6 +24,8 @@ const DEFAULT_OPTIONS = {
   rotate: true,
   targets: [TARGET_OPTIONS],
   fixedTimes: true,
+  emScale: false,
+  imageOnly: true,
 };
 
 const SIDE_PLACEMENT = new Map([
@@ -62,7 +64,18 @@ class Peekaboo extends PnModule {
 
   init() {
     this.$peekaboo = this.getTemplate(this.opt.$element);
+    this.checkToScale();
     this.startPeekaboo();
+  }
+
+  checkToScale() {
+    if(this.opt.emScale) {
+      this.opt.$element.setSizeFromHidden();
+
+      if (this.opt.imageOnly) {
+        this.opt.$element.find('img').css("width", "100%");
+      }
+    }
   }
 
   startPeekaboo() {

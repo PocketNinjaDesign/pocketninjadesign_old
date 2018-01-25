@@ -19,6 +19,7 @@ class PageHolding {
       $element: $('#ninja'),
       targets: [{ element: 'body' }, { element: '#branch', sides: ['bottom'] }],
       fixedTimes: false,
+      emScale: true,
     });
     this.mainNinja.init();
 

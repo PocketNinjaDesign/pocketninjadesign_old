@@ -2,33 +2,34 @@
 import $ from 'jqlite';
 import Lists from '../../Lists';
 import Peekaboo from '../Peekaboo';
+import Ninja from './Ninja';
 
 const DEFAULT_TARGETS = [{ element: 'body' }];
 
 class NinjaList {
   constructor(targetList = DEFAULT_TARGETS) {
     this.ninjaList = new Map();
-    this.ninjaColorList = ['red', 'grey', 'green', 'blue'];
     this.targetList = Lists.objectAssign(DEFAULT_TARGETS, targetList);
   }
 
   generateNinjas(total) {
     for(let i = 0; i < total; i++) {
+      let ninja = new Ninja();
+
       this.addNinjaToList(new Peekaboo({
-        $element: this.getNinjaImage(),
+        $element: ninja.getNinjaTemplate(),
         targets: this.targetList,
         fixedTimes: false,
-      }));
+      }), ninja);
     }
   }
 
-  addNinjaToList(newNinja) {
-    this.ninjaList.set(newNinja.getElementId, newNinja);
-    newNinja.init();
-  }
-
-  getNinjaImage() {
-    return $(`<img src="/images/ninja-${Lists.getRandomListItem(this.ninjaColorList)}-medium.png">`);
+  addNinjaToList(peekabooNinja, ninja) {
+    this.ninjaList.set(peekabooNinja.getElementId, {
+      peekaboo: peekabooNinja,
+      ninja: ninja,
+    });
+    peekabooNinja.init();
   }
 }
 
