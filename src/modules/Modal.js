@@ -1,3 +1,4 @@
+//import $ from 'jqlite';
 import $ from 'jQuery';
 import Overlay from './Overlay';
 import AnimationService from '../services/Animation.service';
@@ -55,15 +56,17 @@ class Modal {
 
     // Show Model
     $('body').append(this.$modal);
-    $animElement.addClass('animation-1-in');
-    this.overlay.show();
+    this.$modalInner.find('.modal-content').append(this.options.$modalContent);
 
-    AnimationService
-      .checkComplete($animElement, 'rotateOncePiece1')
-      .then((e) => {
-        // Add the content to the body of the modal
-        this.$modalInner.find('.modal-content').append(this.options.$modalContent);
-      });
+    // $animElement.addClass('animation-1-in');
+    // this.overlay.show();
+
+    // AnimationService
+    //   .checkComplete($animElement, 'rotateOncePiece1')
+    //   .then((e) => {
+    //     // Add the content to the body of the modal
+    //     this.$modalInner.find('.modal-content').append(this.options.$modalContent);
+    //   });
   }
 
   remove() {

@@ -55,27 +55,11 @@
     transform: translateX(-50%);
     z-index: 1;
     display: none;
+    font-size: 10px;
+    transition: font-size 300ms;
 
     @media (min-height: 400px) {
       display: block;
-    }
-
-    .branch {
-      top: 30px;
-      left: 24px;
-
-      @media (min-height: 800px) {
-        top: 40px;
-        left: 72px;
-      }
-    }
-
-    & > img {
-      width: 150px;
-
-      @media (min-height: 800px) {
-        width: auto;
-      }
     }
 
     @media (min-height: 500px) {
@@ -83,6 +67,7 @@
     }
 
     @media (min-height: 800px) {
+      font-size: 16px;
       bottom: 4em;
     }
   }
