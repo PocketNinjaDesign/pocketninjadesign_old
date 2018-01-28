@@ -27,7 +27,7 @@ class PageHolding {
     // For now it is the list only, I'll figure out
     // what I want from a ninja class later.
     this.ninjas = new NinjaList();
-    this.ninjas.generateNinjas(2);
+    this.ninjas.generateNinjas(10);
 
     // Show test modal
     this.modal.init();

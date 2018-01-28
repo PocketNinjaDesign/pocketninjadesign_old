@@ -1,4 +1,3 @@
-// import $ from 'jQuery';
 import $ from 'jqlite';
 import Lists from '../../Lists';
 import Peekaboo from '../Peekaboo';
