@@ -2,7 +2,7 @@
 
 .tree-box {
   .branch {
-    @include position(absolute, 5em null null 5.9em);
+    @include position(absolute, 6em null null 5.9em);
     z-index: 1;
     width: 6.25em;
     height: 0.625em;

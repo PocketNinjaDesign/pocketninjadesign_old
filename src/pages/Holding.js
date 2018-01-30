@@ -5,6 +5,7 @@ import Peekaboo from '../modules/Peekaboo';
 import NinjaList from '../modules/ninja/NinjaList';
 import Modal from '../modules/Modal';
 import Animation from '../animations/Animation';
+import Tree from '../modules/Tree';
 
 class PageHolding {
   constructor() {
@@ -15,9 +16,22 @@ class PageHolding {
   }
 
   init() {
+    let tree = new Tree();
+
     this.mainNinja = new Peekaboo({
       $element: $('#ninja'),
-      targets: [{ element: 'body' }, { element: '#branch', sides: ['bottom'] }],
+      targets: [
+        { element: 'body' }, {
+          element: '#branch',
+          sides: ['bottom'],
+          popOutCallback: function() {
+            tree.animateTo();
+          },
+          popBackCallback: function() {
+            tree.animateFrom();
+          },
+        }
+      ],
       fixedTimes: false,
       emScale: true,
     });
@@ -44,7 +58,6 @@ class PageHolding {
         });
       });
     });
-
   }
 }
 

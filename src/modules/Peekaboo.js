@@ -13,6 +13,8 @@ const TARGET_OPTIONS = {
   inner: true,
   sides: ['top', 'right', 'bottom', 'left'],
   align: ['random', 'random', 'random', 'random'],
+  popOutCallback: function() {},
+  popBackCallback: function() {},
 };
 
 const DEFAULT_OPTIONS = {
@@ -100,6 +102,8 @@ class Peekaboo extends PnModule {
 
       this.$peekaboo.css('transform', `rotate(${angle}deg)`);
 
+      this.currentTarget.popOutCallback();
+
       t1
         .to(this.opt.$element, 0, { y: 100 })
         .to(this.opt.$element, this.opt.animationShowSpeed, {
@@ -117,6 +121,8 @@ class Peekaboo extends PnModule {
     this.activeTime = setTimeout(() => {
       let t1 = new TimelineLite();
 
+      this.currentTarget.popBackCallback();
+
       t1.
         to(this.opt.$element, this.opt.animationHideSpeed, {
           y: 100,
@@ -127,8 +133,6 @@ class Peekaboo extends PnModule {
         });
     }, this.getActiveTime());
   }
-
-
 
   resetPositions() {
     this.$peekaboo.css({
