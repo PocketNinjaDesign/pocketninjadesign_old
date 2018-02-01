@@ -47,6 +47,9 @@
           }
         }
       }
+      .social-media-links {
+        margin-top: 2em;
+      }
     }
   }
 
@@ -54,16 +57,20 @@
     @include position(absolute, null null 0.625em 50%);
     transform: translateX(-50%);
     z-index: 1;
-    display: none;
-    font-size: 10px;
+    //display: none;
+    font-size: 8px;
     transition: font-size 300ms;
 
-    @media (min-height: 400px) {
-      display: block;
+    @media (min-height: 450px) {
+      font-size: 10px;
     }
 
     @media (min-height: 500px) {
       bottom: 1em;
+    }
+
+    @media (min-height: 560px) {
+      font-size: 14px;
     }
 
     @media (min-height: 800px) {

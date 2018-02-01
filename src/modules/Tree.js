@@ -19,6 +19,8 @@ class Tree {
   animateTo() {
     let t1 = new TimelineLite({ delay: 0.2 });
 
+    console.log('animateTo');
+
     t1
       .to(this.branch1, 0.5, { x: -15, y: 15, ease: Elastic.easeOut.config(1, 0.3) })
       .to(this.branch1Shadow, 0.5, { x: -15, y: 15, ease: Elastic.easeOut.config(1, 0.3) }, 0)
@@ -38,6 +40,8 @@ class Tree {
 
   animateFrom() {
     let t1 = new TimelineLite();
+
+    console.log('animateFrom');
 
     t1
       .to(this.branch1, 1, { x: 0, y: 0, ease: Elastic.easeOut.config(1, 0.3) })
