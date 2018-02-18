@@ -1,33 +1,5 @@
 import $ from 'jqlite';
 
-$.fn.innerWidth = function() {
-  return this[0].clientWidth;
-}
-
-$.fn.innerHeight = function() {
-  return this[0].clientHeight;
-}
-
-$.fn.outerWidth = function() {
-  return this[0].offsetWidth;
-}
-
-$.fn.outerHeight = function() {
-  return this[0].offsetHeight;
-}
-
-$.fn.setSizeFromHidden = function() {
-  for(let i = 0; i < this.length; i++) {
-    let sizes = $(this[i]).getSizeFromHidden();
-    $(this[i]).css({
-      width: `${sizes.width / 16}em`,
-      height: `${sizes.height / 16}em`,
-    });
-  }
-
-  return this;
-}
-
 $.fn.getSizeFromHidden = function() {
   let sizes = {};
   let $this = $(this);
@@ -48,5 +20,71 @@ $.fn.getSizeFromHidden = function() {
 
   return sizes;
 }
+
+// $.fn.hide = function() {
+//   // Add the check for what it originally
+//   // was if it was hidden last
+//   for (let i = 0; i <= this.length; i++) {
+//     this[i].css({
+//       display: 'none'
+//     });
+//   }
+
+//   return this;
+// }
+
+
+
+$.fn.innerWidth = function() {
+  return this[0].clientWidth;
+}
+
+
+
+$.fn.innerHeight = function() {
+  return this[0].clientHeight;
+}
+
+
+
+$.fn.outerWidth = function() {
+  return this[0].offsetWidth;
+}
+
+
+
+$.fn.outerHeight = function() {
+  return this[0].offsetHeight;
+}
+
+
+
+$.fn.setSizeFromHidden = function() {
+  for(let i = 0; i < this.length; i++) {
+    let sizes = $(this[i]).getSizeFromHidden();
+    $(this[i]).css({
+      width: `${sizes.width / 16}em`,
+      height: `${sizes.height / 16}em`,
+    });
+  }
+
+  return this;
+}
+
+
+
+// $.fn.show = function() {
+//   // Add the check for what it originally
+//   // was if it was hidden last
+//   for (let i = 0; i <= this.length; i++) {
+//     this[i].css({
+//       display: 'block'
+//     });
+//   }
+
+//   return this;
+// }
+
+
 
 export default $;

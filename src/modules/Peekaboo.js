@@ -1,5 +1,4 @@
 import $ from '../jqlite.extends';
-// import $ from 'jQuery';
 import {TweenMax, Power2, TimelineLite} from 'gsap';
 
 import Lists from '../Lists';
@@ -259,7 +258,6 @@ class Peekaboo extends PnModule {
       </div>`
     );
     $content.appendTo($template.find('.peekaboo-inner'));
-    //$template.find('.peekaboo-inner').append($content);
 
     return $template;
   }

@@ -3,32 +3,39 @@ import $ from 'jqlite';
 import Peekaboo from '../modules/Peekaboo';
 import NinjaList from '../modules/ninja/NinjaList';
 import Tree from '../modules/Tree';
+import LandingToPortfolioAnim from '../animations/LandingToPortfolio.anim';
 
-class PageHolding {
+export default new class PageHolding {
   constructor() {
 
     // Primary Popup character
     this.mainNinja;
     this.ninjas;
+    this.tree = new Tree();
+    this.ninjas = new NinjaList();
   }
 
   init() {
-    let tree = new Tree();
-
+    // Create the main Pocketninja who can
+    // appear in the body and the tree while adding
+    // popout callbacks
     this.mainNinja = new Peekaboo({
       $element: $('#ninja'),
-      targets: [
-        { element: 'body' }, {
+      targets: [{
+          element: 'body'
+        }, {
           element: '#branch',
           sides: ['bottom'],
-          popOutCallback: function() {
-            tree.animateTo();
+          popOutCallback: () => {
+            this.tree.animateTo();
           },
-          popBackCallback: function() {
-            tree.animateFrom();
+          popBackCallback: () => {
+            this.tree.animateFrom();
           },
         }
       ],
+      animationHideSpeed: 0.2,
+      animationShowSpeed: 0.2,
       fixedTimes: false,
       emScale: true,
     });
@@ -37,9 +44,15 @@ class PageHolding {
     // Generate a load of random ninjas
     // For now it is the list only, I'll figure out
     // what I want from a ninja class later.
-    this.ninjas = new NinjaList();
-    this.ninjas.generateNinjas(3);
+    //this.ninjas.generateNinjas(3);
+
+    // Testing button
+    $('#primaryLogo').on('click', function() {
+      console.log('logo clicked and clicked');
+      LandingToPortfolioAnim.start();
+      // $('.body-block').css({
+      //   width: '19%'
+      // });
+    });
   }
 }
-
-export default new PageHolding();

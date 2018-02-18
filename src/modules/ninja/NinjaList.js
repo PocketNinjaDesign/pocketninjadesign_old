@@ -1,4 +1,4 @@
-import $ from 'jqlite';
+import $ from '../../jqlite.extends';
 import Lists from '../../Lists';
 import Peekaboo from '../Peekaboo';
 import Ninja from './Ninja';
@@ -18,6 +18,8 @@ class NinjaList {
       this.addNinjaToList(new Peekaboo({
         $element: ninja.getNinjaTemplate(),
         targets: this.targetList,
+        animationHideSpeed: 0.05,
+        animationShowSpeed: 0.05,
         fixedTimes: false,
       }), ninja);
     }
