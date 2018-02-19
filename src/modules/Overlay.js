@@ -24,6 +24,8 @@ const DEFAULT_OPTIONS = {
   isToggle: false,
   fullBody: true,
   animate: false,
+  animationDurationIn: 0.5,
+  animationDurationOut: 0.5,
   zIndex: undefined,
 };
 
@@ -97,7 +99,7 @@ class Overlay {
 
       if (this.options.animate) {
 
-        TweenMax.to(this.$overlay, 0.5, {
+        TweenMax.to(this.$overlay, this.options.animationDurationIn, {
           opacity: 1,
           onStart: () => { 
             // Show the overlay
@@ -149,7 +151,7 @@ class Overlay {
       this.clearClick();
 
       if (this.options.animate) {
-        TweenMax.to(this.$overlay, 0.5, { opacity: 0, onComplete: () => {
+        TweenMax.to(this.$overlay, this.options.animationDurationOut, { opacity: 0, onComplete: () => {
           this.removeActionComplete();
           resolve();
         }});

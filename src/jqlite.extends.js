@@ -1,5 +1,13 @@
 import $ from 'jqlite';
 
+$.fn.findFromAjax = function(responseData, elementQuery) {
+  return $('<div />').html(responseData).findLite(elementQuery);
+}
+
+$.fn.findLite = function(selector) {
+  return $(this[0].querySelectorAll(selector));
+}
+
 $.fn.getSizeFromHidden = function() {
   let sizes = {};
   let $this = $(this);

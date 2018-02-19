@@ -5,7 +5,8 @@ var runSequence = require('run-sequence');
 gulp.task('compile', function() {
   'use strict';
   return gulp.src([
-    './templates/index.html'
+    './templates/index.html',
+    './templates/portfolio.html'
   ])
   .pipe(twig({
     data: {

@@ -26,7 +26,7 @@ class LoaderBase {
   init() {
     this.overlay.show().then((response) => {
       // Wait for overlay anim in
-      console.log(response, 'will now append the loader container');
+      //console.log(response, 'will now append the loader container');
       this.options.$container.append(this.$animation);
     });
   }
