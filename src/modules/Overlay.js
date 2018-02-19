@@ -5,19 +5,29 @@ let counter = 1;
 
 // const ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
 // const ANIMATION_FADE_OUT_NAME = 'fadeOut';
+
+// Active mode applied without animation
 const ACTIVE_CLASSNAME = 'active';
+
+// Active mode applied with animation
+const ACTIVE_CLASSNAME_ANIMATION_MODE = 'active-in-animate-mode';
+
+// If click enabled apply styles
 const CLICK_ENABLED_CLASSNAME = 'click-enabled';
+
+
 
 const DEFAULT_OPTIONS = {
   container: 'body',
   onClick: undefined,
-  removeCallback: function() {},
   addedClass: '',
   isToggle: false,
   fullBody: true,
   animate: false,
   zIndex: undefined,
 };
+
+
 
 class Overlay {
   constructor(options) {
@@ -60,10 +70,6 @@ class Overlay {
       });
   }
 
-  setRemoveCallBack(fn) {
-    this.options.removeCallback = fn;
-  }
-
   hasClick() {
     return this.options.onClick !== undefined;
   }
@@ -88,18 +94,37 @@ class Overlay {
 
   show() {
     return new Promise((resolve, reject) => {
-      this.active = true;
-      this.$overlay.addClass(ACTIVE_CLASSNAME);
-      this.addFullBodyMode();
-      TweenMax.to(this.$overlay, 0.5, { opacity: 1, onComplete: () => {
-        resolve('Overlay Animated In');
-      } });
+
+      if (this.options.animate) {
+
+        TweenMax.to(this.$overlay, 0.5, {
+          opacity: 1,
+          onStart: () => { 
+            // Show the overlay
+            this.active = true;
+            this.$overlay.addClass(ACTIVE_CLASSNAME_ANIMATION_MODE);
+            this.addFullBodyMode();
+          },
+          onComplete: () => {
+            resolve('Overlay animated in.');
+          }
+        });
+
+      }
+      else {
+
+        this.active = true;
+        this.$overlay.addClass(ACTIVE_CLASSNAME);
+        this.addFullBodyMode();
+        resolve('Overlay appeared without animation.');
+
+      }
     });
   }
 
   hide() {
     this.active = false;
-    this.$overlay.removeClass(ACTIVE_CLASSNAME);
+    this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
     this.removeFullBodyMode();
   }
 
@@ -139,7 +164,6 @@ class Overlay {
   removeActionComplete() {
     this.hide();
     this.$overlay.remove();
-    this.options.removeCallback();
   }
 }
 

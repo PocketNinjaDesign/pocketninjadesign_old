@@ -31,10 +31,6 @@ class LoaderBase {
     });
   }
 
-  // hide() {
-  //   // Hide the Loader Animation
-  // }
-
   remove() {
     // Remove the Loader Animation
     // Add a Promise for an animation here
