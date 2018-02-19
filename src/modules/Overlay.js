@@ -1,10 +1,10 @@
 import $ from 'jQuery';
-import PnModule from './PnModule';
+import {TweenMax, Power2, TimelineLite} from 'gsap';
 
 let counter = 1;
 
-const ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
-const ANIMATION_FADE_OUT_NAME = 'fadeOut';
+// const ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
+// const ANIMATION_FADE_OUT_NAME = 'fadeOut';
 const ACTIVE_CLASSNAME = 'active';
 const CLICK_ENABLED_CLASSNAME = 'click-enabled';
 
@@ -15,17 +15,16 @@ const DEFAULT_OPTIONS = {
   addedClass: '',
   isToggle: false,
   fullBody: true,
-  animateOut: false,
+  animate: false,
   zIndex: undefined,
 };
 
-class Overlay extends PnModule {
+class Overlay {
   constructor(options) {
-    super();
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
     this.$overlay = $('<div/>', {
       id: `overlay-${counter}`,
-      class: `overlay ${this.options.addedClass}`
+      class: `overlay ${this.options.addedClass}`,
     });
 
     if (this.options.zIndex !== undefined) {
@@ -35,9 +34,7 @@ class Overlay extends PnModule {
     this.scrollTop;
     this.active = false;
     counter++;
-  }
 
-  init() {
     if(this.hasClick()) {
       this.setClick(this.options.onClick, this.options.isToggle);
     }
@@ -90,9 +87,14 @@ class Overlay extends PnModule {
   }
 
   show() {
-    this.active = true;
-    this.$overlay.addClass(ACTIVE_CLASSNAME);
-    this.addFullBodyMode();
+    return new Promise((resolve, reject) => {
+      this.active = true;
+      this.$overlay.addClass(ACTIVE_CLASSNAME);
+      this.addFullBodyMode();
+      TweenMax.to(this.$overlay, 0.5, { opacity: 1, onComplete: () => {
+        resolve('Overlay Animated In');
+      } });
+    });
   }
 
   hide() {
@@ -119,14 +121,13 @@ class Overlay extends PnModule {
 
   remove() {
     return new Promise((resolve, reject) => {
-      this.$overlay.addClass(ANIMATION_FADE_OUT_CLASSNAME);
       this.clearClick();
 
-      if (this.options.animateOut) {
-        this.AnimationService.checkComplete(this.$overlay, ANIMATION_FADE_OUT_NAME).then((e) => {
+      if (this.options.animate) {
+        TweenMax.to(this.$overlay, 0.5, { opacity: 0, onComplete: () => {
           this.removeActionComplete();
-          resolve(e);
-        });
+          resolve();
+        }});
       }
       else {
         this.removeActionComplete();

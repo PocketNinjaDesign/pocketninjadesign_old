@@ -12,32 +12,32 @@ class LoaderBase {
   constructor(_options) {
     this.options = $.extend({}, DEFAULT_OPTIONS, _options);
 
-    this.$animation;
+    this.$animation = $(this.getAnimWrapper())
     this.setContainer(this.options.$container);
-    this.overlay = new Overlay();
-    this.overlay.init();
+    this.overlay = new Overlay({
+      animate: true,
+    });
   }
 
   setContainer(_container) {
     this.options.$container = $(_container);
   }
 
-  create() {
-    // Create a Loader Animation
-    this.$animation = $(this.getAnimWrapper());
+  init() {
+    this.overlay.show().then((response) => {
+      // Wait for overlay anim in
+      console.log(response, 'will now append the loader container');
+      this.options.$container.append(this.$animation);
+    });
   }
 
-  show() {
-    this.options.$container.append(this.$animation);
-    this.overlay.show();
-  }
-
-  hide() {
-    // Hide the Loader Animation
-  }
+  // hide() {
+  //   // Hide the Loader Animation
+  // }
 
   remove() {
     // Remove the Loader Animation
+    // Add a Promise for an animation here
     this.$animation.remove();
 
     return new Promise((resolve, reject) => {

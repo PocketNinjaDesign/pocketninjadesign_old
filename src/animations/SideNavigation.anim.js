@@ -39,6 +39,6 @@ export default new class SideNavigation {
   }
 
   showSmallestSideBar() {
-
+    
   }
 }

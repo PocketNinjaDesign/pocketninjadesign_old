@@ -1,9 +1,11 @@
 import $ from 'jqlite';
 
-import Peekaboo from '../modules/Peekaboo';
-import NinjaList from '../modules/ninja/NinjaList';
-import Tree from '../modules/Tree';
 import LandingToPortfolioAnim from '../animations/LandingToPortfolio.anim';
+import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
+import NinjaList from '../modules/ninja/NinjaList';
+import Peekaboo from '../modules/Peekaboo';
+import Portfolio from '../pages/Portfolio';
+import Tree from '../modules/Tree';
 
 export default new class PageHolding {
   constructor() {
@@ -46,13 +48,15 @@ export default new class PageHolding {
     // what I want from a ninja class later.
     //this.ninjas.generateNinjas(3);
 
-    // Testing button
-    $('#primaryLogo').on('click', function() {
-      console.log('logo clicked and clicked');
-      LandingToPortfolioAnim.start();
-      // $('.body-block').css({
-      //   width: '19%'
-      // });
+    // Animation Testing button
+    $('#primaryLogo').on('click', () => {
+      $('#primaryLogo').off('click');
+      LandingToPortfolioAnim
+        .start()
+        .then(() => {
+          // Animation Finished, Get Loading Portfolio
+          Portfolio.init();
+        });
     });
   }
 }

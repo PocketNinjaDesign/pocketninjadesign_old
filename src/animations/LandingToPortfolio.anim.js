@@ -31,8 +31,12 @@ export default new class LandingToPortfolio {
   }
 
   start() {
-    this.checkSize();
-    this.holdingContentOut();
+    return new Promise((resolve, reject) => {
+      this.checkSize();
+      this.holdingContentOut().then(() => {
+        resolve();
+      });
+    });
   }
 
   checkSize() {
@@ -48,29 +52,35 @@ export default new class LandingToPortfolio {
   }
 
   holdingContentOut() {
-    let timelineHoldingLeave = new TimelineLite({ delay: 0 });
+    return new Promise((resolve, reject) => {
+      let timelineHoldingLeave = new TimelineLite({ delay: 0 });
 
-    timelineHoldingLeave // 2.75
-      .to(this.$primaryLogo, 0.6, { opacity: 0, ease: Linear.easeOut }, 0.2)
-      .to('h1', 0.5, { opacity: 0, ease: Linear.easeOut }, 0.3)
-      .to('h3', 0.5, { opacity: 0, ease: Linear.easeOut }, 0.45)
-      .to(this.$primarySocialMedia, 0.5, { opacity: 0, ease: Linear.easeOut }, 0.75)
-      .to(this.$tree, 0.5, { opacity: 0, ease: Linear.easeOut, onComplete: () => {
-        this.$holdingPage.hide();
-        this.$primaryLogo.hide();
-        this.$tree.hide();
-      } }, 0.75)
-      .add(() => {
-        if (this.sizeType === 'medium') {
-          SideNavigationAnim.showMediumSideBar();
-        }
-        else if (this.sizeType === 'large') {
-          SideNavigationAnim.showFullSideBar();
-        }
-      }, 1.5)
-      .add(() => {
-        return this.bodyBlocks();
-      }, 1);
+      timelineHoldingLeave // 2.75
+        .to(this.$primaryLogo, 0.6, { opacity: 0, ease: Linear.easeOut }, 0.2)
+        .to('h1', 0.5, { opacity: 0, ease: Linear.easeOut }, 0.3)
+        .to('h3', 0.5, { opacity: 0, ease: Linear.easeOut }, 0.45)
+        .to(this.$primarySocialMedia, 0.5, { opacity: 0, ease: Linear.easeOut }, 0.75)
+        .to(this.$tree, 0.5, { opacity: 0, ease: Linear.easeOut, onComplete: () => {
+          this.$holdingPage.hide();
+          this.$primaryLogo.hide();
+          this.$tree.hide();
+        } }, 0.75)
+        .add(() => {
+          if (this.sizeType === 'medium') {
+            SideNavigationAnim.showMediumSideBar();
+          }
+          else if (this.sizeType === 'large') {
+            SideNavigationAnim.showFullSideBar();
+          }
+        }, 1.5)
+        .add(() => {
+          return this.bodyBlocks();
+        }, 1)
+        .add(() => {
+          // End Of Everything
+          resolve();
+        }, "+=1");
+    });
   }
 
   bodyBlocks() {
