@@ -22,7 +22,7 @@ export default new class GalleryInAnimation {
         opacity: 1,
       })
 
-      .staggerFromTo('.portfolio-list-item', 0.3, {
+      .staggerFromTo('.portfolio-list-item', 0.2, {
         opacity: 0,
         rotation: -360,
         scale: 0,
@@ -33,7 +33,7 @@ export default new class GalleryInAnimation {
         scale: 1,
         y: 0,
         ease: Elastic.easeOut.config(1, 0.9)
-      }, 0.1)
+      }, 0.05)
 
       .fromTo('.portfolio-section-title', 0.4, {
         x: -30,
