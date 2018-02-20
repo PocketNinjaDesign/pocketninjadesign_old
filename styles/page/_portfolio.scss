@@ -1,3 +1,126 @@
 .page-portfolio {
+  padding-top: 40px;
 
+  @media (min-width: $bpSmall) {
+    padding-top: 0;
+  }
+
+  .body-block-2 {
+    @media (max-width: 701px) {
+      display: none;
+    }
+  }
+
+  .primary-logo {
+    font-size: 70%;
+
+    @media (min-width: $bpSmall) {
+      @include position(absolute, 40px null null 100px);
+      z-index: 110;
+      font-size: 50%;
+    }
+
+    @media (min-width: $bpMedium) {
+      display: none;
+    }
+  }
+
+
+
+
+
+  .portfolio-gallery {
+    padding: 20px 0 20px 20px;
+
+    @media (min-width: $bpSmall) {
+      float: right;
+      width: 50%;
+      padding-top: 240px;
+    }
+
+    @media (min-width: $bpMedium) {
+      padding-top: 190px;
+    }
+
+    .portfolio-section-title {
+      @media (min-width: $bpSmall) {
+        display: none;
+      }
+    }
+
+    .portfolio-list {
+      @include clearfix();
+
+      .portfolio-list-item {
+        float: left;
+        background: #EFEFEF;
+        width: 50px;
+        height: 50px;
+        margin-right: 7px;
+        margin-bottom: 7px;
+
+        @media (min-width: $bpSmall) {
+          width: 80px;
+          height: 80px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+    
+        @media (min-width: $bpMedium) {
+          width: 144px;
+          height: 144px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+
+
+
+
+  .portfolio-information {
+    background: #F9FAFB;
+    padding: 20px;
+
+    @media (min-width: $bpSmall) {
+      float: right;
+      height: 100%;
+      width: 50%;
+      padding-top: 180px;
+      padding-left: 80px;
+    }
+
+    @media (min-width: $bpMedium) {
+      width: 31%;
+      padding: 190px 20px 20px 20px;
+    }
+
+    @media (min-width: 1250px) {
+      padding-right: 50px;
+      padding-left: 80px;
+    }
+
+    .portfolio-section-title {
+      display: none;
+
+      @media (min-width: $bpSmall) {
+        display: block;
+      }
+
+      @media (min-width: $bpMedium) {
+        display: none;
+      }
+    }
+
+    .portfolio-information-title {
+      @include size1;
+      font-size: 28px;
+
+      @media (min-width: $bpSmall) {
+        font-size: 38px;
+      }
+    }
+  }
 }

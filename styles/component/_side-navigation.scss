@@ -1,9 +1,10 @@
 .side-navigation {
   @include position(fixed, 0 null 0 0);
-  z-index: 20;
+  z-index: 200;
   display: none;
+  text-align: center;
 
-  @media (min-width: 321px) {
+  @media (min-width: 700px) {
     width: 60px;
     display: block;
   }
@@ -16,7 +17,7 @@
     display: none;
     margin-top: 64px;
     font-size: 55%;
-    margin-bottom: 2em;
+    margin-bottom: 2.7em;
 
     @media (min-width: 1025px) {
       display: block;

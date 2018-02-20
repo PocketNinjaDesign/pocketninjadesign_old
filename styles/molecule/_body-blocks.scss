@@ -1,0 +1,14 @@
+
+
+.body-block {
+  @include position(absolute, 0 null 0 0);
+  z-index: 2;
+  width: 100%;
+}
+
+.body-block-2 {
+  @include position(absolute, 0 null 0 0);
+  z-index: 1;
+  width: 100%;
+  background: #F9FAFB;
+}

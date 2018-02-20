@@ -1,12 +1,14 @@
 import $ from 'jqlite';
 import LoadDataService from '../services/LoadData.service';
-
 import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
+import GalleryInAnimation from '../animations/GalleryIn.anim';
 
 window.$ = $;
 
 export default new class PagePortfolio {
   init() {
+    $('body').addClass('page-portfolio');
+
     let loader = new LoaderAnim();
     loader.init();
 
@@ -16,9 +18,9 @@ export default new class PagePortfolio {
       loader
         .remove()
         .then(() => {
-          // Display the Portfolio data now
           let $content = $.fn.findFromAjax(response.data, '#pageContent');
-          $('.under-contruction').append($content);
+          $('#contentArea').html($content.html());
+          GalleryInAnimation.start();
         });
     });
   }

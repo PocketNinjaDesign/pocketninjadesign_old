@@ -1,9 +1,29 @@
 import $ from 'jqlite';
 
+/**
+ * @example
+ * // returns jqlite object using class
+ * $.fn.findFromAjax(response.data, '.some-class-name');
+ * @example
+ * // returns jqlite object using id
+ * $.fn.findFromAjax(response.data, '.someId');
+ * @example
+ * // return jqlite object using element name
+ * $.fn.findFromAjax(response.data, 'span')
+ * 
+ * @param {string} responseData Ajax data retreived
+ * @param {string} elementQuery element(s) to search for
+ * @description Returns a jqlite object from ajax data containing markup
+ */
 $.fn.findFromAjax = function(responseData, elementQuery) {
   return $('<div />').html(responseData).findLite(elementQuery);
 }
 
+/**
+ * @param {string} selector any 'element', '.class' or '#id'
+ * @returns {object} jqlite objects
+ * @description Finds 1 or many elements within a single element
+ */
 $.fn.findLite = function(selector) {
   return $(this[0].querySelectorAll(selector));
 }

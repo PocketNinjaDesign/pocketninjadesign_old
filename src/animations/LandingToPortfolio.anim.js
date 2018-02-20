@@ -7,14 +7,23 @@ const sizeGuide = new Map([
   ['large', {
     bodyBlock1: '19%',
     bodyBlock2: '50%',
+    navShowAnim() {
+      SideNavigationAnim.showFullSideBar();
+    },
   }],
   ['medium', {
     bodyBlock1: 60,
     bodyBlock2: '50%',
+    navShowAnim() {
+      SideNavigationAnim.showMediumSideBar();
+    },
   }],
   ['small', {
     bodyBlock1: 0,
     bodyBlock2: 0,
+    navShowAnim() {
+      SideNavigationAnim.showSmallestSideBar();
+    },
   }],
 ]);
 
@@ -40,10 +49,10 @@ export default new class LandingToPortfolio {
   }
 
   checkSize() {
-    if (window.innerWidth < 321) {
+    if (window.innerWidth < 701) {
       this.sizeType = 'small';
     }
-    else if (window.innerWidth > 320 && window.innerWidth < 1025) {
+    else if (window.innerWidth > 700 && window.innerWidth < 1025) {
       this.sizeType = 'medium';
     }
     else if (window.innerWidth > 1024) {
@@ -66,12 +75,8 @@ export default new class LandingToPortfolio {
           this.$tree.hide();
         } }, 0.75)
         .add(() => {
-          if (this.sizeType === 'medium') {
-            SideNavigationAnim.showMediumSideBar();
-          }
-          else if (this.sizeType === 'large') {
-            SideNavigationAnim.showFullSideBar();
-          }
+          // Start Rending the Side Navigation
+          sizeGuide.get(this.sizeType).navShowAnim();
         }, 1.5)
         .add(() => {
           return this.bodyBlocks();

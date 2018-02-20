@@ -54,7 +54,11 @@ export default new class PageHolding {
       LandingToPortfolioAnim
         .start()
         .then(() => {
-          // Animation Finished, Get Loading Portfolio
+          // Animation Finished
+          // 1. Remove the Holding content
+          // 2. Get Loading Portfolio
+          $('.under-contruction').remove();
+          $('body').removeClass('page-holding');
           Portfolio.init();
         });
     });
