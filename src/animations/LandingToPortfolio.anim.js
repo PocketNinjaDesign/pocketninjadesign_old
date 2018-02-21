@@ -1,6 +1,7 @@
 import $ from '../jqlite.extends.js';
 import {TweenMax, Power2, TimelineLite} from 'gsap';
 
+import BreakPointService from '../services/BreakPoint.service';
 import SideNavigationAnim from './SideNavigation.anim';
 
 const sizeGuide = new Map([
@@ -8,7 +9,7 @@ const sizeGuide = new Map([
     bodyBlock1: '19%',
     bodyBlock2: '50%',
     navShowAnim() {
-      SideNavigationAnim.showFullSideBar();
+      SideNavigationAnim.showLargeSideBar();
     },
   }],
   ['medium', {
@@ -22,7 +23,7 @@ const sizeGuide = new Map([
     bodyBlock1: 0,
     bodyBlock2: 0,
     navShowAnim() {
-      SideNavigationAnim.showSmallestSideBar();
+      SideNavigationAnim.showSmallSideBar();
     },
   }],
 ]);
@@ -41,24 +42,25 @@ export default new class LandingToPortfolio {
 
   start() {
     return new Promise((resolve, reject) => {
-      this.checkSize();
+      this.sizeType = BreakPointService.getWidth();
+      // this.checkSize();
       this.holdingContentOut().then(() => {
         resolve();
       });
     });
   }
 
-  checkSize() {
-    if (window.innerWidth < 701) {
-      this.sizeType = 'small';
-    }
-    else if (window.innerWidth > 700 && window.innerWidth < 1025) {
-      this.sizeType = 'medium';
-    }
-    else if (window.innerWidth > 1024) {
-      this.sizeType = 'large';
-    }
-  }
+  // checkSize() {
+  //   if (window.innerWidth < 701) {
+  //     this.sizeType = 'small';
+  //   }
+  //   else if (window.innerWidth > 700 && window.innerWidth < 1025) {
+  //     this.sizeType = 'medium';
+  //   }
+  //   else if (window.innerWidth > 1024) {
+  //     this.sizeType = 'large';
+  //   }
+  // }
 
   holdingContentOut() {
     return new Promise((resolve, reject) => {

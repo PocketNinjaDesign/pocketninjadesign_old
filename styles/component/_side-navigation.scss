@@ -1,61 +1,77 @@
 .side-navigation {
   @include position(fixed, 0 null 0 0);
   z-index: 200;
-  display: none;
   text-align: center;
 
   @media (min-width: 700px) {
     width: 60px;
-    display: block;
   }
 
   @media (min-width: 1025px) {
     width: 19%;
   }
 
-  .logo {
-    display: none;
-    margin-top: 64px;
-    font-size: 55%;
-    margin-bottom: 2.7em;
+  .burger-menu {
+    @include position(fixed, 15px null null 15px);
+    z-index: 10;
 
     @media (min-width: 1025px) {
-      display: block;
+      display: none;
     }
   }
 
-  .side-link {
-    @include size4;
-    font-size: 28px;
-    position: relative;
-    display: block;
-    color: $swatch3;
-    cursor: pointer;
-    display: none;
-
-    @media (min-width: 1025px) {
-      display: block;
-    }
-
-    &:hover {
-      color: $swatch5;
-    }
-  }
-
-  .social-media-container {
-    @include position(absolute, null null 0 0);
-    padding-bottom: 2.5em;
+  .side-navigation-menu {
     width: 100%;
-    text-align: center;
+    display: none;
 
-    .social-media-links {
-      li {
-        @media (max-width: 1024px) {
-          margin-right: 0;
-          float: none;
-        }
-
-        .social-media-link {
+    @media (min-width: 700px) {
+      display: block;
+    }
+    
+    .logo {
+      display: none;
+      margin-top: 64px;
+      font-size: 55%;
+      margin-bottom: 2.7em;
+  
+      @media (min-width: 1025px) {
+        display: block;
+      }
+    }
+  
+    .side-link {
+      @include size4;
+      font-size: 28px;
+      position: relative;
+      display: block;
+      color: $swatch3;
+      cursor: pointer;
+      display: none;
+  
+      @media (min-width: 1025px) {
+        display: block;
+      }
+  
+      &:hover {
+        color: $swatch5;
+      }
+    }
+  
+    .social-media-container {
+      @include position(absolute, null null 0 0);
+      padding-bottom: 2.5em;
+      width: 100%;
+      text-align: center;
+  
+      .social-media-links {
+        li {
+          @media (max-width: 1024px) {
+            margin-right: 0;
+            float: none;
+          }
+  
+          .social-media-link {
+          }
         }
       }
     }
