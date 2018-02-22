@@ -11,6 +11,16 @@
     background: $swatch3;
     border-radius: 3px;
 
+    &:after {
+      position: absolute;
+      height: 3px;
+      display: block;
+      border-radius: 3px;
+      width: 0;
+      content: '';
+      transition: width 200ms, right 200ms;
+    }
+
     &.burger-bar-1 {
       transform: translateY(0);
     }
@@ -28,7 +38,33 @@
   //
   &:hover {
     & > div {
-      background: $swatch6;
+      &:after {
+        background: $swatch6;
+        width: 100%;
+      }
+    }
+  }
+
+  &.active {
+    & > div {
+      &:after {
+        background: $swatch6;
+        width: 3px;
+      }
+      &.burger-bar-1,
+      &.burger-bar-3 {
+        &:after {
+          right: 0;
+        }
+      }
+    }
+
+    &:hover {
+      & > div {
+        &:after {
+          width: 50%;
+        }
+      }
     }
   }
 }

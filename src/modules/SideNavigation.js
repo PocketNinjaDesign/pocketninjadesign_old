@@ -20,12 +20,14 @@ class SideNavigation {
   burgerMenuClick() {
     if (this.state) {
       $(window).off('resize');
+      this.$sideNavBurgerButton.removeClass('active');
 
       SideNavigationAnim.hideActiveSideBar(() => {
         this.$sideNavigation.removeClass('active');
       });
     }
     else {
+      this.$sideNavBurgerButton.addClass('active');
       this.$sideNavigation.addClass('active');
       SideNavigationAnim.showActiveSideBar();
       this.setResizeCheck();
