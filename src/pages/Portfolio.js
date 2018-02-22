@@ -5,6 +5,7 @@ import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
 import SideNavigation from '../modules/SideNavigation';
 import GalleryInAnimation from '../animations/GalleryIn.anim';
 
+// For testing
 window.$ = $;
 
 export default new class PagePortfolio {

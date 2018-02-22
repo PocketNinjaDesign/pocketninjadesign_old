@@ -3,10 +3,14 @@ import { debounce } from '../Methods';
 
 import Overlay from './Overlay';
 import SideNavigationAnim from '../animations/SideNavigation.anim';
+import BreakPointService from '../services/BreakPoint.service';
 
 class SideNavigation {
   constructor() {
     this.state = false;
+    this.overlay = new Overlay({
+      zIndex: 190,
+    });
     this.$sideNavigation = $('#sideNavigation');
     this.$sideNavigationMenu = $('#sideNavigationMenu');
     this.$sideNavBurgerButton = $('#sideNavBurgerButton');
@@ -14,22 +18,26 @@ class SideNavigation {
 
   init() {
     this.setBurgerMenu();
-    // set active state check and page resize check
   }
 
   burgerMenuClick() {
     if (this.state) {
       $(window).off('resize');
       this.$sideNavBurgerButton.removeClass('active');
+      this.overlay.hide();
 
       SideNavigationAnim.hideActiveSideBar(() => {
         this.$sideNavigation.removeClass('active');
       });
     }
     else {
+      // Activate burger menu and navigation
       this.$sideNavBurgerButton.addClass('active');
       this.$sideNavigation.addClass('active');
       SideNavigationAnim.showActiveSideBar();
+      this.overlay.show();
+
+      // Start page resize checking
       this.setResizeCheck();
     }
 
@@ -46,7 +54,7 @@ class SideNavigation {
     let root = this;
 
     $(window).on('resize', debounce(function() {
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth > BreakPointService.bpMedium) {
         root.burgerMenuClick();
       }
     }, 10));
