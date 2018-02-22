@@ -50,18 +50,6 @@ export default new class LandingToPortfolio {
     });
   }
 
-  // checkSize() {
-  //   if (window.innerWidth < 701) {
-  //     this.sizeType = 'small';
-  //   }
-  //   else if (window.innerWidth > 700 && window.innerWidth < 1025) {
-  //     this.sizeType = 'medium';
-  //   }
-  //   else if (window.innerWidth > 1024) {
-  //     this.sizeType = 'large';
-  //   }
-  // }
-
   holdingContentOut() {
     return new Promise((resolve, reject) => {
       let timelineHoldingLeave = new TimelineLite({ delay: 0 });

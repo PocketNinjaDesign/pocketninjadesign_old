@@ -2,7 +2,7 @@ import $ from 'jqlite';
 
 import LoadDataService from '../services/LoadData.service';
 import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
-import SideNavigation from '../modules/Nav/SideNavigation';
+import SideNavigation from '../modules/SideNavigation';
 import GalleryInAnimation from '../animations/GalleryIn.anim';
 
 window.$ = $;

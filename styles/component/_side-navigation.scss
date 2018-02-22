@@ -51,7 +51,7 @@
       @media (min-width: 1025px) {
         display: block;
       }
-  
+
       &:hover {
         color: $swatch5;
       }
@@ -69,8 +69,38 @@
             margin-right: 0;
             float: none;
           }
-  
-          .social-media-link {
+        }
+      }
+    }
+  }
+
+
+
+  //
+  // Active Mode
+  //
+  &.active {
+    width: 100%;
+    transition: width 200ms;
+
+    @media (min-width: $bpSmall) {
+      width: 40%;
+    }
+
+    .side-navigation-menu {
+      display: block;
+
+      .logo {
+        display: block;
+      }
+      .side-link {
+        display: block;
+      }
+      .social-media-container {
+        .social-media-links {
+          li {
+            float: left;
+            margin-right: 10px;
           }
         }
       }
