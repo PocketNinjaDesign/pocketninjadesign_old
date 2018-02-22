@@ -17,7 +17,12 @@ class SideNavigation {
   }
 
   init() {
+    const root = this;
+
     this.setBurgerMenu();
+    this.overlay.setClick(function() {
+      root.burgerMenuClick();
+    });
   }
 
   burgerMenuClick() {

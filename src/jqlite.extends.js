@@ -19,6 +19,8 @@ $.fn.findFromAjax = function(responseData, elementQuery) {
   return $('<div />').html(responseData).findLite(elementQuery);
 }
 
+
+
 /**
  * @param {string} selector any 'element', '.class' or '#id'
  * @returns {object} jqlite objects
@@ -27,6 +29,8 @@ $.fn.findFromAjax = function(responseData, elementQuery) {
 $.fn.findLite = function(selector) {
   return $(this[0].querySelectorAll(selector));
 }
+
+
 
 $.fn.getSizeFromHidden = function() {
   let sizes = {};
@@ -48,6 +52,8 @@ $.fn.getSizeFromHidden = function() {
 
   return sizes;
 }
+
+
 
 // $.fn.hide = function() {
 //   // Add the check for what it originally
@@ -97,6 +103,18 @@ $.fn.setSizeFromHidden = function() {
   }
 
   return this;
+}
+
+
+
+$.fn.scrollLeft = function() {
+  return ( this[0].scrollLeft || document.documentElement.scrollLeft ) - ( document.documentElement.clientLeft || 0 );
+}
+
+
+
+$.fn.scrollTop = function() {
+  return ( this[0].scrollTop || document.documentElement.scrollTop ) - ( document.documentElement.clientTop || 0 );
 }
 
 

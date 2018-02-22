@@ -1,10 +1,7 @@
-import $ from 'jQuery';
+import $ from '../jqlite.extends';
 import {TweenMax, Power2, TimelineLite} from 'gsap';
 
 let counter = 1;
-
-// const ANIMATION_FADE_OUT_CLASSNAME = 'fadeOut';
-// const ANIMATION_FADE_OUT_NAME = 'fadeOut';
 
 // Active mode applied without animation
 const ACTIVE_CLASSNAME = 'active';
@@ -59,15 +56,13 @@ class Overlay {
    * @param {function} fn 
    * @param {Boolean} isToggle
    */
-  setClick(fn = function() {}, isToggle = false) {
-    let root = this;
-
+  setClick(fn = () => {}, isToggle = false) {
     this.$overlay
       .addClass(CLICK_ENABLED_CLASSNAME)
-      .on('click', function() {
+      .on('click', () => {
         fn();
         if(isToggle) {
-          root.toggle();
+          this.toggle();
         }
       });
   }
