@@ -1,5 +1,5 @@
 import $ from '../jqlite.extends';
-import {TweenMax, Power2, TimelineLite} from 'gsap';
+import { TweenMax } from 'gsap';
 
 let counter = 1;
 

@@ -9,18 +9,22 @@ import GalleryInAnimation from '../animations/GalleryIn.anim';
 window.$ = $;
 
 export default new class PagePortfolio {
+  constructor() {
+    this.$contentArea = $('#contentArea');
+    this.loader = new LoaderAnim();
+  }
+
   init() {
     $('body').addClass('page-portfolio');
 
-    let loader = new LoaderAnim();
-    loader.init();
+    this.loader.init();
     SideNavigation.init();
 
-    LoadDataService.loadElement('/portfolio.html', '#pageContent').then(function($element) {
-      loader
+    LoadDataService.loadElement('/portfolio.html', '#pageContent').then(($element) => {
+      this.loader
         .remove()
         .then(() => {
-          $('#contentArea').html($element.html());
+          this.$contentArea.html($element.html());
           GalleryInAnimation.start();
         });
     });

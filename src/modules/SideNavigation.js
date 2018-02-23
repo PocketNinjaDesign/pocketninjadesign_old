@@ -56,7 +56,7 @@ class SideNavigation {
   }
 
   setResizeCheck() {
-    let root = this;
+    const root = this;
 
     $(window).on('resize', debounce(function() {
       if (window.innerWidth > BreakPointService.bpMedium) {

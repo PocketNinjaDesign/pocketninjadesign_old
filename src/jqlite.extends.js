@@ -48,24 +48,8 @@ $.fn.getSizeFromHidden = function() {
   $this.appendTo($parent);
   $hiddenElement.remove();
 
-  //console.log('asas as', sizes.width, sizes.height, $this);
-
   return sizes;
 }
-
-
-
-// $.fn.hide = function() {
-//   // Add the check for what it originally
-//   // was if it was hidden last
-//   for (let i = 0; i <= this.length; i++) {
-//     this[i].css({
-//       display: 'none'
-//     });
-//   }
-
-//   return this;
-// }
 
 
 
@@ -116,20 +100,6 @@ $.fn.scrollLeft = function() {
 $.fn.scrollTop = function() {
   return ( this[0].scrollTop || document.documentElement.scrollTop ) - ( document.documentElement.clientTop || 0 );
 }
-
-
-
-// $.fn.show = function() {
-//   // Add the check for what it originally
-//   // was if it was hidden last
-//   for (let i = 0; i <= this.length; i++) {
-//     this[i].css({
-//       display: 'block'
-//     });
-//   }
-
-//   return this;
-// }
 
 
 
