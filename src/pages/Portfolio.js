@@ -14,17 +14,13 @@ export default new class PagePortfolio {
 
     let loader = new LoaderAnim();
     loader.init();
-
     SideNavigation.init();
 
-    // Load Page content
-    // Remove loader
-    LoadDataService.load('/portfolio.html').then((response) => {
+    LoadDataService.loadElement('/portfolio.html', '#pageContent').then(function($element) {
       loader
         .remove()
         .then(() => {
-          let $content = $.fn.findFromAjax(response.data, '#pageContent');
-          $('#contentArea').html($content.html());
+          $('#contentArea').html($element.html());
           GalleryInAnimation.start();
         });
     });
