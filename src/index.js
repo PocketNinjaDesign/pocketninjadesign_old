@@ -30,4 +30,11 @@ const css = require('../styles/primary.scss');
 
 // Temp Holding Page
 import PageHolding from './pages/Holding';
-PageHolding.init();
+import PortfolioLanding from './pages/PortfolioLanding';
+
+if ($('body').hasClass('page-holding')) {
+  PageHolding.init();
+}
+else if($('body').hasClass('page-portfolio-landing')) {
+  PortfolioLanding.init();
+}

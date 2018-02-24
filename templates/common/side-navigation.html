@@ -1,4 +1,4 @@
-<aside id="sideNavigation" class="side-navigation" style="display: none;">
+<aside id="sideNavigation" class="side-navigation" style="display: none;" data-portfolio-selected="{{data}}">
   <div id="sideNavBurgerButton" class="burger-menu">
     <div class="burger-bar-1"></div>
     <div class="burger-bar-2"></div>
@@ -7,9 +7,15 @@
   <div id="sideNavigationMenu" class="side-navigation-menu">
     {% include "logo.html" %}
     <ul class="side-links">
-      <li><span class="side-link ui-design">UI Design</span></li>
-      <li><span class="side-link graphics">Graphics</span></li>
-      <li><span class="side-link illustration">Illustration</span></li>
+      <li {% if data == 0 %}class="active"{% endif %}>
+        <a href="/ui-design.html" class="side-link ui-design" data-index="0">UI Design</a>
+      </li>
+      <li {% if data == 1 %}class="active"{% endif %}>
+        <a href="/graphics.html" class="side-link graphics" data-index="1">Graphics</a>
+      </li>
+      <li {% if data == 2 %}class="active"{% endif %}>
+        <a href="/illustration.html" class="side-link illustration" data-index="2">Illustration</a>
+      </li>
     </ul>
     <div class="social-media-container">
       {% include "social-media-links.html" with {"id": "sideSocialLinks"} %}

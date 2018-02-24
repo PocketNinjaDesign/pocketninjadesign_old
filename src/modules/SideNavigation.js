@@ -8,6 +8,7 @@ import BreakPointService from '../services/BreakPoint.service';
 class SideNavigation {
   constructor() {
     this.state = false;
+    this.navOnClick;
     this.overlay = new Overlay({
       zIndex: 190,
     });
@@ -16,9 +17,11 @@ class SideNavigation {
     this.$sideNavBurgerButton = $('#sideNavBurgerButton');
   }
 
-  init() {
+  init(navOnClick = () => {}) {
     const root = this;
 
+    this.navOnClick = navOnClick;
+    this.setSideLinks();
     this.setBurgerMenu();
     this.overlay.setClick(function() {
       root.burgerMenuClick();
@@ -63,6 +66,24 @@ class SideNavigation {
         root.burgerMenuClick();
       }
     }, 10));
+  }
+
+  setSideLinks() {
+    const root = this;
+    let $allLi = this.$sideNavigationMenu.find('li');
+
+    this.$sideNavigationMenu.find('.side-link').on('click', function(e) {
+      e.preventDefault();
+
+      const $this = $(this);
+      $allLi.removeClass('active');
+      $this.parent().addClass('active');
+
+      root.navOnClick(parseInt($this.data('index')));
+      if (root.state) {
+        root.burgerMenuClick();
+      }
+    });
   }
 }
 

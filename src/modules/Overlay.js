@@ -31,10 +31,7 @@ const DEFAULT_OPTIONS = {
 class Overlay {
   constructor(options) {
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
-    this.$overlay = $('<div/>', {
-      id: `overlay-${counter}`,
-      class: `overlay ${this.options.addedClass}`,
-    });
+    this.$overlay = this.getTemplate();
 
     if (this.options.zIndex !== undefined) {
       this.$overlay.css('z-index', this.options.zIndex);
@@ -120,9 +117,22 @@ class Overlay {
   }
 
   hide() {
-    this.active = false;
-    this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
-    this.removeFullBodyMode();
+    return new Promise((resolve, reject) => {
+      if (this.options.animate) {
+        TweenMax.to(this.$overlay, this.options.animationDurationOut, { opacity: 0, onComplete: () => {
+          this.active = false;
+          this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
+          this.removeFullBodyMode();
+          resolve();
+        }});
+      }
+      else {
+        this.active = false;
+        this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
+        this.removeFullBodyMode();
+        resolve();
+      }
+    });
   }
 
   addFullBodyMode() {
@@ -161,6 +171,12 @@ class Overlay {
   removeActionComplete() {
     this.hide();
     this.$overlay.remove();
+  }
+
+  getTemplate() {
+    return $(
+      `<div id="overlay-${counter}" class="overlay ${this.options.addedClass}"></div>`
+    );
   }
 }
 

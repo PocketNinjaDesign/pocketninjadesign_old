@@ -39,21 +39,30 @@
       }
     }
   
-    .side-link {
-      @include size4;
-      font-size: 28px;
-      position: relative;
-      display: block;
-      color: $swatch3;
-      cursor: pointer;
-      display: none;
-  
-      @media (min-width: 1025px) {
+    li {
+      .side-link {
+        @include size4;
+        font-size: 28px;
+        position: relative;
         display: block;
+        color: $swatch3;
+        cursor: pointer;
+        display: none;
+
+        @media (min-width: 1025px) {
+          display: block;
+        }
+
+        &:hover {
+          text-decoration: none;
+          color: $swatch5;
+        }
       }
 
-      &:hover {
-        color: $swatch5;
+      &.active {
+        .side-link {
+          color: $swatch5;
+        }
       }
     }
   

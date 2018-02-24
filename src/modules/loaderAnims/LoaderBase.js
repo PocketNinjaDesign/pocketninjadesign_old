@@ -31,6 +31,22 @@ class LoaderBase {
     });
   }
 
+  hide() {
+    this.$animation.hide();
+
+    return new Promise((resolve, reject) => {
+      this.overlay.hide().then(() => {
+        resolve();
+      });
+    })
+  }
+
+  show() {
+    this.overlay.show().then((response) => {
+      this.$animation.show();
+    })
+  }
+
   remove() {
     // Remove the Loader Animation
     // Add a Promise for an animation here

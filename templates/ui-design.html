@@ -1,0 +1,15 @@
+{% extends 'master.template.html' %}
+
+{% set cat = uiDesign.info %}
+{% set gallery = uiDesign.gallery %}
+
+{% block title %}Pocketninja.Design Portfolio {{ cat.title }} Gallery{% endblock %}
+{% block pageClass %}page-portfolio page-portfolio-landing{% endblock %}
+{% block sideNavBlock %}{{parent()}}{% endblock %}
+{% block body %}
+
+  {% include "common/portfolio-gallery.html" with {"cat": cat, "gallery": gallery} %}
+
+  {% include "common/portfolio-information.html" with {"title": cat.title, "subTitle": cat.subTitle, "detailedDescription": cat.detailedDescription} %}
+
+{% endblock %}

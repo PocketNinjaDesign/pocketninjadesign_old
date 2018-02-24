@@ -23,7 +23,7 @@ export default {
    */
   loadElement(url, element) {
     return this.load(url).then(function(response) {
-      return $.fn.findFromAjax(response.data, '#pageContent');
+      return $.fn.findFromAjax(response.data, element);
     });
   }
 };
