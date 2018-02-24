@@ -5,7 +5,7 @@
     <div class="burger-bar-3"></div>
   </div>
   <div id="sideNavigationMenu" class="side-navigation-menu">
-    {% include "logo.html" %}
+    {% include "logo.twig" %}
     <ul class="side-links">
       <li {% if data == 0 %}class="active"{% endif %}>
         <a href="/ui-design.html" class="side-link ui-design" data-index="0">UI Design</a>
@@ -18,7 +18,7 @@
       </li>
     </ul>
     <div class="social-media-container">
-      {% include "social-media-links.html" with {"id": "sideSocialLinks"} %}
+      {% include "social-media-links.twig" with {"id": "sideSocialLinks"} %}
     </div>
   </div>
 </aside>

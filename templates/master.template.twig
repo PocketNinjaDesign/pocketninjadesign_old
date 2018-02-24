@@ -43,16 +43,16 @@
     <div class="body-block bg-color-1"></div>
     <div class="body-block-2"></div>
     {% set nav = 0 %}
-    {% include "common/logo.html" with {"id": "primaryLogo", "uniqueClass": "primary-logo"} %}
+    {% include "common/logo.twig" with {"id": "primaryLogo", "uniqueClass": "primary-logo"} %}
     {% block sideNavBlock %}
-      {% include "common/side-navigation.html" with { "data": 0 } %}
+      {% include "common/side-navigation.twig" with { "data": 0 } %}
     {% endblock %}
     
     <div id="contentArea" class="content-area">
       {% block body %}{% endblock %}
     </div>
 
-    {% include "common/tree.html" %}
+    {% include "common/tree.twig" %}
 
     <div style="display: none;">
       <div id="ninja" class="ninja"><img src="/images/pocketninja-medium.png"></div>

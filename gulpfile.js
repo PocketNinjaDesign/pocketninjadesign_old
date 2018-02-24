@@ -7,10 +7,10 @@ var siteData = require('./src/data/siteData');
 
 gulp.task('compile', function() {
   return gulp.src([
-    './templates/index.html',
-    './templates/ui-design.html',
-    './templates/illustration.html',
-    './templates/graphics.html'
+    './templates/index.twig',
+    './templates/ui-design.twig',
+    './templates/illustration.twig',
+    './templates/graphics.twig'
   ])
   .pipe(twig({
     data: {

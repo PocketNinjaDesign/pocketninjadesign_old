@@ -73,14 +73,12 @@ export default new class PagePortfolio {
   getPageData() {
     return new Promise((resolve, reject) => {
       LoadDataService.loadElement(this.getPageUrl(), '#contentArea').then(($element) => {
-        setTimeout(() => {
-          this.loader
-            .remove()
-            .then(() => {
-              this.$contentArea.html($element.html());
-              resolve($element);
-            });
-        }, 2000);
+        this.loader
+          .remove()
+          .then(() => {
+            this.$contentArea.html($element.html());
+            resolve($element);
+          });
       });
     });
   }

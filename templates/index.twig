@@ -1,4 +1,4 @@
-{% extends 'master.template.html' %}
+{% extends 'master.template.twig' %}
 
 {% block title %}Welcome to Pocketninja.Design{% endblock %}
 
@@ -12,7 +12,7 @@
       <h1>Digital Designer &amp;</h1>
       <h3>Front End Developer</h3>
 
-      {% include "common/social-media-links.html" with {"id": "holdingSocialLinks"} %}
+      {% include "common/social-media-links.twig" with {"id": "holdingSocialLinks"} %}
     </div>
   </div>
 {% endblock %}
