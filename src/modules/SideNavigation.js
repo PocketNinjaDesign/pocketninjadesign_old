@@ -85,6 +85,13 @@ class SideNavigation {
       }
     });
   }
+
+  setSideLinkStyles(index) {
+    this.$sideNavigationMenu.find('li')
+      .removeClass('active')
+      .eq(index)
+      .addClass('active');
+  }
 }
 
 export default new SideNavigation();

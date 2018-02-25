@@ -38,3 +38,7 @@ if ($('body').hasClass('page-holding')) {
 else if($('body').hasClass('page-portfolio-landing')) {
   PortfolioLanding.init();
 }
+
+// window.onpopstate = function(e) {
+//   console.log(JSON.stringify(e.state));
+// };
