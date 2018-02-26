@@ -67,7 +67,7 @@ export default new class PortfolioDetail {
     return $(
       `<div id="portfolioDetail" class="portfolio-detail">
         <header class="portfolio-detail-header">
-          <div id="portfolioDetailCloseButton" class="burger-menu active">
+          <div id="portfolioDetailCloseButton" class="burger-menu light active">
             <div class="burger-bar-1"></div>
             <div class="burger-bar-2"></div>
             <div class="burger-bar-3"></div>

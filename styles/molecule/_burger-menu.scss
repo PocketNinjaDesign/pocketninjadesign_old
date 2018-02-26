@@ -8,7 +8,7 @@
     @include position(absolute, 5px null null 5px);
     width: 20px;
     height: 3px;
-    background: $swatch3;
+    background: $swatch8;
     border-radius: 3px;
 
     &:after {
@@ -64,6 +64,17 @@
         &:after {
           width: 50%;
         }
+      }
+    }
+  }
+}
+
+.burger-menu.light {
+  &.active,
+  &:hover {
+    & > div {
+      &:after {
+        background: $swatch1;
       }
     }
   }
