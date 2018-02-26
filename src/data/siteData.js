@@ -14,7 +14,7 @@ module.exports = {
     title: 'Graphics',
     subTitle: 'Logos / Icons / Visuals',
     shortDescription: 'Graphics Short Description',
-    detailedDescription: 'Graphics Detailed Description',
+    detailedDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum nisl id nunc feugiat gravida. Phasellus laoreet sem quam, id placerat nibh accumsan vitae. Nunc sollicitudin posuere ultrices. Praesent fermentum dolor id nibh sodales aliquam. Morbi leo mauris, fringilla in arcu in, pharetra dictum ipsum. Nunc id risus et lectus suscipit efficitur at in tortor.',
   }, {
     page: 'illustration.html',
     className: 'page-portfolio',
@@ -31,58 +31,24 @@ module.exports = {
   // UI DESIGN
   {
     items: [{
-      title: 'Project Title',
+      title: 'Ninja and Binja',
+      type: 'Website',
       img: {
         small: 'images/small.png',
-        large: 'images/large.png',
+        large: [{
+          bgColor: '',
+          src: 'images/large.png'
+        }],
       }
     }, {
-      title: 'Project Title',
+      title: 'Sweetcorn Tastes Great',
+      type: 'CD-ROM',
       img: {
         small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
+        large: [{
+          bgColor: '',
+          src: 'images/large.png'
+        }],
       }
     }]
   },
@@ -92,22 +58,21 @@ module.exports = {
   // Graphics
   {
     items: [{
-      title: 'Project Title',
+      title: 'Ansa',
+      type: 'Branding',
       img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
+        small: 'images/portfolio/graphics/small/ansa-logo.png',
+        large: [
+          { src: 'images/portfolio/graphics/large/ansa-logo-full.png' },
+          { src: 'images/portfolio/graphics/large/ansa-logo-medium.png' },
+          { src: 'images/portfolio/graphics/large/ansa-logo-mini.png' },
+          { src: 'images/portfolio/graphics/large/ansa-logo-all-black.png' },
+          {
+            bgColor: '#000',
+            src: 'images/portfolio/graphics/large/ansa-logo-all-white.png'
+          },
+          { src: 'images/portfolio/graphics/large/ansa-logo-all-color.png' }
+        ],
       }
     }]
   },
@@ -117,28 +82,23 @@ module.exports = {
   // Illustration
   {
     items: [{
-      title: 'Project Title',
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
       img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
-      }
-    }, {
-      title: 'Project Title',
-      img: {
-        small: 'images/small.png',
-        large: 'images/large.png',
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }, {
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-original-sketches.jpg'
+        }, {
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-clown.jpg'
+        }, {
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-closeup.jpg'
+        }],
       }
     }]
   },

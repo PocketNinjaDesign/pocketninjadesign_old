@@ -1,22 +1,26 @@
 import $ from 'jqlite';
-import PortfolioData from '../data/portfolio.data';
+import { data as PortfolioData, galleryMap } from '../data/portfolio.data';
 
+import GalleryInAnimation from '../animations/GalleryIn.anim';
+import HistoryService from '../services/History.service';
 import LoadDataService from '../services/LoadData.service';
 import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
-import HistoryService from '../services/History.service';
+import PortfolioList from '../modules/portfolio/PortfolioList';
 import SideNavigation from '../modules/SideNavigation';
-import GalleryInAnimation from '../animations/GalleryIn.anim';
 
 // For testing
 window.$ = $;
+
+// console.log(galleryMap);
 
 export default new class PagePortfolio {
   constructor() {
     this.$contentArea = $('#contentArea');
     this.loader;
     this.loadOnInit;
-    this.selectedOption;
+    this.portfolioList;
     this.pushHistoryActive = true;
+    this.selectedOption;
   }
 
   init(loadOnInit = true, selectedOption = 0) {
@@ -32,17 +36,19 @@ export default new class PagePortfolio {
 
     if (this.loadOnInit) {
       $('body').addClass(this.getPageClassName());
-  
+
       this.loader.init();
-  
+
       this.getPageData().then(() => {
         GalleryInAnimation.start();
+        this.setPortfolioList();
       });
     }
     else {
       // Gallery is a landing page and content
       // already exists so start animation
       GalleryInAnimation.start();
+      this.setPortfolioList();
     }
     this.setBrowserHistory();
 
@@ -68,9 +74,9 @@ export default new class PagePortfolio {
 
       this.getPageData().then(() => {
         this.pushHistoryActive = true;
-
         // Refresh the content
         GalleryInAnimation.start();
+        this.setPortfolioList();
       });
     }
   }
@@ -80,6 +86,15 @@ export default new class PagePortfolio {
       name: this.getPageUrl(),
       menuState: this.selectedOption,
     }, "Page", this.getPageUrl());
+  }
+
+  setPortfolioList() {
+    // Create Portfolio List from Gallery Items
+    this.portfolioList = new PortfolioList({
+      category: this.getCategory(),
+      galleryList: galleryMap.get(this.getCategory()),
+    });
+    this.portfolioList.init();
   }
 
 
@@ -109,5 +124,9 @@ export default new class PagePortfolio {
 
   getPageUrl() {
     return PortfolioData.navigation[this.selectedOption].page;
+  }
+
+  getCategory() {
+    return PortfolioData.navigation[this.selectedOption].title;
   }
 }

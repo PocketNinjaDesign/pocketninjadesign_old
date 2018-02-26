@@ -1,0 +1,81 @@
+.portfolio-detail {
+  @include position(absolute, 0 0 0 0);
+  z-index: 10000;
+  background: #fff;
+  overflow-y: auto;
+
+  .portfolio-detail-header {
+    position: relative;
+    min-height: 78px;
+
+    @media (min-width: $bpSmall) {
+      height: 15%;
+      min-height: auto;
+    }
+
+    .burger-menu {
+      @include position(fixed, 15px 27px null null);
+
+      @media (min-width: $bpSmall) {
+        right: 15px;
+      }
+    }
+    h1 {
+      font-size: 24px;
+      padding: 20px 60px 20px 20px;
+
+      @media (min-width: $bpSmall) {
+        @include position(absolute, null null 20px 18%);
+        font-size: 40px;
+        padding: 0;
+      }
+    }
+  }
+
+  .portfolio-detail-content {
+    @media (min-width: $bpSmall) {
+      @include position(absolute, 15% 18% 20% 18%);
+      box-shadow: 0 0px 220px rgba(0, 0, 0, 0.2);
+    }
+
+    .portfolio-detail-mobile-images {
+      @media (min-width: $bpSmall) {
+        display: none;
+      }
+
+      .portfolio-image-mobile {
+        width: 100%;
+        box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+      }
+    }
+
+    .carousel {
+      display: none;
+      height: 100%;
+
+      @media (min-width: $bpSmall) {
+        display: block;
+      }
+    }
+
+    .portfolio-image {
+      width: 100%;
+      height: 100%;
+      background: no-repeat center center;
+      background-size: contain;
+    }
+  }
+
+  .portfolio-detail-footer {
+    text-align: center;
+    padding-bottom: 40px;
+
+    @media (min-width: $bpSmall) {
+      @include position(absolute, null null 0 0);
+      width: 100%;
+      height: 78px;
+      padding-bottom: 0;
+    }
+  }
+}

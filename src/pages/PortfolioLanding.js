@@ -4,6 +4,7 @@ import Portfolio from './Portfolio';
 export default new class PagePortfolioLanding {
   constructor() {
     this.$sideNavigation = $('#sideNavigation');
+    this.$tree = $('#tree');
   }
   
   init() {
@@ -12,6 +13,8 @@ export default new class PagePortfolioLanding {
     this.$sideNavigation
       .removeAttr('style')
       .addClass('bg-color-1');
+
+    this.$tree.hide();
 
     Portfolio.init(false, parseInt(this.$sideNavigation.attr('data-portfolio-selected')));
   }
