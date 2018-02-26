@@ -31,7 +31,7 @@ export default new class PortfolioDetail {
     this.$portfolioDetailHeader = this.$portfolioDetail
       .find('#portfolioDetailHeader')
       .append(BurgerMenu('portfolioDetailCloseButton', () => {
-        this.hide();
+        this.remove();
       }, true, true));
     this.$portfolioDetailContent = this.$portfolioDetail.find('#portfolioDetailContent');
     this.$portfolioDetailMobileImages = this.$portfolioDetail.find('#portfolioDetailMobileImages');
@@ -62,8 +62,8 @@ export default new class PortfolioDetail {
     $('html').addClass('full-overlay-mode');
   }
 
-  hide() {
-    this.$portfolioDetail.hide();
+  remove() {
+    this.$portfolioDetail.remove();
     $('html').removeClass('full-overlay-mode');
   }
 
