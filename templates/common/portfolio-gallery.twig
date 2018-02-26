@@ -1,8 +1,8 @@
 <div class="portfolio-gallery">
   <h5 class="portfolio-section-title">{{ cat.title }}</h5>
-  <ul class="portfolio-list">
+  <ul class="portfolio-list grid grid-medium">
     {% for item in gallery %}
-      <li class="portfolio-list-item" data-project-title="{{item.title}}">
+      <li class="portfolio-list-item grid-item" data-project-title="{{item.title}}">
         <img src="{{ item.img.small }}">
       </li>
     {% endfor %}
