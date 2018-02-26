@@ -100,6 +100,56 @@ module.exports = {
           src: 'images/portfolio/illustration/large/blue-zombies-digital-closeup.jpg'
         }],
       }
+    }, {
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
+      img: {
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }]
+      }
+    }, {
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
+      img: {
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }]
+      }
+    }, {
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
+      img: {
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }]
+      }
+    }, {
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
+      img: {
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }]
+      }
+    }, {
+      title: 'Blue Zombie Sketches',
+      type: 'Digital',
+      img: {
+        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        large: [{
+          bgColor: '#323727',
+          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+        }]
+      }
     }]
   },
 

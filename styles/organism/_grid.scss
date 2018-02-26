@@ -42,34 +42,34 @@
   &.grid-medium {
     .grid-item {
       background: $swatch2;
-      margin-bottom: 2px;
+      margin-bottom: 10px;
 
       $custom-massive-grid: (
         columns: 12,
-        gutter: 2px,
+        gutter: 10px,
         media: 1350px,
       );
 
       $custom-large-grid: (
         columns: 12,
-        gutter: 2px,
+        gutter: 10px,
         media: 1000px,
       );
 
       $custom-small-grid: (
         columns: 12,
-        gutter: 2px,
+        gutter: 10px,
         media: 450px,
       );
 
       $custom-root-grid: (
         columns: 12,
-        gutter: 2px,
+        gutter: 10px,
         media: 0,
       );
 
       @include grid-media($custom-root-grid) {
-        @include grid-column(3);
+        @include grid-column(2);
       }
       
       @include grid-media($custom-small-grid) {
