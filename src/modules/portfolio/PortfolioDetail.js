@@ -2,6 +2,7 @@ import $ from '../../jqlite.extends';
 
 import Carousel from '../Carousel';
 import SocialMediaLinks from '../../templates/socialMediaLinks';
+import BurgerMenu from '../BurgerMenu';
 
 const DEFAULT_OPTIONS = {
   type: 'ProjectType',
@@ -14,6 +15,7 @@ export default new class PortfolioDetail {
     this.options;
     this.carousel;
     this.$portfolioDetail;
+    this.$portfolioDetailHeader;
     this.$portfolioDetailContent;
     this.$portfolioDetailMobileImages;
   }
@@ -26,9 +28,11 @@ export default new class PortfolioDetail {
       type: this.options.type,
       title: this.options.title,
     });
-    this.$portfolioDetail.find('#portfolioDetailCloseButton').on('click', () => {
-      this.hide();
-    });
+    this.$portfolioDetailHeader = this.$portfolioDetail
+      .find('#portfolioDetailHeader')
+      .append(BurgerMenu('portfolioDetailCloseButton', () => {
+        this.hide();
+      }, true, true));
     this.$portfolioDetailContent = this.$portfolioDetail.find('#portfolioDetailContent');
     this.$portfolioDetailMobileImages = this.$portfolioDetail.find('#portfolioDetailMobileImages');
 
@@ -66,12 +70,7 @@ export default new class PortfolioDetail {
   getPortfolioDetailTemplate(data) {
     return $(
       `<div id="portfolioDetail" class="portfolio-detail">
-        <header class="portfolio-detail-header">
-          <div id="portfolioDetailCloseButton" class="burger-menu light active">
-            <div class="burger-bar-1"></div>
-            <div class="burger-bar-2"></div>
-            <div class="burger-bar-3"></div>
-          </div>
+        <header id="portfolioDetailHeader" class="portfolio-detail-header">
           <h1>${data.type}: ${data.title}</h1>
         </header>
         <div id="portfolioDetailContent" class="portfolio-detail-content">
