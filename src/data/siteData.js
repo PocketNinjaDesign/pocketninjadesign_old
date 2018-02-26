@@ -82,7 +82,7 @@ module.exports = {
   // Illustration
   {
     items: [{
-      title: 'Blue Zombie Sketches',
+      title: 'Blue Zombie Sketches MAIN',
       type: 'Digital',
       img: {
         small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
