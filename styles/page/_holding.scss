@@ -6,91 +6,77 @@
     width: 100%;
     z-index: 10;
     margin: 2em auto 0 auto;
-    font-size: 60%;
+    font-size: 45%;
+    transition: font-size 100ms;
 
     @media (min-height: 800px) {
-      top: 4em;
-      font-size: 80%;
+      font-size: 60%;
     }
   }
 
   .enter-button {
-    @include position(absolute, 50% null null 50%);
+    @include position(absolute, 70% null null 50%);
     z-index: 200;
     transform: translate(-50%, -50%);
+
+    @media (min-height: 500px) {
+      top: 55%;
+    }
+
+    @media (min-height: 700px) {
+      top: 50%;
+    }
   }
 
   .under-contruction {
     position: relative;
     z-index: 10;
     text-align: center;
-    margin-top: 10em;
+    margin-top: 7.1em;
+    transition: margin-top 100ms;
 
     @media (min-height: 800px) {
-      margin-top: 14em;
+      margin-top: 9em;
     }
 
     .site-width {
       max-width: 680px;
-      font-size: 60%;
 
-      @media (min-height: 500px) {
-        font-size: 80%;
-      }
-      @media (min-width: 600px) and (min-height: 600px) {
-        font-size: 100%;
+      @media (min-height: 800px) and (min-width: 400px) {
+        font-size: 140%;
       }
 
       h1 {
-        font-size: 2.5em;
+        font-size: 1.5625em;
         padding-bottom: 0.3em;
       }
       h3 {
-        font-size: 1.75em;
+        font-size: 1.125em;
         padding-bottom: 0.625em;
-      }
-      p {
-        font-size: 16px;
-        max-width: 800px;
-        padding: 0 3.125em 0.625em 3.125em;
-
-        &.intro {
-          display: none;
-
-          @media (min-height: 500px) {
-            display: block;
-          }
-        }
-      }
-
-      .social-media-links {
       }
     }
   }
 
   .tree-box {
-    @include position(absolute, null null 0.625em 50%);
+    @include position(absolute, null null -2em 50%);
     transform: translateX(-50%);
     z-index: 20;
-    //display: none;
-    font-size: 8px;
-    transition: font-size 300ms;
-
-    @media (min-height: 450px) {
-      font-size: 10px;
-    }
+    font-size: 60%;
+    transition: font-size 300ms, bottom 200ms;
+    display: none;
 
     @media (min-height: 500px) {
+      display: block;
+    }
+
+    @media (min-height: 700px) and (min-width: 450px) {
+      font-size: 80%;
+      bottom: 0;
+    }
+
+    @media (min-height: 900px) and (min-width: 450px) {
+      font-size: 100%;
       bottom: 1em;
-    }
-
-    @media (min-height: 560px) {
-      font-size: 14px;
-    }
-
-    @media (min-height: 800px) {
-      font-size: 16px;
-      bottom: 4em;
     }
   }
 }
