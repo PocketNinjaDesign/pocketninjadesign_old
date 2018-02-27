@@ -2,8 +2,11 @@
 
 var gulp = require('gulp');
 var twig = require('gulp-twig');
-var runSequence = require('run-sequence');
 var siteData = require('./src/data/siteData');
+
+gulp.task('watch', function() {
+  gulp.watch('./templates/**/*.twig', ['compile']);
+});
 
 gulp.task('compile', function() {
   return gulp.src([
@@ -31,12 +34,4 @@ gulp.task('compile', function() {
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('send', function() {
-  return gulp
-    .src('./build/**/*')
-    .pipe(gulp.dest('E:/vhosts/pocketninjadesign'));
-});
-
-gulp.task('default', function() {
-  runSequence('compile', 'send');
-});
+gulp.task('default', ['watch']);

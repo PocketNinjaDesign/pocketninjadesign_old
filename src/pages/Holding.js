@@ -1,5 +1,6 @@
 import $ from 'jqlite';
 
+import EnterButtonAnim from '../animations/EnterButton.anim';
 import LandingToPortfolioAnim from '../animations/LandingToPortfolio.anim';
 import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
 import NinjaList from '../modules/ninja/NinjaList';
@@ -48,9 +49,12 @@ export default new class PageHolding {
     // what I want from a ninja class later.
     //this.ninjas.generateNinjas(3);
 
+    // Start Enter Button Animation
+    EnterButtonAnim.start('#holdingEnterButton');
+
     // Animation Testing button
-    $('#primaryLogo').on('click', () => {
-      $('#primaryLogo').off('click');
+    $('#holdingEnterButton').on('click', () => {
+      $('#holdingEnterButton').off('click');
       LandingToPortfolioAnim
         .start()
         .then(() => {

@@ -6,12 +6,15 @@
 
 {% block sideNavBlock %}{{parent()}}{% endblock %}
 
+{% block pageBespokeContent %}
+  {% include "common/enter-button.twig" with {"id": "holdingEnterButton", "message": "Enter"} %}
+{% endblock %}
+
 {% block body %}
   <div class="under-contruction">
     <div class="site-width">
       <h1>Digital Designer &amp;</h1>
       <h3>Front End Developer</h3>
-
       {% include "common/social-media-links.twig" with {"id": "holdingSocialLinks"} %}
     </div>
   </div>
