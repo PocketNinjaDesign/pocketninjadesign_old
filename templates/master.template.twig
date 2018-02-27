@@ -47,7 +47,9 @@
     {% block sideNavBlock %}
       {% include "common/side-navigation.twig" with { "data": 0 } %}
     {% endblock %}
-    
+
+    {% block pageBespokeContent %}{% endblock %}
+
     <div id="contentArea" class="content-area">
       {% block body %}{% endblock %}
     </div>
