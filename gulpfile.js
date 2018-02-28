@@ -5,7 +5,10 @@ var twig = require('gulp-twig');
 var siteData = require('./src/data/siteData');
 
 gulp.task('watch', function() {
-  gulp.watch('./templates/**/*.twig', ['compile']);
+  gulp.watch([
+    './templates/**/*.twig',
+    './src/data/siteData.js'
+  ], ['compile']);
 });
 
 gulp.task('compile', function() {
