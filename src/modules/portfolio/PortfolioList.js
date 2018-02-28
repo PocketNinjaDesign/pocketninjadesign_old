@@ -5,6 +5,7 @@ const DEFAULT_OPTIONS = {
   category: '',
   galleryList: new Map(),
   target: '.portfolio-list',
+  filePrefix: {},
 };
 
 class PortfolioList {
@@ -21,10 +22,13 @@ class PortfolioList {
         let projectTitle = $this.attr('data-project-title');
         let portfolioContent = root.options.galleryList.get(projectTitle);
 
+        console.log(portfolioContent);
+
         PortfolioDetail.init({
           type: portfolioContent.type,
           title: portfolioContent.title,
-          images: portfolioContent.img.large,
+          filePrefix: root.options.filePrefix,
+          images: portfolioContent.img.detail,
           externalLink: portfolioContent.externalLink,
         });
         PortfolioDetail.show();

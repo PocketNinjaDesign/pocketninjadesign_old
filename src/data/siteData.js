@@ -30,36 +30,96 @@ module.exports = {
 
   // UI DESIGN
   {
+    filePrefix: {
+      thumb: 'images/portfolio/ui-design/thumb/',
+      detail: 'images/portfolio/ui-design/detail/'
+    },
     items: [{
+      title: 'Personal Portfolio Site',
+      type: 'Web',
+      externalLink: {
+        url: 'https://xd.adobe.com/view/99c2179f-c05c-4afc-b97b-3ea51207c508?fullscreen',
+        text: 'View Prototype',
+      },
+      img: {
+        thumb: 'pocketninjadesign-adobe-xd-thumb-large.png',
+        detail: [{
+          bgColor: '#e4e4e4',
+          src: {
+            large: 'pocketninjadesign-adobe-xd-all-ui-large.png',
+            medium: 'pocketninjadesign-adobe-xd-all-ui-medium.png',
+            small: 'pocketninjadesign-adobe-xd-all-ui-small.png',
+          }
+        }, {
+          bgColor: '#e4e4e4',
+          src: {
+            large: 'pocketninjadesign-adobe-xd-desktop-large.png',
+            medium: 'pocketninjadesign-adobe-xd-desktop-medium.png',
+            small: 'pocketninjadesign-adobe-xd-desktop-small.png',
+          }
+        }, {
+          bgColor: '#e4e4e4',
+          src: {
+            large: 'pocketninjadesign-adobe-xd-mobile-large.png',
+            medium: 'pocketninjadesign-adobe-xd-mobile-medium.png',
+            small: 'pocketninjadesign-adobe-xd-mobile-small.png',
+          }
+        }],
+      }
+    }, {
       title: 'Go Fishing Magazine',
       type: 'Web',
       img: {
-        small: 'images/portfolio/ui-design/small/go-fishing-magazine-website.jpg',
-        large: [{
+        thumb: 'go-fishing-magazine-website.jpg',
+        detail: [{
           bgColor: '#000',
-          src: 'images/portfolio/ui-design/large/go-fishing-magazine-homepage.jpg'
+          src: {
+            large: 'go-fishing-magazine-homepage.jpg',
+            medium: 'go-fishing-magazine-homepage.jpg',
+            small: 'go-fishing-magazine-homepage.jpg',
+          }
         }, {
           bgColor: '#000',
-          src: 'images/portfolio/ui-design/large/go-fishing-magazine-category.jpg'
+          src: {
+            large: 'go-fishing-magazine-category.jpg',
+            medium: 'go-fishing-magazine-category.jpg',
+            small: 'go-fishing-magazine-category.jpg',
+          }
         }, {
           bgColor: '#000',
-          src: 'images/portfolio/ui-design/large/go-fishing-magazine-product.jpg'
+          src: {
+            large: 'go-fishing-magazine-product.jpg',
+            medium: 'go-fishing-magazine-product.jpg',
+            small: 'go-fishing-magazine-product.jpg',
+          }
         }],
       }
     }, {
       title: 'Car Magazine',
       type: 'Web',
       img: {
-        small: 'images/portfolio/ui-design/small/car-magazine-website.jpg',
-        large: [{
+        thumb: 'car-magazine-website.jpg',
+        detail: [{
           bgColor: '#0d0d0d',
-          src: 'images/portfolio/ui-design/large/car-magazine-homepage.jpg'
+          src: {
+            large: 'car-magazine-homepage.jpg',
+            medium: 'car-magazine-homepage.jpg',
+            small: 'car-magazine-homepage.jpg',
+          }
         }, {
           bgColor: '#0d0d0d',
-          src: 'images/portfolio/ui-design/large/car-magazine-category.jpg'
+          src: {
+            large: 'car-magazine-category.jpg',
+            medium: 'car-magazine-category.jpg',
+            small: 'car-magazine-category.jpg',
+          }
         }, {
           bgColor: '#0d0d0d',
-          src: 'images/portfolio/ui-design/large/car-magazine-detail.jpg'
+          src: {
+            large: 'car-magazine-detail.jpg',
+            medium: 'car-magazine-detail.jpg',
+            small: 'car-magazine-detail.jpg',
+          }
         }],
       }
     }]
@@ -69,22 +129,50 @@ module.exports = {
 
   // Graphics
   {
+    filePrefix: {
+      thumb: 'images/portfolio/graphics/thumb/',
+      detail: 'images/portfolio/graphics/detail/'
+    },
     items: [{
       title: 'Ansa',
       type: 'Branding',
       // externalLink: 'http://www.pocketninja.design',
       img: {
-        small: 'images/portfolio/graphics/small/ansa-logo.png',
-        large: [
-          { src: 'images/portfolio/graphics/large/ansa-logo-full.png' },
-          { src: 'images/portfolio/graphics/large/ansa-logo-medium.png' },
-          { src: 'images/portfolio/graphics/large/ansa-logo-mini.png' },
-          { src: 'images/portfolio/graphics/large/ansa-logo-all-black.png' },
+        thumb: 'ansa-logo.png',
+        detail: [
+          { src: {
+            large: 'ansa-logo-full.png',
+            medium: 'ansa-logo-full.png',
+            small: 'ansa-logo-full.png',
+          } },
+          { src: {
+            large: 'ansa-logo-medium.png',
+            medium: 'ansa-logo-medium.png',
+            small: 'ansa-logo-medium.png',
+          } },
+          { src: {
+            large: 'ansa-logo-mini.png',
+            medium: 'ansa-logo-mini.png',
+            small: 'ansa-logo-mini.png',
+          } },
+          { src: {
+            large: 'ansa-logo-all-black.png',
+            medium: 'ansa-logo-all-black.png',
+            small: 'ansa-logo-all-black.png',
+          } },
           {
             bgColor: '#000',
-            src: 'images/portfolio/graphics/large/ansa-logo-all-white.png'
+            src: {
+              large: 'ansa-logo-all-white.png',
+              medium: 'ansa-logo-all-white.png',
+              small: 'ansa-logo-all-white.png',
+            }
           },
-          { src: 'images/portfolio/graphics/large/ansa-logo-all-color.png' }
+          { src: {
+            large: 'ansa-logo-all-color.png',
+            medium: 'ansa-logo-all-color.png',
+            small: 'ansa-logo-all-color.png',
+          } }
         ],
       }
     }]
@@ -94,59 +182,99 @@ module.exports = {
 
   // Illustration
   {
+    filePrefix: {
+      thumb: 'images/portfolio/illustration/thumb/',
+      detail: 'images/portfolio/illustration/detail/'
+    },
     items: [{
       title: 'Blue Zombie Sketches MAIN',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
-        large: [{
+        thumb: 'blue-zombies-digital.png',
+        detail: [{
           bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+          src: {
+            large: 'blue-zombies-digital-all-3.jpg',
+            medium: 'blue-zombies-digital-all-3.jpg',
+            small: 'blue-zombies-digital-all-3.jpg',
+          }
         }, {
           bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-original-sketches.jpg'
+          src: {
+            large: 'blue-zombies-digital-original-sketches.jpg',
+            medium: 'blue-zombies-digital-original-sketches.jpg',
+            small: 'blue-zombies-digital-original-sketches.jpg',
+          }
         }, {
           bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-clown.jpg'
+          src: {
+            large: 'blue-zombies-digital-clown.jpg',
+            medium: 'blue-zombies-digital-clown.jpg',
+            small: 'blue-zombies-digital-clown.jpg',
+          }
         }, {
           bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-closeup.jpg'
+          src: {
+            large: 'blue-zombies-digital-closeup.jpg',
+            medium: 'blue-zombies-digital-closeup.jpg',
+            small: 'blue-zombies-digital-closeup.jpg',
+          }
         }],
       }
     }, {
       title: 'Voodoo Boy Sketch',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/voodoo-boy-digital.jpg',
-        large: [{
+        thumb: 'voodoo-boy-digital.jpg',
+        detail: [{
           bgColor: '#2a2008',
-          src: 'images/portfolio/illustration/large/voodoo-boy-digital.jpg'
+          src: {
+            large: 'voodoo-boy-digital.jpg',
+            medium: 'voodoo-boy-digital.jpg',
+            small: 'voodoo-boy-digital.jpg',
+          }
         }]
       }
     }, {
       title: 'Spaceman Sketches',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/spaceman-digital.jpg',
-        large: [{
+        thumb: 'spaceman-digital.jpg',
+        detail: [{
           bgColor: '#dad0c7',
-          src: 'images/portfolio/illustration/large/spaceman-planet-digital.jpg'
+          src: {
+            large: 'spaceman-planet-digital.jpg',
+            medium: 'spaceman-planet-digital.jpg',
+            small: 'spaceman-planet-digital.jpg',
+          }
         }, {
           bgColor: '#d4b18c',
-          src: 'images/portfolio/illustration/large/spaceman-ship-digital.jpg'
+          src: {
+            large: 'spaceman-ship-digital.jpg',
+            medium: 'spaceman-ship-digital.jpg',
+            small: 'spaceman-ship-digital.jpg',
+          }
         }, {
           bgColor: '#cfbb9f',
-          src: 'images/portfolio/illustration/large/spaceman-desktop-digital.jpg'
+          src: {
+            large: 'spaceman-desktop-digital.jpg',
+            medium: 'spaceman-desktop-digital.jpg',
+            small: 'spaceman-desktop-digital.jpg',
+          }
         }]
       }
     }, {
       title: 'Long Lost Twin Characters',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/long-lost-twin-digital.png',
-        large: [{
+        thumb: 'long-lost-twin-digital.png',
+        detail: [{
           bgColor: '#1a72a3',
-          src: 'images/portfolio/illustration/large/long-lost-twin-digital.png'
+          src: {
+            large: 'long-lost-twin-digital.png',
+            medium: 'long-lost-twin-digital.png',
+            small: 'long-lost-twin-digital.png',
+          }
         }]
       }
     }]

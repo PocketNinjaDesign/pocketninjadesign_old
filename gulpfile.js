@@ -22,15 +22,15 @@ gulp.task('compile', function() {
     data: {
       uiDesign: {
         info: siteData.navigation[0],
-        gallery: siteData.gallery[0].items
+        gallery: siteData.gallery[0]
       },
       graphics: {
         info: siteData.navigation[1],
-        gallery: siteData.gallery[1].items
+        gallery: siteData.gallery[1]
       },
       illustration: {
         info: siteData.navigation[2],
-        gallery: siteData.gallery[2].items
+        gallery: siteData.gallery[2]
       },
     }
   }))
