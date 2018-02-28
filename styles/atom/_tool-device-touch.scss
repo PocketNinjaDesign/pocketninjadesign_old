@@ -1,0 +1,7 @@
+
+
+.tool-device-touch {
+  @media (max-width: $bpSmall) {
+    -webkit-overflow-scrolling: touch;
+  }
+}

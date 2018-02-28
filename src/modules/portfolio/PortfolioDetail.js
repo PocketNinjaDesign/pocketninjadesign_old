@@ -75,7 +75,7 @@ export default new class PortfolioDetail {
 
   getPortfolioDetailTemplate(data) {
     return $(
-      `<div id="portfolioDetail" class="portfolio-detail">
+      `<div id="portfolioDetail" class="portfolio-detail tool-device-touch">
         <header id="portfolioDetailHeader" class="portfolio-detail-header">
           <div class="detail-header-info">
             <h1 class="detail-title">${data.type}: ${data.title}</h1>
