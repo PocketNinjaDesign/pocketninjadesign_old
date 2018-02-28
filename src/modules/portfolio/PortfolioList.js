@@ -5,6 +5,7 @@ const DEFAULT_OPTIONS = {
   category: '',
   galleryList: new Map(),
   target: '.portfolio-list',
+  filePrefix: {},
 };
 
 class PortfolioList {
@@ -24,7 +25,8 @@ class PortfolioList {
         PortfolioDetail.init({
           type: portfolioContent.type,
           title: portfolioContent.title,
-          images: portfolioContent.img.large,
+          filePrefix: root.options.filePrefix,
+          images: portfolioContent.img.detail,
           externalLink: portfolioContent.externalLink,
         });
         PortfolioDetail.show();

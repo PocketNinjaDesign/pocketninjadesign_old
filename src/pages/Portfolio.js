@@ -92,7 +92,8 @@ export default new class PagePortfolio {
     // Create Portfolio List from Gallery Items
     this.portfolioList = new PortfolioList({
       category: this.getCategory(),
-      galleryList: galleryMap.get(this.getCategory()),
+      galleryList: this.getGalleryList(),
+      filePrefix: this.getFilePrefix()
     });
     this.portfolioList.init();
   }
@@ -128,5 +129,13 @@ export default new class PagePortfolio {
 
   getCategory() {
     return PortfolioData.navigation[this.selectedOption].title;
+  }
+
+  getFilePrefix() {
+    return PortfolioData.gallery[this.selectedOption].filePrefix;
+  }
+
+  getGalleryList() {
+    return galleryMap.get(this.getCategory());
   }
 }

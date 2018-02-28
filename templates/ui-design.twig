@@ -1,12 +1,13 @@
 {% extends 'master.template.twig' %}
 
 {% set cat = uiDesign.info %}
-{% set gallery = uiDesign.gallery %}
+{% set gallery = uiDesign.gallery.items %}
+{% set filePrefix = uiDesign.gallery.filePrefix %}
 
 {% block title %}Pocketninja.Design Portfolio {{ cat.title }} Gallery{% endblock %}
 {% block pageClass %}page-portfolio page-portfolio-landing{% endblock %}
 {% block sideNavBlock %}{{parent()}}{% endblock %}
 {% block body %}
-  {% include "common/portfolio-gallery.twig" with {"cat": cat, "gallery": gallery} %}
-  {% include "common/portfolio-information.twig" with {"title": cat.title, "subTitle": cat.subTitle, "detailedDescription": cat.detailedDescription} %}
+  {% include "common/portfolio-gallery.twig" with { "cat": cat, "gallery": gallery, "filePrefix": filePrefix } %}
+  {% include "common/portfolio-information.twig" with { "title": cat.title, "subTitle": cat.subTitle, "detailedDescription": cat.detailedDescription } %}
 {% endblock %}
