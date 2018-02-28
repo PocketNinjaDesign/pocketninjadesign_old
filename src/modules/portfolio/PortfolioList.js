@@ -25,6 +25,7 @@ class PortfolioList {
           type: portfolioContent.type,
           title: portfolioContent.title,
           images: portfolioContent.img.large,
+          externalLink: portfolioContent.externalLink,
         });
         PortfolioDetail.show();
       });

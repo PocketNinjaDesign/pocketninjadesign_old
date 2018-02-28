@@ -13,21 +13,32 @@
       min-height: auto;
     }
 
+    .detail-header-info {
+      padding: 20px 60px 20px 20px;
+
+      @media (min-width: $bpSmall) {
+        @include position(absolute, null null 20px 18%);
+        padding: 0;
+      }
+
+      .detail-title {
+        font-size: 24px;
+        padding: 0;
+
+        @media (min-width: $bpSmall) {
+          font-size: 40px;
+        }
+      }
+      .detail-external-link {
+
+      }
+    }
+
     .burger-menu {
       @include position(fixed, 15px 27px null null);
 
       @media (min-width: $bpSmall) {
         right: 15px;
-      }
-    }
-    h1 {
-      font-size: 24px;
-      padding: 20px 60px 20px 20px;
-
-      @media (min-width: $bpSmall) {
-        @include position(absolute, null null 20px 18%);
-        font-size: 40px;
-        padding: 0;
       }
     }
   }
