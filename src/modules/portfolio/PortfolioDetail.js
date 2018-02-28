@@ -8,6 +8,7 @@ const DEFAULT_OPTIONS = {
   type: 'ProjectType',
   title: 'Project Name',
   images: [],
+  externalLink: undefined,
 };
 
 export default new class PortfolioDetail {
@@ -67,11 +68,19 @@ export default new class PortfolioDetail {
     $('html').removeClass('full-overlay-mode');
   }
 
+  getExternalLink() {
+    return (this.options.externalLink !== undefined) ?
+      `<a href="${this.options.externalLink}" class="detail-external-link" target="_blank">Visit site</a>` : ``;
+  }
+
   getPortfolioDetailTemplate(data) {
     return $(
       `<div id="portfolioDetail" class="portfolio-detail">
         <header id="portfolioDetailHeader" class="portfolio-detail-header">
-          <h1>${data.type}: ${data.title}</h1>
+          <div class="detail-header-info">
+            <h1 class="detail-title">${data.type}: ${data.title}</h1>
+            ${this.getExternalLink()}
+          </div>
         </header>
         <div id="portfolioDetailContent" class="portfolio-detail-content">
           <div id="portfolioDetailMobileImages" class="portfolio-detail-mobile-images"></div>

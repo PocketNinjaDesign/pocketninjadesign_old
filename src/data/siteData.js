@@ -72,6 +72,7 @@ module.exports = {
     items: [{
       title: 'Ansa',
       type: 'Branding',
+      // externalLink: 'http://www.pocketninja.design',
       img: {
         small: 'images/portfolio/graphics/small/ansa-logo.png',
         large: [
