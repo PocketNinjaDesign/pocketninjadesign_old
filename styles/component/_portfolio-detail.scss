@@ -2,7 +2,6 @@
   @include position(absolute, 0 0 0 0);
   z-index: 10000;
   background: #fff;
-  overflow-y: auto;
 
   .portfolio-detail-header {
     position: relative;
@@ -28,9 +27,6 @@
         @media (min-width: $bpSmall) {
           font-size: 40px;
         }
-      }
-      .detail-external-link {
-
       }
     }
 
