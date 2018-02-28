@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, "./build"),
-    //filename: "bundle.[hash].js",
+    // filename: "bundle.[hash].js",
     filename: "bundle.js",
     publicPath: "/build/"
   },

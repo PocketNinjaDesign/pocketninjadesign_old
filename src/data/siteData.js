@@ -31,23 +31,35 @@ module.exports = {
   // UI DESIGN
   {
     items: [{
-      title: 'Ninja and Binja',
-      type: 'Website',
+      title: 'Go Fishing Magazine',
+      type: 'Web',
       img: {
-        small: 'images/small.png',
+        small: 'images/portfolio/ui-design/small/go-fishing-magazine-website.jpg',
         large: [{
-          bgColor: '',
-          src: 'images/large.png'
+          bgColor: '#000',
+          src: 'images/portfolio/ui-design/large/go-fishing-magazine-homepage.jpg'
+        }, {
+          bgColor: '#000',
+          src: 'images/portfolio/ui-design/large/go-fishing-magazine-category.jpg'
+        }, {
+          bgColor: '#000',
+          src: 'images/portfolio/ui-design/large/go-fishing-magazine-product.jpg'
         }],
       }
     }, {
-      title: 'Sweetcorn Tastes Great',
-      type: 'CD-ROM',
+      title: 'Car Magazine',
+      type: 'Web',
       img: {
-        small: 'images/small.png',
+        small: 'images/portfolio/ui-design/small/car-magazine-website.jpg',
         large: [{
-          bgColor: '',
-          src: 'images/large.png'
+          bgColor: '#0d0d0d',
+          src: 'images/portfolio/ui-design/large/car-magazine-homepage.jpg'
+        }, {
+          bgColor: '#0d0d0d',
+          src: 'images/portfolio/ui-design/large/car-magazine-category.jpg'
+        }, {
+          bgColor: '#0d0d0d',
+          src: 'images/portfolio/ui-design/large/car-magazine-detail.jpg'
         }],
       }
     }]
@@ -101,53 +113,39 @@ module.exports = {
         }],
       }
     }, {
-      title: 'Blue Zombie Sketches',
+      title: 'Voodoo Boy Sketch',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        small: 'images/portfolio/illustration/small/voodoo-boy-digital.jpg',
         large: [{
-          bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+          bgColor: '#2a2008',
+          src: 'images/portfolio/illustration/large/voodoo-boy-digital.jpg'
         }]
       }
     }, {
-      title: 'Blue Zombie Sketches',
+      title: 'Spaceman Sketches',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        small: 'images/portfolio/illustration/small/spaceman-digital.jpg',
         large: [{
-          bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+          bgColor: '#dad0c7',
+          src: 'images/portfolio/illustration/large/spaceman-planet-digital.jpg'
+        }, {
+          bgColor: '#d4b18c',
+          src: 'images/portfolio/illustration/large/spaceman-ship-digital.jpg'
+        }, {
+          bgColor: '#cfbb9f',
+          src: 'images/portfolio/illustration/large/spaceman-desktop-digital.jpg'
         }]
       }
     }, {
-      title: 'Blue Zombie Sketches',
+      title: 'Long Lost Twin Characters',
       type: 'Digital',
       img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
+        small: 'images/portfolio/illustration/small/long-lost-twin-digital.png',
         large: [{
-          bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
-        }]
-      }
-    }, {
-      title: 'Blue Zombie Sketches',
-      type: 'Digital',
-      img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
-        large: [{
-          bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
-        }]
-      }
-    }, {
-      title: 'Blue Zombie Sketches',
-      type: 'Digital',
-      img: {
-        small: 'images/portfolio/illustration/small/blue-zombies-digital.png',
-        large: [{
-          bgColor: '#323727',
-          src: 'images/portfolio/illustration/large/blue-zombies-digital-all-3.jpg'
+          bgColor: '#1a72a3',
+          src: 'images/portfolio/illustration/large/long-lost-twin-digital.png'
         }]
       }
     }]
