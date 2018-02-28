@@ -2,15 +2,16 @@
   text-align: center;
 
   .primary-logo {
-    @include position(absolute, 2em null null 0);
+    @include position(absolute, 25px null null 0);
     width: 100%;
     z-index: 10;
-    margin: 2em auto 0 auto;
+    margin: 0 auto;
     font-size: 45%;
     transition: font-size 100ms;
 
     @media (min-height: 800px) {
       font-size: 60%;
+      top: 40px;
     }
   }
 
@@ -32,11 +33,11 @@
     position: relative;
     z-index: 10;
     text-align: center;
-    margin-top: 7.1em;
-    transition: margin-top 100ms;
+    padding-top: 7.1em;
+    transition: padding-top 100ms;
 
     @media (min-height: 800px) {
-      margin-top: 9em;
+      padding-top: 9em;
     }
 
     .site-width {
