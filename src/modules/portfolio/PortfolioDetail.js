@@ -64,6 +64,13 @@ export default new class PortfolioDetail {
   show() {
     this.$portfolioDetail.appendTo('body');
     $('html').addClass('full-overlay-mode');
+
+    // HACK,  waits for all content to render and then applies
+    // the touch class to get your IOS device scrolling smoothly
+    setTimeout(() => {
+      // Try adding the tool device class when all is rendered
+      this.$portfolioDetail.addClass('tool-device-touch');
+    }, 500);
   }
 
   remove() {
@@ -78,7 +85,7 @@ export default new class PortfolioDetail {
 
   getPortfolioDetailTemplate(data) {
     return $(
-      `<div id="portfolioDetail" class="portfolio-detail tool-device-touch">
+      `<div id="portfolioDetail" class="portfolio-detail">
         <header id="portfolioDetailHeader" class="portfolio-detail-header">
           <div class="detail-header-info">
             <h1 class="detail-title">${data.type}: <span>${data.title}</span></h1>
