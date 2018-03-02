@@ -25,3 +25,12 @@ Just need that connection with jQuery mannnnnnn :-P
 Never used it before but it worked out very nicely for the basic slide in of the peekaboo code and has it's own callback / promises so I don't need to use the Animate start finished methods I created.
 
 My next project will be animating the logo which in flash would be very easy but in the world of none flash the world of aching (balls / overies) prevails.
+
+## To run
+
+1. Open 3 terminals
+2. Terminal 1: run `$ gulp`
+3. Terminal 2: run `$ npm run build`
+4. Terminal 3: run `$ npm run serve`
+
+and off you go.
