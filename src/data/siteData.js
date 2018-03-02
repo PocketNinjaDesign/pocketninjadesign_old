@@ -66,7 +66,46 @@ module.exports = {
           }
         }],
       }
-    }, {
+    },
+    
+    {
+      title: 'Blinkbox Tesco Hackathon',
+      type: 'Web',
+      img: {
+        thumb: 'Blinkbox-tesco-hackathon-ui-home-thumb-large.png',
+        detail: [{
+          bgColor: '#181818',
+          src: {
+            large: 'Blinkbox-tesco-hackathon-ui-home-detail-large.png',
+            medium: 'Blinkbox-tesco-hackathon-ui-home-detail-medium.png',
+            small: 'Blinkbox-tesco-hackathon-ui-home-detail-small.png',
+          }
+        }, {
+          bgColor: '#181818',
+          src: {
+            large: 'Blinkbox-tesco-hackathon-ui-explore-detail-large.jpg',
+            medium: 'Blinkbox-tesco-hackathon-ui-explore-detail-medium.jpg',
+            small: 'Blinkbox-tesco-hackathon-ui-explore-detail-small.jpg',
+          }
+        }, {
+          bgColor: '#181818',
+          src: {
+            large: 'Blinkbox-tesco-hackathon-ui-sub-category-detail-large.jpg',
+            medium: 'Blinkbox-tesco-hackathon-ui-sub-category-detail-medium.jpg',
+            small: 'Blinkbox-tesco-hackathon-ui-sub-category-detail-small.jpg',
+          }
+        }, {
+          bgColor: '#181818',
+          src: {
+            large: 'Blinkbox-tesco-hackathon-ui-player-detail-large.jpg',
+            medium: 'Blinkbox-tesco-hackathon-ui-player-detail-medium.jpg',
+            small: 'Blinkbox-tesco-hackathon-ui-player-detail-small.jpg',
+          }
+        }],
+      }
+    },
+    
+    {
       title: 'Go Fishing Magazine',
       type: 'Web',
       img: {
@@ -94,7 +133,10 @@ module.exports = {
           }
         }],
       }
-    }, {
+    },
+    
+    
+    {
       title: 'Car Magazine',
       type: 'Web',
       img: {
@@ -136,43 +178,38 @@ module.exports = {
     items: [{
       title: 'Ansa',
       type: 'Branding',
-      // externalLink: 'http://www.pocketninja.design',
       img: {
-        thumb: 'ansa-logo.png',
+        thumb: 'ansa-logo-thumb-large.png',
         detail: [
           { src: {
-            large: 'ansa-logo-full.png',
-            medium: 'ansa-logo-full.png',
-            small: 'ansa-logo-full.png',
+            large: 'ansa-logo-large-branding-detail-large.png',
+            medium: 'ansa-logo-large-branding-detail-medium.png',
+            small: 'ansa-logo-large-branding-detail-small.png',
           } },
           { src: {
-            large: 'ansa-logo-medium.png',
-            medium: 'ansa-logo-medium.png',
-            small: 'ansa-logo-medium.png',
+            large: 'ansa-logo-medium-branding-detail-large.png',
+            medium: 'ansa-logo-medium-branding-detail-medium.png',
+            small: 'ansa-logo-medium-branding-detail-small.png',
           } },
           { src: {
-            large: 'ansa-logo-mini.png',
-            medium: 'ansa-logo-mini.png',
-            small: 'ansa-logo-mini.png',
+            large: 'ansa-logo-small-branding-detail-large.png',
+            medium: 'ansa-logo-small-branding-detail-medium.png',
+            small: 'ansa-logo-small-branding-detail-small.png',
           } },
-          { src: {
-            large: 'ansa-logo-all-black.png',
-            medium: 'ansa-logo-all-black.png',
-            small: 'ansa-logo-all-black.png',
-          } },
-          {
+          { 
             bgColor: '#000',
             src: {
-              large: 'ansa-logo-all-white.png',
-              medium: 'ansa-logo-all-white.png',
-              small: 'ansa-logo-all-white.png',
+              large: 'ansa-logos-all-white-branding-detail-large.png',
+              medium: 'ansa-logos-all-white-branding-detail-medium.png',
+              small: 'ansa-logos-all-white-branding-detail-small.png',
             }
-          },
-          { src: {
-            large: 'ansa-logo-all-color.png',
-            medium: 'ansa-logo-all-color.png',
-            small: 'ansa-logo-all-color.png',
-          } }
+          }, {
+            src: {
+              large: 'ansa-logos-all-branding-detail-large.png',
+              medium: 'ansa-logos-all-branding-detail-medium.png',
+              small: 'ansa-logos-all-branding-detail-small.png',
+            }
+          }
         ],
       }
     }]
@@ -187,37 +224,37 @@ module.exports = {
       detail: 'images/portfolio/illustration/detail/'
     },
     items: [{
-      title: 'Blue Zombie Sketches MAIN',
+      title: 'Blue Zombie Sketches',
       type: 'Digital',
       img: {
-        thumb: 'blue-zombies-digital.png',
+        thumb: 'blue-zombies-digital-thumb-large.jpg',
         detail: [{
           bgColor: '#323727',
           src: {
-            large: 'blue-zombies-digital-all-3.jpg',
-            medium: 'blue-zombies-digital-all-3.jpg',
-            small: 'blue-zombies-digital-all-3.jpg',
+            large: 'blue-zombies-digital-all-3-large.jpg',
+            medium: 'blue-zombies-digital-all-3-medium.jpg',
+            small: 'blue-zombies-digital-all-3-small.jpg',
           }
         }, {
           bgColor: '#323727',
           src: {
-            large: 'blue-zombies-digital-original-sketches.jpg',
-            medium: 'blue-zombies-digital-original-sketches.jpg',
-            small: 'blue-zombies-digital-original-sketches.jpg',
+            large: 'blue-zombies-digital-original-sketches-large.jpg',
+            medium: 'blue-zombies-digital-original-sketches-medium.jpg',
+            small: 'blue-zombies-digital-original-sketches-small.jpg',
           }
         }, {
           bgColor: '#323727',
           src: {
-            large: 'blue-zombies-digital-clown.jpg',
-            medium: 'blue-zombies-digital-clown.jpg',
-            small: 'blue-zombies-digital-clown.jpg',
+            large: 'blue-zombies-digital-clown-large.jpg',
+            medium: 'blue-zombies-digital-clown-medium.jpg',
+            small: 'blue-zombies-digital-clown-small.jpg',
           }
         }, {
           bgColor: '#323727',
           src: {
-            large: 'blue-zombies-digital-closeup.jpg',
-            medium: 'blue-zombies-digital-closeup.jpg',
-            small: 'blue-zombies-digital-closeup.jpg',
+            large: 'blue-zombies-digital-close-up-large.jpg',
+            medium: 'blue-zombies-digital-close-up-medium.jpg',
+            small: 'blue-zombies-digital-close-up-small.jpg',
           }
         }],
       }
@@ -225,13 +262,13 @@ module.exports = {
       title: 'Voodoo Boy Sketch',
       type: 'Digital',
       img: {
-        thumb: 'voodoo-boy-digital.jpg',
+        thumb: 'voodoo-boy-digital-thumb-large.jpg',
         detail: [{
           bgColor: '#2a2008',
           src: {
-            large: 'voodoo-boy-digital.jpg',
-            medium: 'voodoo-boy-digital.jpg',
-            small: 'voodoo-boy-digital.jpg',
+            large: 'voodoo-boy-digital-large.jpg',
+            medium: 'voodoo-boy-digital-medium.jpg',
+            small: 'voodoo-boy-digital-small.jpg',
           }
         }]
       }
@@ -239,27 +276,27 @@ module.exports = {
       title: 'Spaceman Sketches',
       type: 'Digital',
       img: {
-        thumb: 'spaceman-digital.jpg',
+        thumb: 'spaceman-digital-thumb-large.jpg',
         detail: [{
           bgColor: '#dad0c7',
           src: {
-            large: 'spaceman-planet-digital.jpg',
-            medium: 'spaceman-planet-digital.jpg',
-            small: 'spaceman-planet-digital.jpg',
+            large: 'spaceman-planet-digital-large.jpg',
+            medium: 'spaceman-planet-digital-medium.jpg',
+            small: 'spaceman-planet-digital-small.jpg',
           }
         }, {
           bgColor: '#d4b18c',
           src: {
-            large: 'spaceman-ship-digital.jpg',
-            medium: 'spaceman-ship-digital.jpg',
-            small: 'spaceman-ship-digital.jpg',
+            large: 'spaceman-spaceship-digital-large.jpg',
+            medium: 'spaceman-spaceship-digital-medium.jpg',
+            small: 'spaceman-spaceship-digital-small.jpg',
           }
         }, {
           bgColor: '#cfbb9f',
           src: {
-            large: 'spaceman-desktop-digital.jpg',
-            medium: 'spaceman-desktop-digital.jpg',
-            small: 'spaceman-desktop-digital.jpg',
+            large: 'spaceman-desktop-digital-large.jpg',
+            medium: 'spaceman-desktop-digital-medium.jpg',
+            small: 'spaceman-desktop-digital-small.jpg',
           }
         }]
       }
@@ -267,13 +304,13 @@ module.exports = {
       title: 'Long Lost Twin Characters',
       type: 'Digital',
       img: {
-        thumb: 'long-lost-twin-digital.png',
+        thumb: 'long-lost-twin-digital-thumb-large.png',
         detail: [{
           bgColor: '#1a72a3',
           src: {
-            large: 'long-lost-twin-digital.png',
-            medium: 'long-lost-twin-digital.png',
-            small: 'long-lost-twin-digital.png',
+            large: 'long-lost-twin-digital-large.png',
+            medium: 'long-lost-twin-digital-medium.png',
+            small: 'long-lost-twin-digital-small.png',
           }
         }]
       }

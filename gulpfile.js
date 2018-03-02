@@ -37,4 +37,4 @@ gulp.task('compile', function() {
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['compile', 'watch']);

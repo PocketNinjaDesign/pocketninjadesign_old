@@ -40,6 +40,8 @@
   }
 
   &.grid-medium {
+    margin: 0 -10px;
+
     .grid-item {
       // background: $swatch2;
       margin-bottom: 10px;
@@ -51,19 +53,19 @@
       );
 
       $custom-large-grid: (
-        columns: 12,
+        columns: 10,
         gutter: 10px,
         media: 1000px,
       );
 
       $custom-small-grid: (
-        columns: 12,
+        columns: 10,
         gutter: 10px,
         media: 450px,
       );
 
       $custom-root-grid: (
-        columns: 12,
+        columns: 10,
         gutter: 10px,
         media: 0,
       );
@@ -77,7 +79,7 @@
       }
 
       @include grid-media($custom-large-grid) {
-        @include grid-column(3);
+        @include grid-column(2);
       }
 
       @include grid-media($custom-massive-grid) {
