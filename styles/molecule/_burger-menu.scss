@@ -1,11 +1,11 @@
 .burger-menu {
   position: relative;
-  width: 30px;
-  height: 25px;
+  width: 40px;
+  height: 35px;
   cursor: pointer;
 
   & > div {
-    @include position(absolute, 5px null null 5px);
+    @include position(absolute, 10px null null 10px);
     width: 20px;
     height: 3px;
     background: $swatch8;
@@ -23,12 +23,18 @@
 
     &.burger-bar-1 {
       transform: translateY(0);
+      &:after {
+        right: 0;
+      }
     }
     &.burger-bar-2 {
       transform: translateY(6px);
     }
     &.burger-bar-3 {
       transform: translateY(12px);
+      &:after {
+        right: 0;
+      }
     }
   }
 
@@ -36,14 +42,26 @@
   //
   // Actions
   //
-  &:hover {
-    & > div {
-      &:after {
-        background: $swatch6;
-        width: 100%;
+  @media (hover: hover) {
+    &:hover {
+      & > div {
+        &:after {
+          background: $swatch6;
+          width: 100%;
+        }
       }
     }
   }
+
+    a.close {
+      background: #fc0;
+      
+      @media (hover: hover) {
+        &:hover {
+          background: #f00;
+        }
+      }
+    }
 
   &.active {
     & > div {
@@ -51,18 +69,14 @@
         background: $swatch6;
         width: 3px;
       }
-      &.burger-bar-1,
-      &.burger-bar-3 {
-        &:after {
-          right: 0;
-        }
-      }
     }
 
-    &:hover {
-      & > div {
-        &:after {
-          width: 50%;
+    @media (hover: hover) {
+      &:hover {
+        & > div {
+          &:after {
+            width: 50%;
+          }
         }
       }
     }
