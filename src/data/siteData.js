@@ -16,8 +16,10 @@ module.exports = {
       require('./ui-design/pocketNinjaDesignWeb'),
       require('./ui-design/blinkboxHackathon'),
       require('./ui-design/blinkboxMusicWebsite'),
+      require('./ui-design/blinkboxMusicInternational'),
       require('./ui-design/goFishingMagazine'),
       require('./ui-design/carMagazine'),
+      require('./ui-design/createAndCraftClub'),
     ]
   },
 
