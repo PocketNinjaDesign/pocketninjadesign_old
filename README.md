@@ -1,5 +1,11 @@
+# IMPORTANT NOTICE
+Feel free to clone and reuse any code with a mention to me if it really helped you out.
+
+### BUT
+Do not use any of the visuals on this site at all.  This is a portfolio piece in itself wide open for evaluation but not to steal.
+
 # pocketninjadesign
-Repo for my porfolio website which in itself is a portfolio entry 
+Repo for my porfolio website which in itself is a portfolio entry
 
 ## To run
 
