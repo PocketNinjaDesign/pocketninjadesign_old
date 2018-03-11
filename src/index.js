@@ -1,5 +1,6 @@
 const css = require('../styles/primary.scss');
 
+import $ from './jqlite.extends';
 import PageHolding from './pages/Holding';
 import PortfolioLanding from './pages/PortfolioLanding';
 
