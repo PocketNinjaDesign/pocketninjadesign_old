@@ -1,6 +1,5 @@
 import $ from '../jqlite.extends';
-import { debounce } from '../Methods';
-
+import Methods from '../Methods';
 import Overlay from './Overlay';
 import SideNavigationAnim from '../animations/SideNavigation.anim';
 import BreakPointService from '../services/BreakPoint.service';
@@ -37,9 +36,10 @@ class SideNavigation {
       });
     } else {
       // Activate burger menu and navigation
-      this.$sideNavBurgerButton.addClass('active');
-      this.$sideNavigation.addClass('active');
-      SideNavigationAnim.showActiveSideBar();
+      SideNavigationAnim.showActiveSideBar(() => {
+        this.$sideNavBurgerButton.addClass('active');
+        this.$sideNavigation.addClass('active');
+      });
       this.overlay.show();
 
       // Start page resize checking
@@ -58,7 +58,7 @@ class SideNavigation {
   setResizeCheck() {
     const root = this;
 
-    $(window).on('resize', debounce(() => {
+    $(window).on('resize', Methods.debounce(() => {
       if (window.innerWidth > BreakPointService.bpMedium) {
         root.burgerMenuClick();
       }

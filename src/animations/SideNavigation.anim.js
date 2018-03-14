@@ -31,9 +31,9 @@ class SideNavigation {
     ]);
   }
 
-  showActiveSideBar() {
+  showActiveSideBar(callBack = () => {}) {
     const width = BreakPointService.getWidth();
-    const sizes = this.sizeGuide.get(width);
+    const sizes = this.sizeGuide.get(width) || 'small';
 
     return new Promise((resolve) => {
       if (width !== 'large') {
@@ -44,6 +44,9 @@ class SideNavigation {
           }, {
             width: sizes.activeWidth,
             ease: Power2.easeOut,
+          })
+          .add(() => {
+            callBack();
           })
           .add(this.logoAnimationIn(), 0.3)
           .add(this.sideNavLinkAnimationIn(), 0.35)
@@ -146,30 +149,28 @@ class SideNavigation {
 
 
   // SideNav Links
-  sideNavLinkAnimationIn(onCompleteAll = () => {}) {
+  sideNavLinkAnimationIn() {
     return new TimelineLite().staggerFromTo(this.$sideNavLink, 0.5, { x: -30, opacity: 0 }, {
       x: 0,
       opacity: 1,
       ease: Power2.easeOut,
-      onCompleteAll,
     }, 0.2, 0);
   }
-  sideNavLinkAnimationOut(onCompleteAll = () => {}) {
-    return new TimelineLite().to(this.$sideNavLink, 0.1, { opacity: 0, onCompleteAll });
+  sideNavLinkAnimationOut() {
+    return new TimelineLite().to(this.$sideNavLink, 0.1, { opacity: 0 });
   }
 
 
   // Social Media
-  socialMediaAnimationIn(onCompleteAll = () => {}) {
+  socialMediaAnimationIn() {
     return new TimelineLite().staggerFromTo(this.$socialMediaLink, 0.01, { y: -20, opacity: 0 }, {
       y: 0,
       opacity: 1,
       ease: Power2.easeOut,
-      onCompleteAll,
     }, 0.1, 0);
   }
-  socialMediaAnimationOut(onCompleteAll = () => {}) {
-    return new TimelineLite().to(this.$socialMediaLink, 0.1, { opacity: 0, onCompleteAll });
+  socialMediaAnimationOut() {
+    return new TimelineLite().to(this.$socialMediaLink, 0.1, { opacity: 0 });
   }
 }
 
