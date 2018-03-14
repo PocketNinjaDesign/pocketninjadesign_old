@@ -1,4 +1,4 @@
-import $ from 'jQuery';
+import $ from '../../jqlite.extends';
 import Overlay from '../Overlay';
 
 
@@ -10,9 +10,9 @@ const DEFAULT_OPTIONS = {
 
 class LoaderBase {
   constructor(_options) {
-    this.options = $.extend({}, DEFAULT_OPTIONS, _options);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, _options);
 
-    this.$animation = $(this.getAnimWrapper())
+    this.$animation = $(this.getAnimWrapper());
     this.setContainer(this.options.$container);
     this.overlay = new Overlay({
       animate: true,
@@ -24,9 +24,7 @@ class LoaderBase {
   }
 
   init() {
-    this.overlay.show().then((response) => {
-      // Wait for overlay anim in
-      //console.log(response, 'will now append the loader container');
+    this.overlay.show().then(() => {
       this.options.$container.append(this.$animation);
     });
   }
@@ -34,17 +32,13 @@ class LoaderBase {
   hide() {
     this.$animation.hide();
 
-    return new Promise((resolve, reject) => {
-      this.overlay.hide().then(() => {
-        resolve();
-      });
-    })
+    return new Promise((resolve) => {
+      this.overlay.hide().then(() => resolve());
+    });
   }
 
   show() {
-    this.overlay.show().then((response) => {
-      this.$animation.show();
-    })
+    this.overlay.show().then(() => this.$animation.show());
   }
 
   remove() {
@@ -52,7 +46,7 @@ class LoaderBase {
     // Add a Promise for an animation here
     this.$animation.remove();
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.overlay.remove().then(() => {
         resolve();
       });
@@ -60,16 +54,14 @@ class LoaderBase {
   }
 
   getAnimWrapper() {
-    return `
-      <div class="anim-wrapper anim-wrapper-${this.options.positionType}">
-        ${this.getAnimTemplate()}
-      </div>
-    `;
+    return `<div class="anim-wrapper anim-wrapper-${this.options.positionType}">
+      ${this.getAnimTemplate()}
+    </div>`;
   }
 
   getAnimTemplate() {
-    return `<div class="anim-default"></div>`;
+    return '<div class="anim-default"></div>';
   }
-};
+}
 
 export default LoaderBase;

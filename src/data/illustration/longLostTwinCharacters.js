@@ -8,8 +8,8 @@ module.exports = {
       src: {
         large: 'long-lost-twin-digital-large.png',
         medium: 'long-lost-twin-digital-medium.png',
-        small: 'long-lost-twin-digital-small.png'
-      }
-    }]
-  }
-}
+        small: 'long-lost-twin-digital-small.png',
+      },
+    }],
+  },
+};

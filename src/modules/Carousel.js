@@ -13,18 +13,18 @@ class Carousel {
   constructor(newOptions) {
     this.options = Object.assign({}, DEFAULT_OPTIONS, newOptions);
 
-    this.$slider;
-    this.$leftButton;
-    this.$rightButton;
+    this.$slider = undefined;
+    this.$leftButton = undefined;
+    this.$rightButton = undefined;
 
-    this.itemCount;
-    this.itemWidth;
+    this.itemCount = undefined;
+    this.itemWidth = undefined;
     this.currentIndex = this.options.startIndex;
   }
 
 
   init() {
-    if(this.options.fullRender) {
+    if (this.options.fullRender) {
       this.options.$carousel = this.getCarouselTemplate();
       this.options.$carousel.appendTo(this.options.renderContainer);
     }
@@ -38,7 +38,7 @@ class Carousel {
 
   moveSlider(num) {
     this.currentIndex += num;
-    this.$slider.css('left', -(100 * this.currentIndex) + '%');
+    this.$slider.css('left', `${-(100 * this.currentIndex)}%`);
   }
 
 
@@ -46,7 +46,7 @@ class Carousel {
     this.$leftButton = this.options.$carousel
       .find('[data-carousel-left-bttn]')
       .on('click', () => {
-        if(this.currentIndex > 0) {
+        if (this.currentIndex > 0) {
           this.moveSlider(-1);
         }
       });
@@ -54,7 +54,7 @@ class Carousel {
     this.$rightButton = this.options.$carousel
       .find('[data-carousel-right-bttn]')
       .on('click', () => {
-        if(this.currentIndex < this.itemCount - 1) {
+        if (this.currentIndex < this.itemCount - 1) {
           this.moveSlider(1);
         }
       });
@@ -62,17 +62,15 @@ class Carousel {
 
 
   setCarouselItemStyles() {
-    let root = this;
-
     this.itemCount = this.$slider.find('.carousel-item').length || 0;
     this.itemWidth = 100 / this.itemCount;
 
     this.$slider
-      .css('width', 100 * this.itemCount + '%')
-      .find('.carousel-item').each(function(index) {
-        $(this).css({
-          width: root.itemWidth + '%',
-          left: root.itemWidth * index + '%'
+      .css('width', `${100 * this.itemCount}%`)
+      .find('.carousel-item').each((index, el) => {
+        $(el).css({
+          width: `${this.itemWidth}%`,
+          left: `${this.itemWidth * index}%`,
         });
       });
   }
@@ -80,10 +78,8 @@ class Carousel {
 
   // $contentList - List of jQuery objects
   AddCarouselItem($contentList) {
-    for(let i = 0; i < $contentList.length; i++) {
-      this.$slider.append(
-        this.getCarouselItemTemplate($contentList[i])
-      );
+    for (let i = 0; i < $contentList.length; i += 1) {
+      this.$slider.append(this.getCarouselItemTemplate($contentList[i]));
     }
 
     this.setCarouselItemStyles();
@@ -91,8 +87,7 @@ class Carousel {
 
 
   getCarouselTemplate() {
-    return $(
-      `<div class="carousel" data-carousel>
+    return $(`<div class="carousel" data-carousel>
         <div class="carousel-slider-container">
           <ul class="carousel-slider" data-slider>
           </ul>
@@ -109,13 +104,12 @@ class Carousel {
             </svg>
           </div>
         </div>
-      </div>`
-    );
+      </div>`);
   }
 
 
   getCarouselItemTemplate($content) {
-    return $(`<li class="carousel-item"></li>`).append($content);
+    return $('<li class="carousel-item"></li>').append($content);
   }
 }
 

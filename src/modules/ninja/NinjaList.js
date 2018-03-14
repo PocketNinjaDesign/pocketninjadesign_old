@@ -1,4 +1,3 @@
-import $ from '../../jqlite.extends';
 import Lists from '../../Lists';
 import Peekaboo from '../Peekaboo';
 import Ninja from './Ninja';
@@ -12,8 +11,8 @@ class NinjaList {
   }
 
   generateNinjas(total) {
-    for(let i = 0; i < total; i++) {
-      let ninja = new Ninja();
+    for (let i = 0; i < total; i += 1) {
+      const ninja = new Ninja();
 
       this.addNinjaToList(new Peekaboo({
         $element: ninja.getNinjaTemplate(),
@@ -28,7 +27,7 @@ class NinjaList {
   addNinjaToList(peekabooNinja, ninja) {
     this.ninjaList.set(peekabooNinja.getElementId, {
       peekaboo: peekabooNinja,
-      ninja: ninja,
+      ninja,
     });
     peekabooNinja.init();
   }

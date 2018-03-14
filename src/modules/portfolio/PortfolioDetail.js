@@ -12,14 +12,14 @@ const DEFAULT_OPTIONS = {
   externalLink: undefined,
 };
 
-export default new class PortfolioDetail {
+class PortfolioDetail {
   constructor() {
-    this.options;
-    this.carousel;
-    this.$portfolioDetail;
-    this.$portfolioDetailHeader;
-    this.$portfolioDetailContent;
-    this.$portfolioDetailMobileImages;
+    this.options = undefined;
+    this.carousel = undefined;
+    this.$portfolioDetail = undefined;
+    this.$portfolioDetailHeader = undefined;
+    this.$portfolioDetailContent = undefined;
+    this.$portfolioDetailMobileImages = undefined;
   }
 
   init(newOptions) {
@@ -49,8 +49,7 @@ export default new class PortfolioDetail {
     if (listLength === 1) {
       // 1 image: just display inside of container no carousel
       this.$portfolioDetailContent.append(this.getSingleImageTemplate());
-    }
-    else if (listLength > 1) {
+    } else if (listLength > 1) {
       // 1+ images: generate Carousel with images & images block for thin pages
       this.carousel = new Carousel({
         renderContainer: this.$portfolioDetailContent,
@@ -80,12 +79,11 @@ export default new class PortfolioDetail {
 
   getExternalLink() {
     return (this.options.externalLink !== undefined) ?
-      `<a href="${this.options.externalLink.url}" class="detail-external-link" target="_blank">${this.options.externalLink.text || 'Visit site'}</a>` : ``;
+      `<a href="${this.options.externalLink.url}" class="detail-external-link" target="_blank">${this.options.externalLink.text || 'Visit site'}</a>` : '';
   }
 
   getPortfolioDetailTemplate(data) {
-    return $(
-      `<div id="portfolioDetail" class="portfolio-detail">
+    return $(`<div id="portfolioDetail" class="portfolio-detail">
         <header id="portfolioDetailHeader" class="portfolio-detail-header">
           <div class="detail-header-info">
             <h1 class="detail-title">${data.type}: <span>${data.title}</span></h1>
@@ -98,26 +96,22 @@ export default new class PortfolioDetail {
         <footer class="portfolio-detail-footer">
           ${SocialMediaLinks.getFullTemplate('portfolioDetailSocial')}
         </footer>
-      </div>`
-    );
+      </div>`);
   }
 
   getSingleImageTemplate() {
     const image = this.options.images[0];
 
     // Add small browser width image
-    this.$portfolioDetailMobileImages.append(
-      $(PortfolioDetailImage.getImageTemplate({
-        filePrefix: this.options.filePrefix.detail,
-        imageSrcData: image.src,
-        imgClassName: 'portfolio-image-mobile',
-      })
-    ));
+    this.$portfolioDetailMobileImages.append($(PortfolioDetailImage.getImageTemplate({
+      filePrefix: this.options.filePrefix.detail,
+      imageSrcData: image.src,
+      imgClassName: 'portfolio-image-mobile',
+    })));
 
     // Return large browser width image
-    return $(
-        `<div class="portfolio-image"></div>`
-      ).css({
+    return $('<div class="portfolio-image"></div>')
+      .css({
         'background-color': image.bgColor || 'transparent',
       })
       .append($(PortfolioDetailImage.getImageTemplate({
@@ -128,29 +122,27 @@ export default new class PortfolioDetail {
 
   getAllImageTemplate() {
     const imagesList = this.options.images;
-    let newImageList = [];
+    const newImageList = [];
 
-    for(let i = 0; i < imagesList.length; i++) {
-      let template = $(`<div class="portfolio-image"></div>`)
+    for (let i = 0; i < imagesList.length; i += 1) {
+      const template = $('<div class="portfolio-image"></div>')
         .css({ 'background-color': imagesList[i].bgColor || 'transparent' })
-        .append(
-          $(PortfolioDetailImage.getImageTemplate({
-            filePrefix: this.options.filePrefix.detail,
-            imageSrcData: imagesList[i].src,
-          }))
-        );
+        .append($(PortfolioDetailImage.getImageTemplate({
+          filePrefix: this.options.filePrefix.detail,
+          imageSrcData: imagesList[i].src,
+        })));
 
       newImageList.push(template);
 
-      this.$portfolioDetailMobileImages.append(
-        $(PortfolioDetailImage.getImageTemplate({
-          filePrefix: this.options.filePrefix.detail,
-          imageSrcData: imagesList[i].src,
-          imgClassName: 'portfolio-image-mobile',
-        }))
-      );
+      this.$portfolioDetailMobileImages.append($(PortfolioDetailImage.getImageTemplate({
+        filePrefix: this.options.filePrefix.detail,
+        imageSrcData: imagesList[i].src,
+        imgClassName: 'portfolio-image-mobile',
+      })));
     }
 
     this.carousel.AddCarouselItem(newImageList);
   }
-};
+}
+
+export default new PortfolioDetail();

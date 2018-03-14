@@ -8,7 +8,7 @@ import BreakPointService from '../services/BreakPoint.service';
 class SideNavigation {
   constructor() {
     this.state = false;
-    this.navOnClick;
+    this.navOnClick = undefined;
     this.overlay = new Overlay({
       zIndex: 190,
     });
@@ -18,13 +18,11 @@ class SideNavigation {
   }
 
   init(navOnClick = () => {}) {
-    const root = this;
-
     this.navOnClick = navOnClick;
     this.setSideLinks();
     this.setBurgerMenu();
-    this.overlay.setClick(function() {
-      root.burgerMenuClick();
+    this.overlay.setClick(() => {
+      this.burgerMenuClick();
     });
   }
 
@@ -37,8 +35,7 @@ class SideNavigation {
       SideNavigationAnim.hideActiveSideBar(() => {
         this.$sideNavigation.removeClass('active');
       });
-    }
-    else {
+    } else {
       // Activate burger menu and navigation
       this.$sideNavBurgerButton.addClass('active');
       this.$sideNavigation.addClass('active');
@@ -61,7 +58,7 @@ class SideNavigation {
   setResizeCheck() {
     const root = this;
 
-    $(window).on('resize', debounce(function() {
+    $(window).on('resize', debounce(() => {
       if (window.innerWidth > BreakPointService.bpMedium) {
         root.burgerMenuClick();
       }
@@ -69,19 +66,18 @@ class SideNavigation {
   }
 
   setSideLinks() {
-    const root = this;
-    let $allLi = this.$sideNavigationMenu.find('li');
+    const $allLi = this.$sideNavigationMenu.find('li');
 
-    this.$sideNavigationMenu.find('.side-link').on('click', function(e) {
+    this.$sideNavigationMenu.find('.side-link').on('click', (e) => {
       e.preventDefault();
 
-      const $this = $(this);
+      const $this = $(e.currentTarget);
       $allLi.removeClass('active');
       $this.parent().addClass('active');
 
-      root.navOnClick(parseInt($this.data('index')));
-      if (root.state) {
-        root.burgerMenuClick();
+      this.navOnClick(parseInt($this.data('index'), 10));
+      if (this.state) {
+        this.burgerMenuClick();
       }
     });
   }

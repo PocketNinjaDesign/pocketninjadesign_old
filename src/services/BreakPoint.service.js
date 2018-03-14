@@ -8,15 +8,12 @@ export default {
   getWidth() {
     if (window.innerWidth < 321) {
       return 'smallest';
-    }
-    else if (window.innerWidth < 701) {
+    } else if (window.innerWidth < 701) {
       return 'small';
-    }
-    else if (window.innerWidth < 1025) {
+    } else if (window.innerWidth < 1025) {
       return 'medium';
     }
-    else {
-      return 'large';
-    }
-  }
-}
+
+    return 'large';
+  },
+};

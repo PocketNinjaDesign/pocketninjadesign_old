@@ -1,7 +1,7 @@
 export default {
   isTypeOf(str, obj) {
-    //console.log(Object.prototype.toString.call(obj));
-    return '[object ' + str + ']' === Object.prototype.toString.call(obj);
+    // console.log(Object.prototype.toString.call(obj));
+    return `[object ${str}]` === Object.prototype.toString.call(obj);
   },
 
   isArray(obj) {
@@ -18,5 +18,5 @@ export default {
 
   isObject(obj) {
     return this.isTypeOf('Object', obj);
-  }
-}
+  },
+};

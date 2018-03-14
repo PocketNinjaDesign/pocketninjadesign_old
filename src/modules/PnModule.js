@@ -1,9 +1,6 @@
-import AnimationService from '../services/Animation.service';
+// Whatever shizzle I want to put in here, Bosh!!
 
 class PnModule {
-  constructor() {
-    this.AnimationService = AnimationService;
-  }
-};
+}
 
 export default PnModule;

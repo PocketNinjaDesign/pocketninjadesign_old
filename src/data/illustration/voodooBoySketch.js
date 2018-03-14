@@ -9,7 +9,7 @@ module.exports = {
         large: 'voodoo-boy-digital-large.jpg',
         medium: 'voodoo-boy-digital-medium.jpg',
         small: 'voodoo-boy-digital-small.jpg',
-      }
-    }]
-  }
-}
+      },
+    }],
+  },
+};

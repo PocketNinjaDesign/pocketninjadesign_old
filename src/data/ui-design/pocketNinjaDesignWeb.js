@@ -14,21 +14,21 @@ module.exports = {
         large: 'pocketninjadesign-adobe-xd-all-ui-large.png',
         medium: 'pocketninjadesign-adobe-xd-all-ui-medium.png',
         small: 'pocketninjadesign-adobe-xd-all-ui-small.png',
-      }
+      },
     }, {
       bgColor: '#e4e4e4',
       src: {
         large: 'pocketninjadesign-adobe-xd-desktop-large.png',
         medium: 'pocketninjadesign-adobe-xd-desktop-medium.png',
         small: 'pocketninjadesign-adobe-xd-desktop-small.png',
-      }
+      },
     }, {
       bgColor: '#e4e4e4',
       src: {
         large: 'pocketninjadesign-adobe-xd-mobile-large.png',
         medium: 'pocketninjadesign-adobe-xd-mobile-medium.png',
         small: 'pocketninjadesign-adobe-xd-mobile-small.png',
-      }
+      },
     }],
-  }
-}
+  },
+};

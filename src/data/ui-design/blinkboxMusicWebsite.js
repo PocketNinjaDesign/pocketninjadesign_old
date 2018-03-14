@@ -10,21 +10,22 @@ module.exports = {
         large: 'blinkbox-website-home-detail-large.jpg',
         medium: 'blinkbox-website-home-detail-medium.jpg',
         small: 'blinkbox-website-home-detail-small.jpg',
-      }
+      },
     }, {
       bgColor: '#1963a3',
       src: {
         large: 'blinkbox-website-favourites-detail-large.jpg',
         medium: 'blinkbox-website-favourites-detail-medium.jpg',
         small: 'blinkbox-website-favourites-detail-small.jpg',
-      }
+      },
     }, {
       bgColor: '#1963a3',
       src: {
         large: 'blinkbox-website-search-results-detail-large.jpg',
         medium: 'blinkbox-website-search-results-detail-medium.jpg',
         small: 'blinkbox-website-search-results-detail-small.jpg',
-      }
+      },
     }],
-  }
-}
+  },
+};
+

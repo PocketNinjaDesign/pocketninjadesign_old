@@ -1,19 +1,17 @@
-import $ from 'jqlite';
+import $ from '../jqlite.extends';
 
 import EnterButtonAnim from '../animations/EnterButton.anim';
 import LandingToPortfolioAnim from '../animations/LandingToPortfolio.anim';
-import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
 import NinjaList from '../modules/ninja/NinjaList';
 import Peekaboo from '../modules/Peekaboo';
 import Portfolio from '../pages/Portfolio';
 import Tree from '../modules/Tree';
 
-export default new class PageHolding {
+class PageHolding {
   constructor() {
-
     // Primary Popup character
-    this.mainNinja;
-    this.ninjas;
+    this.mainNinja = undefined;
+    this.ninjas = undefined;
     this.tree = new Tree();
     this.ninjas = new NinjaList();
   }
@@ -25,18 +23,17 @@ export default new class PageHolding {
     this.mainNinja = new Peekaboo({
       $element: $('#ninja'),
       targets: [{
-          element: 'body'
-        }, {
-          element: '#branch',
-          sides: ['bottom'],
-          popOutCallback: () => {
-            this.tree.animateTo();
-          },
-          popBackCallback: () => {
-            this.tree.animateFrom();
-          },
-        }
-      ],
+        element: 'body',
+      }, {
+        element: '#branch',
+        sides: ['bottom'],
+        popOutCallback: () => {
+          this.tree.animateTo();
+        },
+        popBackCallback: () => {
+          this.tree.animateFrom();
+        },
+      }],
       animationHideSpeed: 0.2,
       animationShowSpeed: 0.2,
       fixedTimes: false,
@@ -47,7 +44,7 @@ export default new class PageHolding {
     // Generate a load of random ninjas
     // For now it is the list only, I'll figure out
     // what I want from a ninja class later.
-    //this.ninjas.generateNinjas(3);
+    // this.ninjas.generateNinjas(3);
 
     // Start Enter Button Animation
     EnterButtonAnim.start('#holdingEnterButton');
@@ -68,3 +65,5 @@ export default new class PageHolding {
     });
   }
 }
+
+export default new PageHolding();

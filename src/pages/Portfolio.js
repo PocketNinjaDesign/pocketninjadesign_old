@@ -1,4 +1,4 @@
-import $ from 'jqlite';
+import $ from '../jqlite.extends';
 import { data as PortfolioData, galleryMap } from '../data/portfolio.data';
 
 import GalleryInAnimation from '../animations/GalleryIn.anim';
@@ -8,30 +8,23 @@ import LoaderAnim from '../modules/loaderAnims/LoaderAnim';
 import PortfolioList from '../modules/portfolio/PortfolioList';
 import SideNavigation from '../modules/SideNavigation';
 
-// For testing
-window.$ = $;
-
-// console.log(galleryMap);
-
-export default new class PagePortfolio {
+class PagePortfolio {
   constructor() {
     this.$contentArea = $('#contentArea');
-    this.loader;
-    this.loadOnInit;
-    this.portfolioList;
+    this.loader = undefined;
+    this.loadOnInit = undefined;
+    this.portfolioList = undefined;
     this.pushHistoryActive = true;
-    this.selectedOption;
+    this.selectedOption = undefined;
   }
 
   init(loadOnInit = true, selectedOption = 0) {
-    const root = this;
-
     this.loader = new LoaderAnim();
     this.loadOnInit = loadOnInit;
     this.selectedOption = selectedOption;
 
-    SideNavigation.init(function(newSelected) {
-      root.setSelectedOption(newSelected);
+    SideNavigation.init((newSelected) => {
+      this.setSelectedOption(newSelected);
     });
 
     if (this.loadOnInit) {
@@ -43,8 +36,7 @@ export default new class PagePortfolio {
         GalleryInAnimation.start();
         this.setPortfolioList();
       });
-    }
-    else {
+    } else {
       // Gallery is a landing page and content
       // already exists so start animation
       GalleryInAnimation.start();
@@ -52,14 +44,12 @@ export default new class PagePortfolio {
     }
     this.setBrowserHistory();
 
-    window.onpopstate = function(e) {
-      root.pushHistoryActive = false;
-      root.setSelectedOption(e.state.menuState);
+    window.onpopstate = (e) => {
+      this.pushHistoryActive = false;
+      this.setSelectedOption(e.state.menuState);
       SideNavigation.setSideLinkStyles(e.state.menuState);
     };
   }
-
-
 
   //
   // Setters
@@ -85,7 +75,7 @@ export default new class PagePortfolio {
     HistoryService.pushHistory({
       name: this.getPageUrl(),
       menuState: this.selectedOption,
-    }, "Page", this.getPageUrl());
+    }, 'Page', this.getPageUrl());
   }
 
   setPortfolioList() {
@@ -93,7 +83,7 @@ export default new class PagePortfolio {
     this.portfolioList = new PortfolioList({
       category: this.getCategory(),
       galleryList: this.getGalleryList(),
-      filePrefix: this.getFilePrefix()
+      filePrefix: this.getFilePrefix(),
     });
     this.portfolioList.init();
   }
@@ -104,7 +94,7 @@ export default new class PagePortfolio {
   //
 
   getPageData() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       LoadDataService.loadElement(this.getPageUrl(), '#contentArea').then(($element) => {
         this.loader
           .remove()
@@ -139,3 +129,5 @@ export default new class PagePortfolio {
     return galleryMap.get(this.getCategory());
   }
 }
+
+export default new PagePortfolio();

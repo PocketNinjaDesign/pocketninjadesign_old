@@ -17,10 +17,10 @@ class PortfolioList {
     const root = this;
 
     $(this.options.target).find('.portfolio-list-item').each((index, element) => {
-      $(element).on('click', function() {
-        let $this = $(this);
-        let projectTitle = $this.attr('data-project-title');
-        let portfolioContent = root.options.galleryList.get(projectTitle);
+      $(element).on('click', (e) => {
+        const $this = $(e.currentTarget);
+        const projectTitle = $this.attr('data-project-title');
+        const portfolioContent = root.options.galleryList.get(projectTitle);
 
         PortfolioDetail.init({
           type: portfolioContent.type,

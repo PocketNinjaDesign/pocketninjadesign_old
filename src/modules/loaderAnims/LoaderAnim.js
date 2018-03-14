@@ -2,7 +2,7 @@ import LoaderBase from './LoaderBase';
 
 class LoaderAnim extends LoaderBase {
   getAnimTemplate() {
-    return `<div class="anim-default plinky"></div>`;
+    return '<div class="anim-default plinky"></div>';
   }
 }
 

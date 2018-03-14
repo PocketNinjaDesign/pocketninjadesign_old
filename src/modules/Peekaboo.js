@@ -1,5 +1,5 @@
+import { TimelineLite } from 'gsap';
 import $ from '../jqlite.extends';
-import {TweenMax, Power2, TimelineLite} from 'gsap';
 
 import Lists from '../Lists';
 import Numbers from '../Numbers';
@@ -12,8 +12,8 @@ const TARGET_OPTIONS = {
   inner: true,
   sides: ['top', 'right', 'bottom', 'left'],
   align: ['random', 'random', 'random', 'random'],
-  popOutCallback: function() {},
-  popBackCallback: function() {},
+  popOutCallback: () => {},
+  popBackCallback: () => {},
 };
 
 const DEFAULT_OPTIONS = {
@@ -50,15 +50,15 @@ class Peekaboo extends PnModule {
 
     this.setAlignments();
 
-    this.$peekaboo;
-    this.activeTimer;
+    this.$peekaboo = undefined;
+    this.activeTimer = undefined;
     this.id = counter;
 
     // Other properties
-    this.currentTarget; // Object from chosen array position from this.opt.target[]
-    this.activeSideNumber; // array position of this.opt.target.sides[]
-    this.activeSide; // chosen side from this.opt.target.sides
-    this.$target;
+    this.currentTarget = undefined; // Object from chosen array position from this.opt.target[]
+    this.activeSideNumber = undefined; // array position of this.opt.target.sides[]
+    this.activeSide = undefined; // chosen side from this.opt.target.sides
+    this.$target = undefined;
 
     counter += 1;
   }
@@ -70,11 +70,11 @@ class Peekaboo extends PnModule {
   }
 
   checkToScale() {
-    if(this.opt.emScale) {
+    if (this.opt.emScale) {
       this.opt.$element.setSizeFromHidden();
 
       if (this.opt.imageOnly) {
-        this.opt.$element.find('img').css("width", "100%");
+        this.opt.$element.find('img').css('width', '100%');
       }
     }
   }
@@ -96,8 +96,8 @@ class Peekaboo extends PnModule {
       this.setNewPosition();
 
       // Animate
-      let t1 = new TimelineLite();
-      let angle = SIDE_PLACEMENT.get(this.activeSide).angle;
+      const t1 = new TimelineLite();
+      const { angle } = SIDE_PLACEMENT.get(this.activeSide);
 
       this.$peekaboo.css('transform', `rotate(${angle}deg)`);
 
@@ -109,7 +109,7 @@ class Peekaboo extends PnModule {
           y: 0,
           onComplete: () => {
             this.waitPeekaboo();
-          }
+          },
         });
     }, this.getPauseTime());
   }
@@ -118,18 +118,17 @@ class Peekaboo extends PnModule {
     // Peekaboo is now showing, so wait for
     // the active time and then hide
     this.activeTime = setTimeout(() => {
-      let t1 = new TimelineLite();
+      const t1 = new TimelineLite();
 
       this.currentTarget.popBackCallback();
 
-      t1.
-        to(this.opt.$element, this.opt.animationHideSpeed, {
-          y: 100,
-          onComplete: () => {
-            this.$peekaboo.hide();
-            this.startPeekaboo();
-          }
-        });
+      t1.to(this.opt.$element, this.opt.animationHideSpeed, {
+        y: 100,
+        onComplete: () => {
+          this.$peekaboo.hide();
+          this.startPeekaboo();
+        },
+      });
     }, this.getActiveTime());
   }
 
@@ -150,18 +149,16 @@ class Peekaboo extends PnModule {
   //
 
   setNewPosition() {
-    let newPos = {};
-    let direction = SIDE_PLACEMENT.get(this.activeSide).direction;
-    let side = SIDE_PLACEMENT.get(this.activeSide).side;
-    let alignment = this.getCurrentAlignment();
+    const newPos = {};
+    const { direction } = SIDE_PLACEMENT.get(this.activeSide);
+    const { side } = SIDE_PLACEMENT.get(this.activeSide);
+    const alignment = this.getCurrentAlignment();
 
     if (alignment === 'random') {
       newPos[direction] = `${this.getRandomPosition(side)}px`;
-    }
-    else if (alignment === 'center') {
+    } else if (alignment === 'center') {
       newPos[direction] = `${this.getCenterPosition(side)}px`;
-    }
-    else {
+    } else {
       newPos[direction] = `${alignment}px`;
     }
 
@@ -172,15 +169,14 @@ class Peekaboo extends PnModule {
   setAlignments() {
     // If a string or number, generate an array of that value
     // to the length of the sides array
-    for(let i = 0; i < this.opt.targets.length; i++) {
-      let align = this.opt.targets[i].align;
+    for (let i = 0; i < this.opt.targets.length; i += 1) {
+      const { align } = this.opt.targets[i];
 
-      if ( Objects.isString(align) || Objects.isNumber(align) ) {
+      if (Objects.isString(align) || Objects.isNumber(align)) {
         this.opt.targets[i].align = Array(this.opt.targets[i].sides.length).fill(align);
       }
     }
   }
-
 
 
   //
@@ -214,19 +210,21 @@ class Peekaboo extends PnModule {
   }
 
   getCenterPosition(side) {
-    return (side === 'height')?
-      (this.$target.innerHeight() / 2) - this.$peekaboo.innerHeight() / 2 :
-      (this.$target.innerWidth() / 2) - this.$peekaboo.innerWidth() / 2;
+    if (side === 'height') {
+      return (this.$target.innerHeight() / 2) - (this.$peekaboo.innerHeight() / 2);
+    }
+
+    return (this.$target.innerWidth() / 2) - (this.$peekaboo.innerWidth() / 2);
   }
 
   getRandomPosition(side) {
-    return (side === 'height')?
-      Numbers.rndmFlrInt(
-        Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight())
-      ) :
-      Numbers.rndmFlrInt(
-        Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth())
-      );
+    if (side === 'height') {
+      const mathMax = Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight());
+      return Numbers.rndmFlrInt(mathMax);
+    }
+
+    const mathMax = Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth());
+    return Numbers.rndmFlrInt(mathMax);
   }
 
   getCurrentAlignment() {
@@ -252,11 +250,10 @@ class Peekaboo extends PnModule {
    * @param {$()} - jQuery object with $content added
    */
   getTemplate($content) {
-    let $template = $(
-      `<div id="peekaboo-${this.id}" class="peekaboo">
-        <div class="peekaboo-inner"></div>
-      </div>`
-    );
+    const $template = $(`<div id="peekaboo-${this.id}" class="peekaboo">
+      <div class="peekaboo-inner"></div>
+    </div>`);
+
     $content.appendTo($template.find('.peekaboo-inner'));
 
     return $template;

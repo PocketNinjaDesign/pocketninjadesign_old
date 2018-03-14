@@ -1,15 +1,15 @@
-import $ from '../jqlite.extends.js';
-import {TweenMax, Power2, TimelineLite, TimelineMax} from 'gsap';
+import { Power2, TimelineMax, Elastic } from 'gsap';
+import $ from '../jqlite.extends';
 
-export default new class EnterButtonAnimation {
+class EnterButtonAnimation {
   constructor() {
-    this.$bttn;
-    this.$tl;
-    this.$tr;
-    this.$bl;
-    this.$br;
+    this.$bttn = undefined;
+    this.$tl = undefined;
+    this.$tr = undefined;
+    this.$bl = undefined;
+    this.$br = undefined;
 
-    this.TLmainAnimation;
+    this.TLmainAnimation = undefined;
   }
 
   start(id) {
@@ -22,63 +22,47 @@ export default new class EnterButtonAnimation {
 
     const animDuration = 1;
 
-    // this.TLmainAnimation = new TimelineLite();
-    // this.TLmainAnimation
-    //   // .fromTo(this.$bttn, animDuration, { rotation: 0 }, { rotation: 360, ease: Power2.easeOut })
-    //   .to(this.$bttn, animDuration/2, { scale: 2, ease: Power2.easeOut }, 0)
-    //   .to(this.$bttn, animDuration/2, { scale: 1, ease: Power2.easeIn }, animDuration/2)
-
-    //   .to(this.$tl, animDuration/2, { x: -10, y: -10, ease: Power2.easeOut }, 0)
-    //   .to(this.$tl, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-
-    //   .to(this.$tr, animDuration/2, { x: 10, y: -10, ease: Power2.easeOut }, 0)
-    //   .to(this.$tr, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-
-    //   .to(this.$bl, animDuration/2, { x: -10, y: 10, ease: Power2.easeOut }, 0)
-    //   .to(this.$bl, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-
-    //   .to(this.$br, animDuration/2, { x: 10, y: 10, ease: Power2.easeOut }, 0)
-    //   .to(this.$br, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-
-    //   .to(this.$text, animDuration/2, { opacity: 1 }, 0)
-    //   .to(this.$text, animDuration/2, { opacity: 0 }, animDuration/2)
-    
-    // let tm1 = new TimelineMax({ repeat: -1 });
-    // tm1.add(this.TLmainAnimation);
-
     this.$bttn.on('mouseenter', () => {
       // tm1.stop();
       // this.TLLeave.stop();
       this.TLEnter = new TimelineMax();
       this.TLEnter
-        // .fromTo(this.$bttn, animDuration, { rotation: 0 }, { rotation: 360, ease: Power2.easeOut })
-        .to(this.$bttn, animDuration/2, { scale: 2, ease: Elastic.easeOut.config(1, 0.3) }, 0)
-        .to(this.$tl, animDuration/2, { x: -10, y: -10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
-        .to(this.$tr, animDuration/2, { x: 10, y: -10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
-        .to(this.$bl, animDuration/2, { x: -10, y: 10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
-        .to(this.$br, animDuration/2, { x: 10, y: 10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
-        .to(this.$text, animDuration/2, { opacity: 1 }, 0)
+        // .fromTo(this.$bttn, animDuration,
+        // { rotation: 0 }, { rotation: 360, ease: Power2.easeOut })
+        .to(this.$bttn, animDuration / 2, { scale: 2, ease: Elastic.easeOut.config(1, 0.3) }, 0)
+        .to(this.$tl, animDuration / 2, { x: -10, y: -10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
+        .to(this.$tr, animDuration / 2, { x: 10, y: -10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
+        .to(this.$bl, animDuration / 2, { x: -10, y: 10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
+        .to(this.$br, animDuration / 2, { x: 10, y: 10, ease: Elastic.easeOut.config(1, 0.3) }, 0)
+        .to(this.$text, animDuration / 2, { opacity: 1 }, 0);
     });
 
     this.$bttn.on('mouseleave', () => {
       // this.TLEnter.stop();
       this.TLLeave = new TimelineMax();
       this.TLLeave
-        // .fromTo(this.$bttn, animDuration, { rotation: 0 }, { rotation: 360, ease: Power2.easeOut })
-        .to(this.$bttn, animDuration/2, { scale: 1, ease: Power2.easeIn }, animDuration/2)
-        .to(this.$tl, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-        .to(this.$tr, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-        .to(this.$bl, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-        .to(this.$br, animDuration/2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration/2)
-        .to(this.$text, animDuration/2, { opacity: 0 }, animDuration/2);
+        // .fromTo(this.$bttn, animDuration,
+        // { rotation: 0 }, { rotation: 360, ease: Power2.easeOut })
+        .to(this.$bttn, animDuration / 2, { scale: 1, ease: Power2.easeIn }, animDuration / 2)
+        .to(this.$tl, animDuration / 2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration / 2)
+        .to(this.$tr, animDuration / 2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration / 2)
+        .to(this.$bl, animDuration / 2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration / 2)
+        .to(this.$br, animDuration / 2, { x: 0, y: 0, ease: Power2.easeIn }, animDuration / 2)
+        .to(this.$text, animDuration / 2, { opacity: 0 }, animDuration / 2);
     });
 
     this.$bttn.on('click', () => {
       this.TLAnimOut = new TimelineMax();
       this.TLAnimOut
-        .to(this.$bttn, 0.3, { scale: 0, onComplete: () => {
-          this.$bttn.hide();
-        } });
+        .to(this.$bttn, 0.3, {
+          scale: 0,
+          onComplete: () => {
+            this.$bttn.hide();
+          },
+        });
     });
   }
 }
+
+
+export default new EnterButtonAnimation();

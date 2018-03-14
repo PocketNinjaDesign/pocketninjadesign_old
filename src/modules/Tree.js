@@ -1,5 +1,5 @@
-import $ from '../jqlite.extends.js';
-import {TweenMax, Power2, TimelineLite} from 'gsap';
+import { TimelineLite, Elastic } from 'gsap';
+import $ from '../jqlite.extends';
 
 class Tree {
   constructor() {
@@ -17,7 +17,7 @@ class Tree {
   }
 
   animateTo() {
-    let t1 = new TimelineLite({ delay: 0.2 });
+    const t1 = new TimelineLite({ delay: 0.2 });
 
     // console.log('animateTo');
 
@@ -39,7 +39,7 @@ class Tree {
   }
 
   animateFrom() {
-    let t1 = new TimelineLite();
+    const t1 = new TimelineLite();
 
     // console.log('animateFrom');
 

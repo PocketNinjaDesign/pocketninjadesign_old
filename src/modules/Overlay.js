@@ -1,5 +1,5 @@
-import $ from '../jqlite.extends';
 import { TweenMax } from 'gsap';
+import $ from '../jqlite.extends';
 
 let counter = 1;
 
@@ -11,7 +11,6 @@ const ACTIVE_CLASSNAME_ANIMATION_MODE = 'active-in-animate-mode';
 
 // If click enabled apply styles
 const CLICK_ENABLED_CLASSNAME = 'click-enabled';
-
 
 
 const DEFAULT_OPTIONS = {
@@ -27,21 +26,20 @@ const DEFAULT_OPTIONS = {
 };
 
 
-
 class Overlay {
   constructor(options) {
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
-    this.$overlay = this.getTemplate();
+    this.$overlay = $(this.getTemplate());
 
     if (this.options.zIndex !== undefined) {
       this.$overlay.css('z-index', this.options.zIndex);
     }
 
-    this.scrollTop;
+    this.scrollTop = undefined;
     this.active = false;
-    counter++;
+    counter += 1;
 
-    if(this.hasClick()) {
+    if (this.hasClick()) {
       this.setClick(this.options.onClick, this.options.isToggle);
     }
     this.$overlay.appendTo(this.options.container);
@@ -49,8 +47,8 @@ class Overlay {
 
   /**
    * setClick
-   * 
-   * @param {function} fn 
+   *
+   * @param {function} fn
    * @param {Boolean} isToggle
    */
   setClick(fn = () => {}, isToggle = false) {
@@ -58,7 +56,7 @@ class Overlay {
       .addClass(CLICK_ENABLED_CLASSNAME)
       .on('click', () => {
         fn();
-        if(isToggle) {
+        if (isToggle) {
           this.toggle();
         }
       });
@@ -69,7 +67,7 @@ class Overlay {
   }
 
   clearClick() {
-    if(this.hasClick()) {
+    if (this.hasClick()) {
       this.options.onClick = undefined;
     }
   }
@@ -77,23 +75,20 @@ class Overlay {
   toggle() {
     this.$overlay.toggleClass(ACTIVE_CLASSNAME);
     this.active = !this.active;
-    
-    if(this.active) {
+
+    if (this.active) {
       this.addFullBodyMode();
-    }
-    else {
+    } else {
       this.removeFullBodyMode();
     }
   }
 
   show() {
-    return new Promise((resolve, reject) => {
-
+    return new Promise((resolve) => {
       if (this.options.animate) {
-
         TweenMax.to(this.$overlay, this.options.animationDurationIn, {
           opacity: 1,
-          onStart: () => { 
+          onStart: () => {
             // Show the overlay
             this.active = true;
             this.$overlay.addClass(ACTIVE_CLASSNAME_ANIMATION_MODE);
@@ -101,32 +96,30 @@ class Overlay {
           },
           onComplete: () => {
             resolve('Overlay animated in.');
-          }
+          },
         });
-
-      }
-      else {
-
+      } else {
         this.active = true;
         this.$overlay.addClass(ACTIVE_CLASSNAME);
         this.addFullBodyMode();
         resolve('Overlay appeared without animation.');
-
       }
     });
   }
 
   hide() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (this.options.animate) {
-        TweenMax.to(this.$overlay, this.options.animationDurationOut, { opacity: 0, onComplete: () => {
-          this.active = false;
-          this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
-          this.removeFullBodyMode();
-          resolve();
-        }});
-      }
-      else {
+        TweenMax.to(this.$overlay, this.options.animationDurationOut, {
+          opacity: 0,
+          onComplete: () => {
+            this.active = false;
+            this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
+            this.removeFullBodyMode();
+            resolve();
+          },
+        });
+      } else {
         this.active = false;
         this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
         this.removeFullBodyMode();
@@ -152,16 +145,18 @@ class Overlay {
   }
 
   remove() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.clearClick();
 
       if (this.options.animate) {
-        TweenMax.to(this.$overlay, this.options.animationDurationOut, { opacity: 0, onComplete: () => {
-          this.removeActionComplete();
-          resolve();
-        }});
-      }
-      else {
+        TweenMax.to(this.$overlay, this.options.animationDurationOut, {
+          opacity: 0,
+          onComplete: () => {
+            this.removeActionComplete();
+            resolve();
+          },
+        });
+      } else {
         this.removeActionComplete();
         resolve();
       }
@@ -174,9 +169,7 @@ class Overlay {
   }
 
   getTemplate() {
-    return $(
-      `<div id="overlay-${counter}" class="overlay ${this.options.addedClass}"></div>`
-    );
+    return `<div id="overlay-${counter}" class="overlay ${this.options.addedClass}"></div>`;
   }
 }
 
