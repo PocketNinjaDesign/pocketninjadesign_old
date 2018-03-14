@@ -22,9 +22,9 @@ class GalleryInAnimation {
         opacity: 1,
       })
 
-      .staggerFromTo('.portfolio-list-item', 0.2, {
+      .staggerFromTo('.portfolio-list-item', 0.7, {
         opacity: 0,
-        rotation: -360,
+        rotation: -180,
         scale: 0,
         y: 200,
       }, {
@@ -32,7 +32,7 @@ class GalleryInAnimation {
         rotation: 0,
         scale: 1,
         y: 0,
-        ease: Elastic.easeOut.config(1, 0.9),
+        ease: Elastic.easeOut.config(0.5, 0.4),
       }, 0.05)
 
       .fromTo('.portfolio-section-title', 0.4, {
