@@ -53,7 +53,7 @@ describe('Lists method objectAssign', () => {
   });
 
 
-  it('expects object to override each object with existing "test" key in a list', () => {
+  it('expects object to be overriden by each object with existing "test" key in a list', () => {
     const obj = { test: 'hello world' };
     let list = [{
       egg: 100,
@@ -71,6 +71,6 @@ describe('Lists method objectAssign', () => {
 
     list = Lists.objectAssign(obj, list);
 
-    expect(Lists.getRandomListItem(list).test).toEqual('hello world');
+    expect(Lists.getRandomListItem(list).test).not.toBe('hello world');
   });
 });

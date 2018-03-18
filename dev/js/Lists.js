@@ -15,15 +15,16 @@ export default {
   /**
    * objectAssign
    *
-   * @description Iterates through an array of objects and merges with a singular object defaults
+   * @description Merges each list object instance with a default object
    * @param {Object} obj main object defaults to be merged with
    * @param {Array} list List of objects to override any obj defaults
    * @returns {Array} final list after merging
    */
   objectAssign(obj, _list) {
     const list = _list;
+
     for (let i = 0; i < list.length; i += 1) {
-      list[i] = Object.assign({}, list[i], obj);
+      list[i] = Object.assign({}, obj, list[i]);
     }
 
     return list;
