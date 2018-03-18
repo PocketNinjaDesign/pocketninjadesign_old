@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./dev/js/index.js",
 
   devServer: {
     contentBase: path.join(__dirname, "build"),
@@ -40,7 +40,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('style.css'),
     new CopyWebpackPlugin([
-      { from:'styles/images', to:'images' },
+      { from:'dev/styles/images', to:'images' },
     ]),
   ]
 };

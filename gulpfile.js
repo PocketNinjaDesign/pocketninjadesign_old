@@ -2,12 +2,12 @@
 
 var gulp = require('gulp');
 var twig = require('gulp-twig');
-var siteData = require('./src/data/siteData');
+var siteData = require('./dev/js/data/siteData');
 
 gulp.task('watch', function() {
   gulp.watch([
     './templates/**/*.twig',
-    './src/data/siteData.js'
+    './dev/js/data/siteData.js'
   ], ['compile']);
 });
 
