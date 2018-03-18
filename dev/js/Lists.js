@@ -23,7 +23,7 @@ export default {
   objectAssign(obj, _list) {
     const list = _list;
     for (let i = 0; i < list.length; i += 1) {
-      list[i] = Object.assign({}, obj, list[i]);
+      list[i] = Object.assign({}, list[i], obj);
     }
 
     return list;
