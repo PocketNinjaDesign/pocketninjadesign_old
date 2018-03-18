@@ -1,3 +1,5 @@
+import $ from './jqlite.extends';
+
 export default {
 
   /**
@@ -13,18 +15,23 @@ export default {
   },
 
   /**
-   * objectAssign
+   * toObjectAssign
    *
-   * @description Merges each list object instance with a default object
+   * @description Merges each list object instance to override a default object
    * @param {Object} obj main object defaults to be merged with
    * @param {Array} list List of objects to override any obj defaults
+   * @param {Boolean} flip False by default. True for obj first in queue, False for list first
    * @returns {Array} final list after merging
    */
-  objectAssign(obj, _list) {
+  objectAssign(obj, _list, flip = false) {
     const list = _list;
 
     for (let i = 0; i < list.length; i += 1) {
-      list[i] = Object.assign({}, obj, list[i]);
+      if (flip) {
+        list[i] = $.extend({}, list[i], obj);
+      } else {
+        list[i] = $.extend({}, obj, list[i]);
+      }
     }
 
     return list;
