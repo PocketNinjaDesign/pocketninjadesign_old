@@ -1,27 +1,27 @@
-import navigation from './navigation';
+const navigation = require('./navigation');
 
 
 // UI Design
-import pocketNinjaDesignWeb from './ui-design/pocketNinjaDesignWeb';
-import blinkboxHackathon from './ui-design/blinkboxHackathon';
-import blinkboxMusicWebsite from './ui-design/blinkboxMusicWebsite';
-import blinkboxMusicInternational from './ui-design/blinkboxMusicInternational';
-import goFishingMagazine from './ui-design/goFishingMagazine';
-import carMagazine from './ui-design/carMagazine';
-import createAndCraftClub from './ui-design/createAndCraftClub';
+const pocketNinjaDesignWeb = require('./ui-design/pocketNinjaDesignWeb');
+const blinkboxHackathon = require('./ui-design/blinkboxHackathon');
+const blinkboxMusicWebsite = require('./ui-design/blinkboxMusicWebsite');
+const blinkboxMusicInternational = require('./ui-design/blinkboxMusicInternational');
+const goFishingMagazine = require('./ui-design/goFishingMagazine');
+const carMagazine = require('./ui-design/carMagazine');
+const createAndCraftClub = require('./ui-design/createAndCraftClub');
 
 
 // Graphics
-import ansaBranding from './graphics/ansaBranding';
-import goldcrestHealthcareLogo from './graphics/goldcrestHealthcareLogo';
-import idealworld3dtv from './graphics/idealworld3dtv';
+const ansaBranding = require('./graphics/ansaBranding');
+const goldcrestHealthcareLogo = require('./graphics/goldcrestHealthcareLogo');
+const idealworld3dtv = require('./graphics/idealworld3dtv');
 
 
 // Illustration
-import blueZombieSketches from './illustration/blueZombieSketches';
-import voodooBoySketch from './illustration/voodooBoySketch';
-import spacemanSketch from './illustration/spacemanSketch';
-import longLostTwinCharacters from './illustration/longLostTwinCharacters';
+const blueZombieSketches = require('./illustration/blueZombieSketches');
+const voodooBoySketch = require('./illustration/voodooBoySketch');
+const spacemanSketch = require('./illustration/spacemanSketch');
+const longLostTwinCharacters = require('./illustration/longLostTwinCharacters');
 
 
 module.exports = {

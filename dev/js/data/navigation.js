@@ -1,5 +1,5 @@
 
-export default [
+module.exports = [
   {
     page: 'ui-design.html',
     className: 'page-portfolio',

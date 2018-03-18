@@ -4,8 +4,8 @@
   "description": "My own personal website",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --config .eslintrc.js src/**/*.js",
+    "test": "jest",
+    "lint": "eslint --config .eslintrc.js dev/js/**/*.js",
     "build": "webpack --watch",
     "serve": "webpack-dev-server --open --inline --hot"
   },
@@ -15,7 +15,7 @@
   },
   "keywords": [
     "webpack",
-    "jQuery",
+    "jqlite",
     "babel",
     "Pocketninja",
     "es6",
@@ -39,6 +39,7 @@
     "eslint-plugin-import": "^2.9.0",
     "extract-text-webpack-plugin": "^3.0.1",
     "gulp": "^3.9.1",
+    "jest-cli": "^23.0.0-alpha.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "snapsvg": "^0.5.1",
