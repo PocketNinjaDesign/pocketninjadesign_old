@@ -1,4 +1,5 @@
-import $ from './jqlite.extends';
+// import $ from './jqlite.extends';
+import Objects from './Objects';
 
 export default {
 
@@ -28,9 +29,9 @@ export default {
 
     for (let i = 0; i < list.length; i += 1) {
       if (flip) {
-        list[i] = $.extend({}, list[i], obj);
+        list[i] = Objects.extend({}, list[i], obj);
       } else {
-        list[i] = $.extend({}, obj, list[i]);
+        list[i] = Objects.extend({}, obj, list[i]);
       }
     }
 

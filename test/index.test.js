@@ -1,4 +1,4 @@
-import $ from '../dev/js/jqlite.extends';
+// import $ from '../dev/js/jqlite.extends';
 import Lists from '../dev/js/Lists';
 
 
@@ -25,9 +25,7 @@ describe('Lists method getRandomListItem', () => {
 describe('Lists method objectAssign', () => {
   it('expects object to be assigned to each empty object in a list', () => {
     const obj = { 'test': 'hello world' };
-    let list = [{}, {}, {}, {}];
-
-    list = Lists.objectAssign(obj, list);
+    const list = Lists.objectAssign(obj, [{}, {}, {}, {}]);
 
     expect(Lists.getRandomListItem(list)).toEqual(obj);
   });

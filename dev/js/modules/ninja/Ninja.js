@@ -1,5 +1,6 @@
 import $ from 'jqlite';
 import Colors from '../../Colors';
+import Objects from '../../Objects';
 import Lists from '../../Lists';
 import NinjaTemplates from './NinjaTemplates';
 
@@ -35,7 +36,7 @@ DEFAULT_COLORS.set('grey', generateNinjaColor('#3b3b3b'));
 
 class Ninja {
   constructor(options) {
-    this.opts = Object.assign(DEFAULT_OPTIONS, options);
+    this.opts = Objects.extend(DEFAULT_OPTIONS, options);
     this.ninjaColorList = DEFAULT_COLORS;
 
     // If hexColor & colorName have values, add them to the colorList
