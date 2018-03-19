@@ -1,5 +1,4 @@
 import $ from '../jqlite.extends';
-// import $ from 'jQuery';
 
 const DEFAULT_OPTIONS = {
   $carousel: undefined,
