@@ -22,16 +22,39 @@ and off you go.
    * gulp-twig
 2. Webpack / Babel / ES6
    * axios
-3. jqlite
-4. Greensock
+3. Testing
+   * Eslint
+   * Jest
+4. jqlite
+5. Greensock
+
 
 ### Gulp
 
-Currently used for templating and pushing files to my xampp for testing with PHP
+Currently used for pulling the site data and generating the portfolio page templates. These landing pages then hook up with the Javascript and continue as a single page application.
 
 ### Webpack / Babel / ES6
 
 Used for generating all of the lovely code
+
+### Testing
+
+**ESlint**
+
+is used for code format checking
+
+```
+$ npm lint
+```
+
+**jest**
+
+Currently creating the tests using the amazingly simple Jest
+
+```
+$ npm test
+```
+
 
 ### jqlite
 
