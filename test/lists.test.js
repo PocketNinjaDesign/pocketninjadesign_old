@@ -1,9 +1,8 @@
-// import $ from '../dev/js/jqlite.extends';
 import Lists from '../dev/js/Lists';
 
 
-describe('Lists method getRandomListItem', () => {
-  it('returns value from single list item', () => {
+describe('Lists method: getRandomListItem', () => {
+  it('Should returns value from single list item', () => {
     const list = [{ a: 20 }];
     const result = Lists.getRandomListItem(list).a;
 
@@ -11,10 +10,8 @@ describe('Lists method getRandomListItem', () => {
   });
 
 
-  it('returns a random value', () => {
+  it('Should return a random value', () => {
     const list = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }, { a: 5 }];
-    const min = list[0].a;
-    const max = list[3].a;
     const result = Lists.getRandomListItem(list).a;
 
     expect(result).toBeGreaterThan(0);
@@ -22,8 +19,8 @@ describe('Lists method getRandomListItem', () => {
 });
 
 
-describe('Lists method objectAssign', () => {
-  it('expects object to be assigned to each empty object in a list', () => {
+describe('Lists method: objectAssign', () => {
+  it('Should merge object with each empty list object', () => {
     const obj = { 'test': 'hello world' };
     const list = Lists.objectAssign(obj, [{}, {}, {}, {}]);
 
@@ -31,7 +28,7 @@ describe('Lists method objectAssign', () => {
   });
 
 
-  it('expects object to be assigned to each full object in a list', () => {
+  it('Should merge object to each list object', () => {
     const obj = { 'test': 'hello world' };
     let list = [{
       egg: 100
@@ -49,7 +46,7 @@ describe('Lists method objectAssign', () => {
   });
 
 
-  it('expects object to be overriden by each object with existing "test" key in a list', () => {
+  it('Should merge object to each list object overwriting key "test"', () => {
     const obj = { test: 'hello world' };
     let list = [{
       egg: 100,
@@ -71,7 +68,7 @@ describe('Lists method objectAssign', () => {
   });
 
 
-  it('expects object to overwrite each list object with existing "test" key in a list', () => {
+  it('Expects object to overwrite each list object with existing key "test"', () => {
     const obj = { test: 'hello world' };
     let list = [{
       egg: 100,
@@ -93,7 +90,7 @@ describe('Lists method objectAssign', () => {
   });
 
 
-  it('overwrite each list object with existing "test" key in a list 2 levels in', () => {
+  it('Should overwrite each list object with existing "test" key in a list 2 levels in', () => {
     const obj = {
       ninja: {
         test: 'hello world',
@@ -127,7 +124,7 @@ describe('Lists method objectAssign', () => {
     expect(Lists.getRandomListItem(list).ninja.test).toBe('hello world');
   });
 
-  it('overwrite list objects with existing "ninja" unachanged value of key "pants" should be the same', () => {
+  it('Should overwrite list objects & value of key "pants" should be the same', () => {
     const obj = {
       ninja: {
         test: 'hello world',

@@ -37,6 +37,8 @@ export default {
         Object.keys(obj).forEach((key) => {
           if (this.isObject(obj[key])) {
             out[key] = this.extend(out[key], obj[key]);
+          } else if (this.isArray(obj[key])) {
+            out[key] = [...obj[key]];
           } else {
             out[key] = obj[key];
           }
