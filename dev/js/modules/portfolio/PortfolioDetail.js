@@ -1,4 +1,4 @@
-import $ from '../../jqlite.extends';
+// import $ from '../../jqlite.extends';
 
 import Carousel from '../Carousel';
 import SocialMediaLinks from '../../templates/socialMediaLinks';
@@ -32,13 +32,12 @@ class PortfolioDetail {
       type: this.options.type,
       title: this.options.title,
     });
-    this.$portfolioDetailHeader = this.$portfolioDetail
-      .find('#portfolioDetailHeader')
-      .append(BurgerMenu('portfolioDetailCloseButton', () => {
+    this.$portfolioDetailHeader = this.$portfolioDetail.querySelector('.portfolio-detail-header');
+    this.$portfolioDetailHeader.append(BurgerMenu('portfolioDetailCloseButton', () => {
         this.remove();
-      }, true, true));
-    this.$portfolioDetailContent = this.$portfolioDetail.find('#portfolioDetailContent');
-    this.$portfolioDetailMobileImages = this.$portfolioDetail.find('#portfolioDetailMobileImages');
+    }, true, true));
+    this.$portfolioDetailContent = this.$portfolioDetail.querySelector('.portfolio-detail-content');
+    this.$portfolioDetailMobileImages = this.$portfolioDetail.querySelector('.portfolio-detail-mobile-images');
 
     this.populate();
   }
@@ -56,25 +55,26 @@ class PortfolioDetail {
         fullRender: true,
       });
       this.carousel.init();
-      this.$portfolioDetailContent.append(this.getAllImageTemplate());
+      this.getAllImageTemplate();
+      // this.$portfolioDetailContent.append(this.getAllImageTemplate());
     }
   }
 
   show() {
-    this.$portfolioDetail.appendTo('body');
-    $('html').addClass('full-overlay-mode');
+    document.body.append(this.$portfolioDetail);
+    document.documentElement.classList.add('full-overlay-mode');
 
     // HACK,  waits for all content to render and then applies
     // the touch class to get your IOS device scrolling smoothly
     setTimeout(() => {
       // Try adding the tool device class when all is rendered
-      this.$portfolioDetail.addClass('tool-device-touch');
+      this.$portfolioDetail.classList.add('tool-device-touch');
     }, 500);
   }
 
   remove() {
     this.$portfolioDetail.remove();
-    $('html').removeClass('full-overlay-mode');
+    document.documentElement.classList.remove('full-overlay-mode');
   }
 
   getExternalLink() {
@@ -83,7 +83,8 @@ class PortfolioDetail {
   }
 
   getPortfolioDetailTemplate(data) {
-    return $(`<div id="portfolioDetail" class="portfolio-detail">
+    const element = document.createElement('div');
+    element.innerHTML = `<div id="portfolioDetail" class="portfolio-detail">
         <header id="portfolioDetailHeader" class="portfolio-detail-header">
           <div class="detail-header-info">
             <h1 class="detail-title">${data.type}: <span>${data.title}</span></h1>
@@ -96,28 +97,32 @@ class PortfolioDetail {
         <footer class="portfolio-detail-footer">
           ${SocialMediaLinks.getFullTemplate('portfolioDetailSocial')}
         </footer>
-      </div>`);
+      </div>`;
+
+    return element.firstChild;
   }
 
   getSingleImageTemplate() {
     const image = this.options.images[0];
 
     // Add small browser width image
-    this.$portfolioDetailMobileImages.append($(PortfolioDetailImage.getImageTemplate({
+    this.$portfolioDetailMobileImages.append(PortfolioDetailImage.getImageTemplate({
       filePrefix: this.options.filePrefix.detail,
       imageSrcData: image.src,
       imgClassName: 'portfolio-image-mobile',
-    })));
+    }));
 
     // Return large browser width image
-    return $('<div class="portfolio-image"></div>')
-      .css({
-        'background-color': image.bgColor || 'transparent',
-      })
-      .append($(PortfolioDetailImage.getImageTemplate({
-        filePrefix: this.options.filePrefix.detail,
-        imageSrcData: image.src,
-      })));
+    const profileImage = document.createElement('div');
+
+    profileImage.classList.add('portfolio-image');
+    profileImage.style.backgroundColor = image.bgColor || 'transparent';
+    profileImage.append(PortfolioDetailImage.getImageTemplate({
+      filePrefix: this.options.filePrefix.detail,
+      imageSrcData: image.src,
+    }));
+
+    return profileImage;
   }
 
   getAllImageTemplate() {
@@ -125,20 +130,28 @@ class PortfolioDetail {
     const newImageList = [];
 
     for (let i = 0; i < imagesList.length; i += 1) {
-      const template = $('<div class="portfolio-image"></div>')
-        .css({ 'background-color': imagesList[i].bgColor || 'transparent' })
-        .append($(PortfolioDetailImage.getImageTemplate({
-          filePrefix: this.options.filePrefix.detail,
-          imageSrcData: imagesList[i].src,
-        })));
+      const template = document.createElement('div');
+      template.classList.add('portfolio-image');
+      template.style.backgroundColor = imagesList[i].bgColor || 'transparent';
+      template.append(PortfolioDetailImage.getImageTemplate({
+        filePrefix: this.options.filePrefix.detail,
+        imageSrcData: imagesList[i].src,
+      }));
+
+      // const template = $('<div class="portfolio-image"></div>')
+      //   .css({ 'background-color': imagesList[i].bgColor || 'transparent' })
+      //   .append($(PortfolioDetailImage.getImageTemplate({
+      //     filePrefix: this.options.filePrefix.detail,
+      //     imageSrcData: imagesList[i].src,
+      //   })));
 
       newImageList.push(template);
 
-      this.$portfolioDetailMobileImages.append($(PortfolioDetailImage.getImageTemplate({
+      this.$portfolioDetailMobileImages.append(PortfolioDetailImage.getImageTemplate({
         filePrefix: this.options.filePrefix.detail,
         imageSrcData: imagesList[i].src,
         imgClassName: 'portfolio-image-mobile',
-      })));
+      }));
     }
 
     this.carousel.AddCarouselItem(newImageList);

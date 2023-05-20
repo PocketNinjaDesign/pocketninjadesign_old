@@ -1,12 +1,12 @@
 
-import $ from './jqlite.extends';
+// import $ from './jqlite.extends';
 import PageHolding from './pages/Holding';
 import PortfolioLanding from './pages/PortfolioLanding';
 
-require('../styles/primary.scss');
+// require('../styles/primary.scss');
 
-if ($('body').hasClass('page-holding')) {
+if ( document.body.classList.contains('page-holding') ) {
   PageHolding.init();
-} else if ($('body').hasClass('page-portfolio-landing')) {
+} else if ( document.body.classList.contains('page-portfolio-landing') ) {
   PortfolioLanding.init();
 }

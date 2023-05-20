@@ -1,5 +1,5 @@
 import { TimelineLite } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 import Lists from '../Lists';
 import Numbers from '../Numbers';
@@ -17,7 +17,7 @@ const TARGET_OPTIONS = {
 };
 
 const DEFAULT_OPTIONS = {
-  activeTime: [2000],
+  activeTime: [5000],
   animationHideSpeed: 0.7,
   animationShowSpeed: 0.7,
   $element: undefined,
@@ -37,6 +37,40 @@ const SIDE_PLACEMENT = new Map([
 ]);
 
 let counter = 1;
+
+
+
+function getSizeFromHidden (element) {
+  let sizes = {};
+  const $parent = element.parentElement;
+
+  const temp = document.createElement('div');
+  temp.innerHTML = '<div style="position: absolute; visibility: hidden;"></div>';
+
+  const $hiddenElement = temp.firstChild;
+  $hiddenElement.append(element);
+
+  document.body.append($hiddenElement);
+
+  sizes = {
+    width: element.offsetWidth,
+    height: element.offsetHeight,
+  };
+
+  $parent.append(element);
+  $hiddenElement.remove();
+
+  return sizes;
+}
+
+function setSizeFromHidden (element) {
+  const sizes = getSizeFromHidden(element);
+
+  element.style.height = `${sizes.height / 16}em`;
+  element.style.width = `${sizes.width / 16}em`;
+}
+
+
 
 class Peekaboo extends PnModule {
   constructor(options) {
@@ -71,20 +105,22 @@ class Peekaboo extends PnModule {
 
   checkToScale() {
     if (this.opt.emScale) {
-      this.opt.$element.setSizeFromHidden();
+      setSizeFromHidden(this.opt.$element);
 
       if (this.opt.imageOnly) {
-        this.opt.$element.find('img').css('width', '100%');
+        this.opt.$element.querySelector('img').style.width = '100%';
       }
     }
   }
 
   startPeekaboo() {
+    // get a random target item
     this.currentTarget = this.getTarget();
-    this.$target = $(this.currentTarget.element);
+    this.$target = this.currentTarget.element;
 
     this.activeTimer = setTimeout(() => {
-      this.$peekaboo.show();
+      this.$peekaboo.style.display = 'block';
+      // add peekaboo item to target
       this.$target.append(this.$peekaboo);
 
       // set which side to appear from
@@ -99,7 +135,9 @@ class Peekaboo extends PnModule {
       const t1 = new TimelineLite();
       const { angle } = SIDE_PLACEMENT.get(this.activeSide);
 
-      this.$peekaboo.css('transform', `rotate(${angle}deg)`);
+      this.$peekaboo.style.transform = `rotate(${angle}deg)`;
+
+      // console.log('this.$peekaboo: ', this.$peekaboo);
 
       this.currentTarget.popOutCallback();
 
@@ -125,7 +163,7 @@ class Peekaboo extends PnModule {
       t1.to(this.opt.$element, this.opt.animationHideSpeed, {
         y: 100,
         onComplete: () => {
-          this.$peekaboo.hide();
+          this.$peekaboo.style.display = "none";
           this.startPeekaboo();
         },
       });
@@ -133,12 +171,10 @@ class Peekaboo extends PnModule {
   }
 
   resetPositions() {
-    this.$peekaboo.css({
-      top: 'auto',
-      right: 'auto',
-      bottom: 'auto',
-      left: 'auto',
-    });
+    this.$peekaboo.style.top = 'auto';
+    this.$peekaboo.style.right = 'auto';
+    this.$peekaboo.style.bottom = 'auto';
+    this.$peekaboo.style.left = 'auto';
   }
 
 
@@ -155,15 +191,28 @@ class Peekaboo extends PnModule {
     const alignment = this.getCurrentAlignment();
 
     if (alignment === 'random') {
-      newPos[direction] = `${this.getRandomPosition(side)}px`;
+      console.log('random');
+      this.$peekaboo.style[direction] = `${this.getRandomPosition(side)}px`;
+      // newPos[direction] = `${this.getRandomPosition(side)}px`;
     } else if (alignment === 'center') {
-      newPos[direction] = `${this.getCenterPosition(side)}px`;
+      console.log('center');
+      this.$peekaboo.style[direction] = `${this.getCenterPosition(side)}px`;
+      // newPos[direction] = `${this.getCenterPosition(side)}px`;
     } else {
-      newPos[direction] = `${alignment}px`;
+      console.log('other');
+      this.$peekaboo.style[direction] = `${alignment}px`;
+      // newPos[direction] = `${alignment}px`;
     }
 
-    newPos[this.activeSide] = 0;
-    this.$peekaboo.css(newPos);
+    // TODO: fix this once the site works
+    // newPos[this.activeSide] = 0;
+    console.log(newPos, this.activeSide);
+
+    this.$peekaboo.style[this.activeSide] = 0;
+
+
+    // this.$peekaboo.style.left = newPos.left;
+    // this.$peekaboo.style.top = newPos.top;
   }
 
   setAlignments() {
@@ -211,19 +260,19 @@ class Peekaboo extends PnModule {
 
   getCenterPosition(side) {
     if (side === 'height') {
-      return (this.$target.innerHeight() / 2) - (this.$peekaboo.innerHeight() / 2);
+      return (this.$target.offsetHeight / 2) - (this.$peekaboo.offsetHeight / 2);
     }
 
-    return (this.$target.innerWidth() / 2) - (this.$peekaboo.innerWidth() / 2);
+    return (this.$target.offsetWidth / 2) - (this.$peekaboo.offsetWidth / 2);
   }
 
   getRandomPosition(side) {
     if (side === 'height') {
-      const mathMax = Math.max(0, this.$target.innerHeight() - this.$peekaboo.innerHeight());
+      const mathMax = Math.max(0, this.$target.offsetHeight - this.$peekaboo.offsetHeight);
       return Numbers.rndmFlrInt(mathMax);
     }
 
-    const mathMax = Math.max(0, this.$target.innerWidth() - this.$peekaboo.innerWidth());
+    const mathMax = Math.max(0, this.$target.offsetWidth - this.$peekaboo.offsetWidth);
     return Numbers.rndmFlrInt(mathMax);
   }
 
@@ -250,13 +299,15 @@ class Peekaboo extends PnModule {
    * @param {$()} - jQuery object with $content added
    */
   getTemplate($content) {
-    const $template = $(`<div id="peekaboo-${this.id}" class="peekaboo">
+    let element = document.createElement('div');
+    element.innerHTML = `<div id="peekaboo-${this.id}" class="peekaboo">
       <div class="peekaboo-inner"></div>
-    </div>`);
+    </div>`;
 
-    $content.appendTo($template.find('.peekaboo-inner'));
+    let peekabooInner = element.querySelector('.peekaboo-inner');
+    peekabooInner.appendChild($content);
 
-    return $template;
+    return element.firstChild;
   }
 }
 

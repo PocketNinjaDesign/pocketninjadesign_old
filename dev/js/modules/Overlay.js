@@ -1,5 +1,5 @@
 import { TweenMax } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 let counter = 1;
 
@@ -14,7 +14,7 @@ const CLICK_ENABLED_CLASSNAME = 'click-enabled';
 
 
 const DEFAULT_OPTIONS = {
-  container: 'body',
+  container: document.body,
   onClick: undefined,
   addedClass: '',
   isToggle: false,
@@ -29,10 +29,10 @@ const DEFAULT_OPTIONS = {
 class Overlay {
   constructor(options) {
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
-    this.$overlay = $(this.getTemplate());
+    this.$overlay = this.getTemplate();
 
     if (this.options.zIndex !== undefined) {
-      this.$overlay.css('z-index', this.options.zIndex);
+      this.$overlay.style.zIndex = this.options.zIndex;
     }
 
     this.scrollTop = undefined;
@@ -42,7 +42,7 @@ class Overlay {
     if (this.hasClick()) {
       this.setClick(this.options.onClick, this.options.isToggle);
     }
-    this.$overlay.appendTo(this.options.container);
+    this.options.container.append(this.$overlay);
   }
 
   /**
@@ -52,14 +52,13 @@ class Overlay {
    * @param {Boolean} isToggle
    */
   setClick(fn = () => {}, isToggle = false) {
-    this.$overlay
-      .addClass(CLICK_ENABLED_CLASSNAME)
-      .on('click', () => {
-        fn();
-        if (isToggle) {
-          this.toggle();
-        }
-      });
+    this.$overlay.classList.add(CLICK_ENABLED_CLASSNAME)
+    this.$overlay.addEventListener('click', () => {
+      fn();
+      if (isToggle) {
+        this.toggle();
+      }
+    });
   }
 
   hasClick() {
@@ -73,7 +72,7 @@ class Overlay {
   }
 
   toggle() {
-    this.$overlay.toggleClass(ACTIVE_CLASSNAME);
+    this.$overlay.classList.toggle(ACTIVE_CLASSNAME);
     this.active = !this.active;
 
     if (this.active) {
@@ -91,7 +90,7 @@ class Overlay {
           onStart: () => {
             // Show the overlay
             this.active = true;
-            this.$overlay.addClass(ACTIVE_CLASSNAME_ANIMATION_MODE);
+            this.$overlay.classList.add(ACTIVE_CLASSNAME_ANIMATION_MODE);
             this.addFullBodyMode();
           },
           onComplete: () => {
@@ -100,7 +99,7 @@ class Overlay {
         });
       } else {
         this.active = true;
-        this.$overlay.addClass(ACTIVE_CLASSNAME);
+        this.$overlay.classList.add(ACTIVE_CLASSNAME);
         this.addFullBodyMode();
         resolve('Overlay appeared without animation.');
       }
@@ -114,14 +113,14 @@ class Overlay {
           opacity: 0,
           onComplete: () => {
             this.active = false;
-            this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
+            this.$overlay.classList.remove(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
             this.removeFullBodyMode();
             resolve();
           },
         });
       } else {
         this.active = false;
-        this.$overlay.removeClass(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
+        this.$overlay.classList.remove(ACTIVE_CLASSNAME, ACTIVE_CLASSNAME_ANIMATION_MODE);
         this.removeFullBodyMode();
         resolve();
       }
@@ -130,17 +129,22 @@ class Overlay {
 
   addFullBodyMode() {
     if (this.options.fullBody) {
-      this.scrollTop = $(window).scrollTop();
-      $('.main').css('top', -this.scrollTop);
-      $('html').addClass('full-overlay-mode');
+      this.scrollTop = window.scrollY;
+      if ( document.querySelector('.main') !== null ) {
+        document.querySelector('.main').style.top = -this.scrollTop;
+      }
+
+      document.documentElement.classList.add('full-overlay-mode');
     }
   }
 
   removeFullBodyMode() {
     if (this.options.fullBody) {
-      $('html').removeClass('full-overlay-mode');
-      $('.main').removeAttr('style');
-      $(window).scrollTop(this.scrollTop);
+      document.documentElement.classList.remove('full-overlay-mode');
+      if ( document.querySelector('.main') !== null ) {
+        document.querySelector('.main').removeAttribute('style');
+      }
+      window.scroll(this.scrollTop, 0);
     }
   }
 
@@ -169,7 +173,9 @@ class Overlay {
   }
 
   getTemplate() {
-    return `<div id="overlay-${counter}" class="overlay ${this.options.addedClass}"></div>`;
+    const element = document.createElement('div');
+    element.innerHTML = `<div id="overlay-${counter}" class="overlay ${this.options.addedClass}"></div>`;
+    return element.firstChild;
   }
 }
 

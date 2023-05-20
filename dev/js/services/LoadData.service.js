@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 export default {
   load(url) {
@@ -18,6 +18,11 @@ export default {
    * @param {string} element :element to load from the page
    */
   loadElement(url, element) {
-    return this.load(url).then(response => $.fn.findFromAjax(response.data, element));
+    return this.load(url).then((response) => {
+      const temp = document.createElement('div');
+      temp.innerHTML = response.data;
+      return temp.querySelector(element);
+      // return $.fn.findFromAjax(response.data, element);
+    });
   },
 };

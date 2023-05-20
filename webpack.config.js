@@ -1,14 +1,15 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: "./dev/js/index.js",
 
   devServer: {
-    contentBase: path.join(__dirname, "build"),
+    static: {
+      directory: path.join(__dirname, "build")
+    },
     port: 9000,
-    publicPath: "/build/"
   },
 
   output: {
@@ -24,23 +25,25 @@ module.exports = {
         use: 'babel-loader',
         test: /\.js$/,
       },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "sass-loader"
-          }]
-        })
-      },
+      // {
+      //   test: /\.scss$/,
+      //   use: ExtractTextPlugin.extract({
+      //     use: [{
+      //       loader: "css-loader"
+      //     }, {
+      //       loader: "sass-loader"
+      //     }]
+      //   })
+      // },
     ]
   },
 
   plugins: [
-    new ExtractTextPlugin('style.css'),
-    new CopyWebpackPlugin([
-      { from:'dev/styles/images', to:'images' },
-    ]),
+    // new ExtractTextPlugin('style.css'),
+    new CopyPlugin({
+      patterns: [
+        { from:'dev/styles/images', to:'images' }
+      ]
+    })
   ]
 };

@@ -1,4 +1,4 @@
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 import { data as PortfolioData, galleryMap } from '../data/portfolio.data';
 
 import GalleryInAnimation from '../animations/GalleryIn.anim';
@@ -10,7 +10,7 @@ import SideNavigation from '../modules/SideNavigation';
 
 class PagePortfolio {
   constructor() {
-    this.$contentArea = $('#contentArea');
+    this.$contentArea = document.getElementById('contentArea');
     this.loader = undefined;
     this.loadOnInit = undefined;
     this.portfolioList = undefined;
@@ -28,7 +28,7 @@ class PagePortfolio {
     });
 
     if (this.loadOnInit) {
-      $('body').addClass(this.getPageClassName());
+      document.body.classList.add(this.getPageClassName());
 
       this.loader.init();
 
@@ -99,7 +99,8 @@ class PagePortfolio {
         this.loader
           .remove()
           .then(() => {
-            this.$contentArea.html($element.html());
+            this.$contentArea.innerHTML = $element.innerHTML;
+            // this.$contentArea.html($element.html());
             if (this.pushHistoryActive) {
               this.setBrowserHistory();
             }

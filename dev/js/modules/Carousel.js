@@ -1,4 +1,4 @@
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 const DEFAULT_OPTIONS = {
   $carousel: undefined,
@@ -25,10 +25,10 @@ class Carousel {
   init() {
     if (this.options.fullRender) {
       this.options.$carousel = this.getCarouselTemplate();
-      this.options.$carousel.appendTo(this.options.renderContainer);
+      this.options.renderContainer.append(this.options.$carousel);
     }
 
-    this.$slider = this.options.$carousel.find('[data-slider]');
+    this.$slider = this.options.$carousel.querySelector('[data-slider]');
 
     this.setCarouselItemStyles();
     this.setButtons();
@@ -37,41 +37,36 @@ class Carousel {
 
   moveSlider(num) {
     this.currentIndex += num;
-    this.$slider.css('left', `${-(100 * this.currentIndex)}%`);
+    this.$slider.style.left = `${-(100 * this.currentIndex)}%`;
   }
 
 
   setButtons() {
-    this.$leftButton = this.options.$carousel
-      .find('[data-carousel-left-bttn]')
-      .on('click', () => {
-        if (this.currentIndex > 0) {
-          this.moveSlider(-1);
-        }
-      });
+    this.$leftButton = this.options.$carousel.querySelector('[data-carousel-left-bttn]');
+    this.$leftButton.addEventListener('click', () => {
+      if (this.currentIndex > 0) {
+        this.moveSlider(-1);
+      }
+    });
 
-    this.$rightButton = this.options.$carousel
-      .find('[data-carousel-right-bttn]')
-      .on('click', () => {
-        if (this.currentIndex < this.itemCount - 1) {
-          this.moveSlider(1);
-        }
-      });
+    this.$rightButton = this.options.$carousel.querySelector('[data-carousel-right-bttn]')
+    this.$rightButton.addEventListener('click', () => {
+      if (this.currentIndex < this.itemCount - 1) {
+        this.moveSlider(1);
+      }
+    });
   }
 
 
   setCarouselItemStyles() {
-    this.itemCount = this.$slider.find('.carousel-item').length || 0;
+    this.itemCount = this.$slider.querySelectorAll('.carousel-item').length || 0;
     this.itemWidth = 100 / this.itemCount;
 
-    this.$slider
-      .css('width', `${100 * this.itemCount}%`)
-      .find('.carousel-item').each((index, el) => {
-        $(el).css({
-          width: `${this.itemWidth}%`,
-          left: `${this.itemWidth * index}%`,
-        });
-      });
+    this.$slider.style.width = `${100 * this.itemCount}%`;
+    [... this.$slider.querySelectorAll('.carousel-item')].forEach((el, index) => {
+      el.style.width = `${this.itemWidth}%`;
+      el.style.left = `${this.itemWidth * index}%`;
+    });
   }
 
 
@@ -86,29 +81,35 @@ class Carousel {
 
 
   getCarouselTemplate() {
-    return $(`<div class="carousel" data-carousel>
-        <div class="carousel-slider-container">
-          <ul class="carousel-slider" data-slider>
-          </ul>
+    const element = document.createElement('div');
+    element.innerHTML = `<div class="carousel" data-carousel>
+      <div class="carousel-slider-container">
+        <ul class="carousel-slider" data-slider>
+        </ul>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-btn left" data-carousel-left-bttn>
+          <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <path class="arrow" d="M82.3 22.9L63.4 4 35.8 31.6 16.9 50.5l18.9 18.9L63.4 97l18.9-18.9-27.6-27.6z"/>
+          </svg>
         </div>
-        <div class="carousel-nav">
-          <div class="carousel-btn left" data-carousel-left-bttn>
-            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-              <path class="arrow" d="M82.3 22.9L63.4 4 35.8 31.6 16.9 50.5l18.9 18.9L63.4 97l18.9-18.9-27.6-27.6z"/>
-            </svg>
-          </div>
-          <div class="carousel-btn right" data-carousel-right-bttn>
-            <svg class="arrow-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-              <path class="arrow" d="M82.3 22.9L63.4 4 35.8 31.6 16.9 50.5l18.9 18.9L63.4 97l18.9-18.9-27.6-27.6z"/>
-            </svg>
-          </div>
+        <div class="carousel-btn right" data-carousel-right-bttn>
+          <svg class="arrow-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <path class="arrow" d="M82.3 22.9L63.4 4 35.8 31.6 16.9 50.5l18.9 18.9L63.4 97l18.9-18.9-27.6-27.6z"/>
+          </svg>
         </div>
-      </div>`);
+      </div>
+    </div>`;
+
+    return element.firstChild;
   }
 
 
   getCarouselItemTemplate($content) {
-    return $('<li class="carousel-item"></li>').append($content);
+    const listElement = document.createElement('li');
+    listElement.classList.add('carousel-item');
+    listElement.append($content);
+    return listElement;
   }
 }
 

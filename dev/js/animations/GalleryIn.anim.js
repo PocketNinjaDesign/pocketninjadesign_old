@@ -1,17 +1,17 @@
 import { Power2, TimelineLite, Elastic } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 class GalleryInAnimation {
   constructor() {
-    this.$primaryLogo = $('#primaryLogo');
-    this.$sideNav = $('#sideNavigation');
+    this.$primaryLogo = document.getElementById('primaryLogo');
+    // this.$sideNav = document.getElementById('sideNavigation');
     // this.$block2 = $('.body-block-2');
   }
 
   start() {
     // Firstly do some resets of pieces
     // this.$block2.removeAttr('style');
-    this.$primaryLogo.removeAttr('style');
+    this.$primaryLogo.removeAttribute('style');
 
     const t1 = new TimelineLite();
 

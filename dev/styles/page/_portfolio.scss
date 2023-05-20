@@ -19,7 +19,9 @@
     font-size: 70%;
 
     @media (min-width: $bpSmall) {
-      @include position(absolute, 40px null null 100px);
+      position: absolute;
+      top: 40px;
+      left: 100px;
       z-index: 110;
       font-size: 50%;
     }
@@ -67,8 +69,6 @@
     }
 
     .portfolio-list {
-      @include clearfix();
-
       .portfolio-list-item {
         cursor: pointer;
         overflow: hidden;
@@ -85,6 +85,11 @@
           }
         }
       }
+    }
+    .portfolio-list:after {
+      clear: both;
+      content: "";
+      display: block;
     }
   }
 

@@ -1,19 +1,19 @@
 import { TimelineLite, Elastic } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 class Tree {
   constructor() {
-    this.$tree = $('#tree1');
-    this.branch1 = $('#branch-1');
-    this.branch2 = $('#branch-2');
-    this.branch3 = $('#branch-3');
-    this.branch4 = $('#branch-4');
-    this.branch5 = $('#branch-5');
-    this.branch1Shadow = $('#branch-1-shadow');
-    this.branch2Shadow = $('#branch-2-shadow');
-    this.branch3Shadow = $('#branch-3-shadow');
-    this.branch4Shadow = $('#branch-4-shadow');
-    this.branch5Shadow = $('#branch-5-shadow');
+    this.$tree = document.getElementById('tree1');
+    this.branch1 = document.getElementById('branch-1');
+    this.branch2 = document.getElementById('branch-2');
+    this.branch3 = document.getElementById('branch-3');
+    this.branch4 = document.getElementById('branch-4');
+    this.branch5 = document.getElementById('branch-5');
+    this.branch1Shadow = document.getElementById('branch-1-shadow');
+    this.branch2Shadow = document.getElementById('branch-2-shadow');
+    this.branch3Shadow = document.getElementById('branch-3-shadow');
+    this.branch4Shadow = document.getElementById('branch-4-shadow');
+    this.branch5Shadow = document.getElementById('branch-5-shadow');
   }
 
   animateTo() {

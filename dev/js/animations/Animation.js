@@ -15,36 +15,38 @@ class Animation {
   setAnimationPiece() {
     const t1 = new TimelineLite();
 
-    const $tl = this.$animation.find('.u-l');
-    const $tr = this.$animation.find('.u-r');
-    const $bl = this.$animation.find('.b-l');
-    const $br = this.$animation.find('.b-r');
+    const $tl = this.$animation.querySelector('.u-l');
+    const $tr = this.$animation.querySelector('.u-r');
+    const $bl = this.$animation.querySelector('.b-l');
+    const $br = this.$animation.querySelector('.b-r');
 
-    const width = $tl.innerWidth();
-    const height = $tl.innerHeight();
+    const width = $tl.offsetWidth;
+    const height = $tl.offsetHeight;
 
     return new Promise((resolve) => {
       t1
-        .fromTo($tl.find('div'), 0.4, { y: (height * 2), x: width }, {
+        .fromTo($tl.querySelector('.u-l-inner'), 0.4, { y: (height * 2), x: width }, {
           y: 0,
           x: 0,
           onComplete: () => {
             resolve();
           },
         })
-        .fromTo($tr.find('div'), 0.4, { y: (height * 2), x: -width }, { y: 0, x: 0 }, '-=0.3')
-        .fromTo($bl.find('div'), 0.4, { y: -height, x: width }, { y: 0, x: 0 }, '-=0.3')
-        .fromTo($br.find('div'), 0.4, { y: -height, x: -width }, { y: 0, x: 0 }, '-=0.3');
+        .fromTo($tr.querySelector('.u-r-inner'), 0.4, { y: (height * 2), x: -width }, { y: 0, x: 0 }, '-=0.3')
+        .fromTo($bl.querySelector('.b-l-inner'), 0.4, { y: -height, x: width }, { y: 0, x: 0 }, '-=0.3')
+        .fromTo($br.querySelector('.b-r-inner'), 0.4, { y: -height, x: -width }, { y: 0, x: 0 }, '-=0.3');
     });
   }
 
   getTemplate() {
-    return $(`<div class="full-animation-1 ${this.className}">
-      <div class="u-l"><div></div></div>
-      <div class="u-r"><div></div></div>
-      <div class="b-l"><div></div></div>
-      <div class="b-r"><div></div></div>
-    </div>`);
+    let element = document.createElement('div');
+    element.innerHTML = `<div class="full-animation-1 ${this.className}">
+      <div class="u-l"><div class="u-l-inner"></div></div>
+      <div class="u-r"><div class="u-r-inner"></div></div>
+      <div class="b-l"><div class="b-l-inner"></div></div>
+      <div class="b-r"><div class="b-r-inner"></div></div>
+    </div>`;
+    return element.firstChild;
   }
 }
 

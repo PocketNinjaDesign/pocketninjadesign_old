@@ -1,22 +1,21 @@
-import $ from 'jqlite';
+// import $ from '../jqlite.extends';
 import Portfolio from './Portfolio';
 
 class PagePortfolioLanding {
   constructor() {
-    this.$sideNavigation = $('#sideNavigation');
-    this.$tree = $('#tree');
+    this.$sideNavigation = document.getElementById('sideNavigation');
+    this.$tree = document.getElementById('tree');
   }
 
   init() {
     // Make a few tweaks to the page and
     // intialise the Portfolio
-    this.$sideNavigation
-      .removeAttr('style')
-      .addClass('bg-color-1');
+    this.$sideNavigation.removeAttribute('style');
+    this.$sideNavigation.classList.add('bg-color-1');
 
-    this.$tree.hide();
+    this.$tree.style.display = 'block';
 
-    Portfolio.init(false, parseInt(this.$sideNavigation.attr('data-portfolio-selected'), 10));
+    Portfolio.init(false, parseInt(this.$sideNavigation.dataset.portfolioSelected, 10));
   }
 }
 

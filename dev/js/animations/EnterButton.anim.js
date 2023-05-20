@@ -1,5 +1,5 @@
 import { Power2, TimelineMax, Elastic } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 class EnterButtonAnimation {
   constructor() {
@@ -13,16 +13,16 @@ class EnterButtonAnimation {
   }
 
   start(id) {
-    this.$bttn = $(id);
-    this.$tl = this.$bttn.find('.one');
-    this.$tr = this.$bttn.find('.two');
-    this.$bl = this.$bttn.find('.three');
-    this.$br = this.$bttn.find('.four');
-    this.$text = this.$bttn.find('.enter-button-message');
+    this.$bttn = document.getElementById(id);
+    this.$tl = this.$bttn.querySelector('.one');
+    this.$tr = this.$bttn.querySelector('.two');
+    this.$bl = this.$bttn.querySelector('.three');
+    this.$br = this.$bttn.querySelector('.four');
+    this.$text = this.$bttn.querySelector('.enter-button-message');
 
     const animDuration = 1;
 
-    this.$bttn.on('mouseenter', () => {
+    this.$bttn.addEventListener('mouseenter', () => {
       // tm1.stop();
       // this.TLLeave.stop();
       this.TLEnter = new TimelineMax();
@@ -37,7 +37,7 @@ class EnterButtonAnimation {
         .to(this.$text, animDuration / 2, { opacity: 1 }, 0);
     });
 
-    this.$bttn.on('mouseleave', () => {
+    this.$bttn.addEventListener('mouseleave', () => {
       // this.TLEnter.stop();
       this.TLLeave = new TimelineMax();
       this.TLLeave
@@ -51,13 +51,13 @@ class EnterButtonAnimation {
         .to(this.$text, animDuration / 2, { opacity: 0 }, animDuration / 2);
     });
 
-    this.$bttn.on('click', () => {
+    this.$bttn.addEventListener('click', () => {
       this.TLAnimOut = new TimelineMax();
       this.TLAnimOut
         .to(this.$bttn, 0.3, {
           scale: 0,
           onComplete: () => {
-            this.$bttn.hide();
+            this.$bttn.style.display = 'none';
           },
         });
     });

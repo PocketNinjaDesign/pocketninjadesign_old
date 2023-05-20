@@ -11,9 +11,9 @@ class SideNavigation {
     this.overlay = new Overlay({
       zIndex: 190,
     });
-    this.$sideNavigation = $('#sideNavigation');
-    this.$sideNavigationMenu = $('#sideNavigationMenu');
-    this.$sideNavBurgerButton = $('#sideNavBurgerButton');
+    this.$sideNavigation = document.getElementById('sideNavigation');
+    this.$sideNavigationMenu = document.getElementById('sideNavigationMenu');
+    this.$sideNavBurgerButton = document.getElementById('sideNavBurgerButton');
   }
 
   init(navOnClick = () => {}) {
@@ -28,17 +28,17 @@ class SideNavigation {
   burgerMenuClick() {
     if (this.state) {
       $(window).off('resize');
-      this.$sideNavBurgerButton.removeClass('active');
+      this.$sideNavBurgerButton.classList.remove('active');
       this.overlay.hide();
 
       SideNavigationAnim.hideActiveSideBar(() => {
-        this.$sideNavigation.removeClass('active');
+        this.$sideNavigation.classList.remove('active');
       });
     } else {
       // Activate burger menu and navigation
       SideNavigationAnim.showActiveSideBar(() => {
-        this.$sideNavBurgerButton.addClass('active');
-        this.$sideNavigation.addClass('active');
+        this.$sideNavBurgerButton.classList.add('active');
+        this.$sideNavigation.classList.add('active');
       });
       this.overlay.show();
 
@@ -50,7 +50,7 @@ class SideNavigation {
   }
 
   setBurgerMenu() {
-    this.$sideNavBurgerButton.on('click', () => {
+    this.$sideNavBurgerButton.addEventListener('click', () => {
       this.burgerMenuClick();
     });
   }
@@ -66,27 +66,42 @@ class SideNavigation {
   }
 
   setSideLinks() {
-    const $allLi = this.$sideNavigationMenu.find('li');
+    const $allLi = [... this.$sideNavigationMenu.querySelectorAll('li')];
+    const sideLinks = [... this.$sideNavigationMenu.querySelectorAll('.side-link')];
 
-    this.$sideNavigationMenu.find('.side-link').on('click', (e) => {
-      e.preventDefault();
+    sideLinks.forEach((sideLink) => {
+      sideLink.addEventListener('click', (e) => {
+        e.preventDefault();
 
-      const $this = $(e.currentTarget);
-      $allLi.removeClass('active');
-      $this.parent().addClass('active');
+        const $this = e.currentTarget;
 
-      this.navOnClick(parseInt($this.data('index'), 10));
-      if (this.state) {
-        this.burgerMenuClick();
-      }
+        // remove active class from all list items
+        $allLi.forEach((listItem) => {
+          listItem.classList.remove('active');
+        });
+
+        $this.parentElement.classList.add('active');
+
+        if ( "index" in $this.dataset ) {
+          this.navOnClick(parseInt($this.dataset.index, 10));
+        }
+
+        if (this.state) {
+          this.burgerMenuClick();
+        }
+      });
     });
   }
 
   setSideLinkStyles(index) {
-    this.$sideNavigationMenu.find('li')
-      .removeClass('active')
-      .eq(index)
-      .addClass('active');
+    const listItems = [... this.$sideNavigationMenu.querySelectorAll('li')];
+    listItems.forEach((item, itemIndex) => {
+      item.classList.remove('active');
+
+      if (itemIndex === index) {
+        item.classList.add('active');
+      }
+    });
   }
 }
 

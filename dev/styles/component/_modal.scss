@@ -10,7 +10,9 @@
   padding: 20px;
 
   .close-bttn {
-    @include position(absolute, -20px -20px null null);
+    position: absolute;
+    top: -20px;
+    right: -20px;
     z-index: 3;
     width: 40px;
     height: 40px;
@@ -23,9 +25,6 @@
 
   .modal-inner {
     position: relative;
-
-    .modal-content {
-    }
 
     .modal-content-footer {
       .btn {

@@ -1,6 +1,6 @@
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
-import EnterButtonAnim from '../animations/EnterButton.anim';
+import EnterButtonAnim from '../animations/EnterButton.anim.js';
 import LandingToPortfolioAnim from '../animations/LandingToPortfolio.anim';
 import NinjaList from '../modules/ninja/NinjaList';
 import Peekaboo from '../modules/Peekaboo';
@@ -21,11 +21,11 @@ class PageHolding {
     // appear in the body and the tree while adding
     // popout callbacks
     this.mainNinja = new Peekaboo({
-      $element: $('#ninja'),
+      $element: document.getElementById('ninja'),
       targets: [{
-        element: 'body',
+        element: document.body,
       }, {
-        element: '#branch',
+        element: document.getElementById('branch'),
         sides: ['bottom'],
         popOutCallback: () => {
           this.tree.animateTo();
@@ -47,22 +47,26 @@ class PageHolding {
     // this.ninjas.generateNinjas(3);
 
     // Start Enter Button Animation
-    EnterButtonAnim.start('#holdingEnterButton');
+    EnterButtonAnim.start('holdingEnterButton');
+
+    const holdingEnterButton = document.getElementById('holdingEnterButton');
 
     // Animation Testing button
-    $('#holdingEnterButton').on('click', () => {
-      $('#holdingEnterButton').off('click');
+    const holdingEnterButtonClick = () => {
+      holdingEnterButton.removeEventListener('click', holdingEnterButtonClick, true);
       LandingToPortfolioAnim
         .start()
         .then(() => {
           // Animation Finished
           // 1. Remove the Holding content
           // 2. Get Loading Portfolio
-          $('.under-contruction').remove();
-          $('body').removeClass('page-holding');
+          document.querySelector('.under-contruction').remove();
+          document.body.classList.remove('page-holding');
           Portfolio.init();
         });
-    });
+    }
+
+    document.getElementById('holdingEnterButton').addEventListener('click', holdingEnterButtonClick);
   }
 }
 

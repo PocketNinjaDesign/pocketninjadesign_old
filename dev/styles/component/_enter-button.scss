@@ -31,7 +31,9 @@
 
   .enter-button-message {
     @include size2;
-    @include position(absolute, 50% null null 50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     color: #fff;
     opacity: 0;

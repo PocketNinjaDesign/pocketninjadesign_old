@@ -1,5 +1,7 @@
 .navigation {
-  @include position(fixed, 0 null null 0);
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 2000;
   height: 100%;
   width: 0;
@@ -48,7 +50,9 @@
   }
 
   .nav-action {
-    @include position(fixed, 20px null null 20px);
+    position: fixed;
+    top: 20px;
+    left: 20px;
     z-index: 10;
     width: 50px;
     height: 50px;
@@ -84,7 +88,9 @@
   }
 
   .nav-wrapper {
-    @include position(relative, 0 null null 0);
+    position: relative;
+    top: 0;
+    left: 0;
     z-index: 5;
     overflow: hidden;
     width: 100%;

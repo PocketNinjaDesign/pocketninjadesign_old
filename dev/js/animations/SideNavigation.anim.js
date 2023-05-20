@@ -1,5 +1,5 @@
 import { Power2, TimelineLite } from 'gsap';
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 
 import BreakPointService from '../services/BreakPoint.service';
 
@@ -7,10 +7,10 @@ class SideNavigation {
   constructor() {
     const root = this;
 
-    this.$sideNav = $('#sideNavigation');
-    this.$sideNavLink = this.$sideNav.find('.side-link');
-    this.$logo = this.$sideNav.findLite('.logo');
-    this.$socialMediaLink = $('#sideSocialLinks .social-media-link');
+    this.$sideNav = document.getElementById('sideNavigation');
+    this.$sideNavLink = this.$sideNav.querySelector('.side-link');
+    this.$logo = this.$sideNav.querySelector('.logo');
+    this.$socialMediaLink = document.querySelector('#sideSocialLinks .social-media-link');
 
     this.sizeGuide = new Map([
       ['large', {
@@ -96,7 +96,7 @@ class SideNavigation {
     const t1 = new TimelineLite({ delay: 0 });
 
     t1
-      .add(() => { this.$sideNav.show(); })
+      .add(() => { this.$sideNav.style.display = 'block'; })
       .add(this.logoAnimationIn())
       .add(this.sideNavLinkAnimationIn(), 0.5)
       .add(this.socialMediaAnimationIn(), 0.2)
@@ -109,7 +109,7 @@ class SideNavigation {
     const t1 = new TimelineLite({ delay: 0 });
 
     t1
-      .add(() => { this.$sideNav.show(); })
+      .add(() => { this.$sideNav.style.display = 'block'; })
       .add(this.socialMediaAnimationIn(), 0.2)
       .add(() => {
         this.removeStyles();
@@ -123,10 +123,10 @@ class SideNavigation {
   removeStyles() {
     // Remove !important style attributes so media
     // queries in the css can take back control
-    this.$logo.removeAttr('style');
-    this.$sideNav.removeAttr('style');
-    this.$sideNavLink.removeAttr('style');
-    this.$socialMediaLink.removeAttr('style');
+    this.$logo.removeAttribute('style');
+    this.$sideNav.removeAttribute('style');
+    this.$sideNavLink.removeAttribute('style');
+    this.$socialMediaLink.removeAttribute('style');
   }
 
 

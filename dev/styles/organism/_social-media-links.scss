@@ -2,7 +2,6 @@
 
 .social-media-links {
   display: inline-block;
-  @include clearfix();
 
   li {
     float: left;
@@ -29,4 +28,9 @@
       }
     }
   }
+}
+.social-media-links:after {
+  clear: both;
+  content: "";
+  display: block;
 }

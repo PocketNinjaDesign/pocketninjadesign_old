@@ -2,7 +2,9 @@
   text-align: center;
 
   .primary-logo {
-    @include position(absolute, 25px null null 0);
+    position: absolute;
+    top: 25px;
+    left: 0;
     width: 100%;
     z-index: 10;
     margin: 0 auto;
@@ -16,7 +18,9 @@
   }
 
   .enter-button {
-    @include position(absolute, 70% null null 50%);
+    position: absolute;
+    top: 70%;
+    left: 50%;
     z-index: 200;
     transform: translate(-50%, -50%);
 
@@ -59,7 +63,9 @@
   }
 
   .tree-box {
-    @include position(absolute, null null -2em 50%);
+    position: absolute;
+    bottom: -2em;
+    left: 50%;
     transform: translateX(-50%);
     z-index: 20;
     font-size: 60%;

@@ -18,7 +18,9 @@
 }
 
 #block {
-  @include position(absolute, 500px null null 500px);
+  position: absolute;
+  top: 500px;
+  left: 500px;
   width: 500px;
   height: 400px;
   background: #333;

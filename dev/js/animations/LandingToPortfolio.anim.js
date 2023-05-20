@@ -1,6 +1,6 @@
 import { TimelineLite, Linear, Elastic } from 'gsap';
 
-import $ from '../jqlite.extends';
+// import $ from '../jqlite.extends';
 import BreakPointService from '../services/BreakPoint.service';
 import SideNavigationAnim from './SideNavigation.anim';
 
@@ -30,11 +30,11 @@ const sizeGuide = new Map([
 
 class LandingToPortfolio {
   constructor() {
-    this.$holdingPage = $('.under-construction');
-    this.$primarySocialMedia = $('#holdingSocialLinks');
-    this.$primaryLogo = $('#primaryLogo');
-    this.$sideNav = $('#sideNavigation');
-    this.$tree = $('#tree');
+    // this.$holdingPage = document.querySelector('.under-construction');
+    this.$primarySocialMedia = document.getElementById('holdingSocialLinks');
+    this.$primaryLogo = document.getElementById('primaryLogo');
+    this.$sideNav = document.getElementById('sideNavigation');
+    this.$tree = document.getElementById('tree');
 
     this.sizeType = 'large';
   }
@@ -62,9 +62,9 @@ class LandingToPortfolio {
           opacity: 0,
           ease: Linear.easeOut,
           onComplete: () => {
-            this.$holdingPage.hide();
-            this.$primaryLogo.hide();
-            this.$tree.hide();
+            // this.$holdingPage.style.display = 'none';
+            this.$primaryLogo.style.display = 'none';
+            this.$tree.style.display = 'none';
           },
         }, 0.75)
         .add(() => {
@@ -90,8 +90,8 @@ class LandingToPortfolio {
         width: bodyBlock2NewWidth,
         ease: Elastic.easeOut.config(1, 0.3),
         onComplete: () => {
-          $('.body-block').hide();
-          this.$sideNav.addClass('bg-color-1');
+          document.querySelector('.body-block').style.display = 'none';
+          this.$sideNav.classList.add('bg-color-1');
         },
       }, '-=1.25');
   }

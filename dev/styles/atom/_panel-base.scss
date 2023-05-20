@@ -1,6 +1,8 @@
 
 .panel-base {
-  @include position(fixed, 0 null null 0);
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 50;
   transition:
     top $panelAnimSpeed,

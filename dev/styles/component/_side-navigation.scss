@@ -1,5 +1,8 @@
 .side-navigation {
-  @include position(fixed, 0 null 0 0);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
   z-index: 200;
   text-align: center;
 
@@ -12,7 +15,9 @@
   }
 
   .burger-menu {
-    @include position(fixed, 10px null null 10px);
+    position: fixed;
+    top: 10px;
+    left: 10px;
     z-index: 10;
 
     @media (min-width: 1025px) {
@@ -27,18 +32,18 @@
     @media (min-width: 700px) {
       display: block;
     }
-    
+
     .logo {
       display: none;
       margin-top: 64px;
       font-size: 55%;
       margin-bottom: 2.7em;
-  
+
       @media (min-width: 1025px) {
         display: block;
       }
     }
-  
+
     li {
       .side-link {
         @include size4;
@@ -65,13 +70,15 @@
         }
       }
     }
-  
+
     .social-media-container {
-      @include position(absolute, null null 0 0);
+      position: absolute;
+      bottom: 0;
+      left: 0;
       padding-bottom: 2.5em;
       width: 100%;
       text-align: center;
-  
+
       .social-media-links {
         li {
           @media (max-width: 1024px) {
